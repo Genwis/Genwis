@@ -47,11 +47,11 @@ export default class DetailScreenForm extends Component {
                     <Text style={cityDestination}>
                         City Destination
                     </Text>
-                    <TextInput style={margin1} underlineColorAndroid="#2ecc71"/>
+                    <TextInput placeholder={detail.city} style={margin1} underlineColorAndroid="#2ecc71"/>
                     <Text style={OthercityDestination}>
                         Budget
                     </Text>
-                    <TextInput style={margin1} underlineColorAndroid="#2ecc71"/>
+                    <TextInput placeholder={"5000000"} style={margin1} underlineColorAndroid="#2ecc71"/>
                     <Text style={OthercityDestination}>
                         Time Period
                     </Text>
@@ -126,7 +126,8 @@ const container1 = {
     flex: 1
 };
 const container2 = {
-    padding: 36
+    padding: 36,
+    marginTop:20,
 };
 const margin2 = {
     marginLeft: 36,
@@ -134,12 +135,14 @@ const margin2 = {
     marginBottom: 20
 };
 const margin1 = {
+    fontFamily: "Ubuntu",
+    fontSize: 20,
     marginLeft: 36,
     marginRight: 36,
 };
 const date = {
     fontFamily: "Ubuntu",
-    fontSize: 18,
+    fontSize: 20,
 }
 const container3 = {
     marginTop: 5,
@@ -155,7 +158,7 @@ const OthercityDestination = {
     color: "#b7bdbe"
 };
 const cityDestination = {
-    marginTop: 40,
+    marginTop: 30,
     marginLeft: 36,
     fontFamily: "Ubuntu",
     fontSize: 20,
@@ -163,7 +166,7 @@ const cityDestination = {
     color: "#b7bdbe"
 };
 const enjoyYourTour = {
-    marginTop: 100,
+    marginTop: 90,
     marginLeft: 36,
     fontFamily: "Ubuntu",
     fontSize: 39.3,

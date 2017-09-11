@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import { StatusBar } from 'react-native'
 import HomeNavigation from './src/componenets/Home/views/HomeNavigation'
 const store = configureStore();
+
 export default class GenwisApp extends Component {
     render() {
         return (

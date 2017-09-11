@@ -9,7 +9,6 @@ import React from 'react'
 // Navigation
 import { addNavigationHelpers } from 'react-navigation'
 import { NavigatorHome } from '../navigationConf'
-
 //Redux
 import { connect } from 'react-redux'
 
@@ -23,6 +22,7 @@ class HomeNavigation extends React.Component {
     static navigationOptions = {
         header: null,
     };
+
     render(){
         const { dispatch, navigationState } = this.props
         return (

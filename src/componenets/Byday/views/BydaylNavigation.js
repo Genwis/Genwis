@@ -8,7 +8,7 @@ import React from 'react'
 
 // Navigation
 import { addNavigationHelpers } from 'react-navigation'
-import { NavigatorDetail } from '../../Detail/navigationConf'
+import { NavigatorByday } from '../../Byday/navigationConf'
 
 // Redux
 import { connect } from 'react-redux'
@@ -16,18 +16,18 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
     return {
-        navigationState: state.Detail,
+        navigationState: state.Byday,
     }
 };
 
-class DetailNavigation extends React.Component {
+class BydayNavigation extends React.Component {
     static navigationOptions = {
         header: null,
     }
     render(){
         const { navigationState, dispatch } = this.props;
         return (
-            <NavigatorDetail
+            <NavigatorByday
                 navigation={
                     addNavigationHelpers({
                         dispatch: dispatch,
@@ -38,4 +38,4 @@ class DetailNavigation extends React.Component {
         )
     }
 }
-export default connect(mapStateToProps)(DetailNavigation)
+export default connect(mapStateToProps)(BydayNavigation)

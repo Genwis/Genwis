@@ -6,15 +6,17 @@
 import { StackNavigator } from 'react-navigation'
 
 //Navigators
-import DetailNavigation from '../Detail/views/DetailNavigation'
+import DetailNavigation from '../Byday/views/BydaylNavigation'
 import ListNavigation from'../List/views/ListNavigation'
 import BookNavigation from'../Book/views/BookNavigation'
-import HomeSreen from './views/HomeScreen'
+import HomeScreen from './views/HomeScreen'
+import BydayNavigation from '../Byday/views/BydaylNavigation'
 
 const routeConfiguration = {
-    HomeScreen: { screen: HomeSreen },
+    HomeScreen: { screen: HomeScreen },
     DetailNavigation: { screen: DetailNavigation },
     ListNavigation: { screen: ListNavigation },
-    BookNavigation: { screen: BookNavigation }
+    BookNavigation: { screen: BookNavigation },
+    BydayNavigation: {  screen: BydayNavigation}
 }
 export const NavigatorHome = StackNavigator(routeConfiguration)
