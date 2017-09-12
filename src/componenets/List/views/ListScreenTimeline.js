@@ -2,18 +2,20 @@
  * Created by iampamungkas on 7/29/17.
  */
 import React, { Component } from 'react'
-import {Text, View} from 'react-native'
+import {Text, View, TouchableOpacity} from 'react-native'
 export default class ListScreenTimeline extends Component {
     render(){
         return(
-            <View style={container1}>
-                <View style={container2}>
-                    <Text style={Days}> Day {this.props.Nday} </Text>
+            <TouchableOpacity onPress={()=> navigation.navigate('BydayNavigation')}>
+                <View style={container1}>
+                    <View style={container2}>
+                        <Text style={Days}> Day {this.props.Nday} </Text>
+                    </View>
+                    <View style={container3}>
+                        <Attr timeline={this.props.Day.time_line} />
+                    </View>
                 </View>
-                <View style={container3}>
-                    <Attr timeline={this.props.Day.time_line} />
-                </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 }
