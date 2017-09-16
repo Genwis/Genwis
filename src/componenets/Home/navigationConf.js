@@ -6,7 +6,7 @@
 import { StackNavigator } from 'react-navigation'
 
 //Navigators
-import DetailNavigation from '../Byday/views/BydaylNavigation'
+import DetailNavigation from '../Detail/views/DetailNavigation'
 import ListNavigation from'../List/views/ListNavigation'
 import BookNavigation from'../Book/views/BookNavigation'
 import HomeScreen from './views/HomeScreen'

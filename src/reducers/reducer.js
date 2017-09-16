@@ -59,13 +59,16 @@ import { NavigatorDetail } from '../componenets/Detail/navigationConf'
 import { NavigatorHome} from '../componenets/Home/navigationConf'
 import { NavigatorList} from '../componenets/List/navigationConf'
 import { NavigatorBook} from '../componenets/Book/navigationConf'
+import { NavigatorByday} from '../componenets/Byday/navigationConf'
+
 const rootReducer = combineReducers({
     itineraryByDetail,
     selectedDetail,
     Detail: (state, action) => NavigatorDetail.router.getStateForAction(action,state),
     Home: (state,action) => NavigatorHome.router.getStateForAction(action,state),
     List: (state,action) => NavigatorList.router.getStateForAction(action,state),
-    Book: (state,action) => NavigatorBook.router.getStateForAction(action,state)
+    Book: (state,action) => NavigatorBook.router.getStateForAction(action,state),
+    Byday: (state,action) => NavigatorByday.router.getStateForAction(action,state)
 });
 
 export default rootReducer

@@ -2,48 +2,49 @@
  * Created by iampamungkas on 7/29/17.
  */
 import React, { Component } from 'react'
-import {Text, View, TouchableOpacity} from 'react-native'
+import {Text, View} from 'react-native'
 export default class ListScreenTimeline extends Component {
     render(){
+        const timeline = this.props.Day.time_line
         return(
-            <TouchableOpacity onPress={()=> navigation.navigate('BydayNavigation')}>
-                <View style={container1}>
-                    <View style={container2}>
-                        <Text style={Days}> Day {this.props.Nday} </Text>
-                    </View>
-                    <View style={container3}>
-                        <Attr timeline={this.props.Day.time_line} />
-                    </View>
+            <View style={container1}>
+                <View style={container2}>
+                    <Text style={Days}> Day {this.props.Nday} </Text>
                 </View>
-            </TouchableOpacity>
+                <View style={container3}>
+                    <Attr timeline={timeline} />
+                </View>
+            </View>
         )
     }
 }
 function Attr(timeline) {
     const showTime = Object.values(timeline).map(function (isi,id) {
-        const timeShow = isi.map(function (val,n) {
-            return(
-                <View key={n} style={container4}>
-                    <Text style={attraction}>
-                        {val.todo.name}{"\n"}
-                    </Text>
-                    <Text >
-                        <Text>
-                            {
-                                (val.start.jam < 10) ? <Text style={Jam}>0{val.start.jam}.{(val.start.menit<10)?<Text style={Jam}>0{val.start.menit}</Text>:<Text style={Jam}>{val.start.menit}</Text>}{"\n"}</Text>:<Text style={Jam}>{val.start.jam}.{(val.start.menit<10)?<Text style={Jam}>0{val.start.menit}</Text>:<Text style={Jam}>{val.start.menit}</Text>}{"\n"}</Text>
+        if (isi) {
+            const timeShow = isi.map(function (val,n) {
+                return(
+                    <View key={n} style={container4}>
+                        <Text style={attraction}>
+                            {val.todo.name}{"\n"}
+                        </Text>
+                        <Text >
+                            <Text>
+                                {
+                                    (val.start.jam < 10) ? <Text style={Jam}>0{val.start.jam}.{(val.start.menit<10)?<Text style={Jam}>0{val.start.menit}</Text>:<Text style={Jam}>{val.start.menit}</Text>}{"\n"}</Text>:<Text style={Jam}>{val.start.jam}.{(val.start.menit<10)?<Text style={Jam}>0{val.start.menit}</Text>:<Text style={Jam}>{val.start.menit}</Text>}{"\n"}</Text>
 
-                            }
+                                }
+                            </Text>
+                            <Text>
+                                {
+                                    (val.todo.RecommendedDuration) ? <Text>Recommended Duration: {val.todo.RecommendedDuration}</Text> : false
+                                }
+                            </Text>
                         </Text>
-                        <Text>
-                            {
-                                (val.todo.RecommendedDuration) ? <Text>Recommended Duration: {val.todo.RecommendedDuration}</Text> : false
-                            }
-                        </Text>
-                    </Text>
-                </View>
-            )
-        })
-        return(<View key={id}>{timeShow}</View>)
+                    </View>
+                )
+            });
+            return(<View key={id}>{timeShow}</View>)
+        }
     })
     return(<View>{showTime}</View>)
 }

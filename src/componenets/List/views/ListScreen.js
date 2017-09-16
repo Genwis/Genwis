@@ -4,7 +4,6 @@
 'use strict'
 import React, { Component } from 'react'
 import { View, Text, TextInput, Button,StatusBar} from 'react-native'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchItineray } from '../../../actions/actions'
 
@@ -42,7 +41,7 @@ class ListScreen extends Component{
             <View style={container1}>
                 <StatusBar backgroundColor="#2ecc71"/>
                 {
-                    isFetching ?  <ListScreenLoading/>: <ListScreenForm List={List} Detail={selectedDetail}/>
+                    isFetching ?  <ListScreenLoading/>: <ListScreenForm List={List} Detail={selectedDetail} navigation={navigation}/>
                 }
                 {
                     isFetching ? false :

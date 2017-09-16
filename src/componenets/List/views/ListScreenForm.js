@@ -2,12 +2,12 @@
  * Created by iampamungkas on 7/29/17.
  */
 import React, { Component } from 'react'
-import { ScrollView, Text, TextInput, Button, View,ToolbarAndroid} from 'react-native'
-import ListScreenTimeline from './ListScreenTimeline'
+import { ScrollView, Text, TextInput, Button, View, ToolbarAndroid} from 'react-native'
+import ListScreenItems from './ListScreenItems'
 export default class ListScreenForm extends Component {
-    itinerary = this.props.List.itinerary
-    detail = this.props.Detail
-    attractions = this.props.List.attractions;
+    itinerary = this.props.List.itinerary;
+    detail = this.props.Detail;
+    navigation = this.props.navigation;
     render(){
         return(
             <ScrollView>
@@ -18,7 +18,7 @@ export default class ListScreenForm extends Component {
                     subtitleColor="#ffffff"
                     style={Toolbar}
                 />
-                <ItineraryList iten={this.itinerary}/>
+                <ListScreenItems navigation={this.navigation} iten={this.itinerary}/>
             </ScrollView>
         )
     }
@@ -35,19 +35,6 @@ const Done = {
     textAlign: "center",
     color: "#2ecc71"
 };
-function ItineraryList(iten){
-    let Nday = 0;
-    const list =  Object.values(iten).map(function (itinerary,index) {
-        const timeline = Object.values(itinerary).map(function (day, id) {
-            Nday++
-            return (
-                <ListScreenTimeline Day={day} Nday={Nday} key={id}/>
-            )
-        })
-        return (<View key={index}>{timeline}</View>)
-    })
-    return (<View>{list}</View>)
-}
 function bulan(month) {
     switch (month){
         case 1:

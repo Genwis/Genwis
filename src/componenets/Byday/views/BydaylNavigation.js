@@ -7,7 +7,7 @@
 import React from 'react'
 
 // Navigation
-import { addNavigationHelpers } from 'react-navigation'
+import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 import { NavigatorByday } from '../../Byday/navigationConf'
 
 // Redux
@@ -25,7 +25,8 @@ class BydayNavigation extends React.Component {
         header: null,
     }
     render(){
-        const { navigationState, dispatch } = this.props;
+        const { navigationState, dispatch, navigation } = this.props;
+        navigationState.routes[0].params = navigation.state.params;
         return (
             <NavigatorByday
                 navigation={
