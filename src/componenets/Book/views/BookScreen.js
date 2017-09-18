@@ -7,7 +7,7 @@ import { View, Text, TextInput, Button} from 'react-native'
 
 export default class BookScreen extends Component{
     render(){
-        const { navigation } = this.props;
+        const { navigation } = this.props
         return(
             <View style = {container1} >
                 <Text style={enjoyYourTour} >
@@ -34,7 +34,7 @@ export default class BookScreen extends Component{
 const container1 = {
     backgroundColor: "#ffffff",
     flex: 1,
-};
+}
 const container2 = {
     backgroundColor: "#ffffff",
     marginLeft: 36,
@@ -43,16 +43,16 @@ const container2 = {
 const margin2 = {
     marginLeft: 36,
     marginRight: 36,
-};
+}
 const margin1 = {
     marginLeft: 36,
     marginRight: 36,
     marginBottom: 20
-};
+}
 const margin = {
     marginLeft: 36,
     marginRight: 36,
-};
+}
 const cityDestination = {
     marginTop: 40,
     marginLeft: 36,
@@ -60,7 +60,7 @@ const cityDestination = {
     fontSize: 20,
     letterSpacing: 0.08,
     color: "#b7bdbe"
-};
+}
 const enjoyYourTour = {
     marginTop: 100,
     marginLeft: 36,
@@ -70,4 +70,4 @@ const enjoyYourTour = {
     letterSpacing: 0.2,
     textAlign: "left",
     color: "#2ecc71"
-};
+}

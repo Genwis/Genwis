@@ -1,7 +1,7 @@
 /**
  * Created by iampamungkas on 7/28/17.
  */
-'use strict';
+'use strict'
 
 import { StackNavigator } from 'react-navigation'
 

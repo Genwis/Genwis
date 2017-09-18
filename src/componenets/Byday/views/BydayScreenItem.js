@@ -2,7 +2,7 @@
  * Created by iampamungkas on 9/12/17.
  */
 import React, { Component } from 'react'
-import { View, Image, Text, Dimensions } from 'react-native'
+import { View, Image, Text, Dimensions, ScrollView } from 'react-native'
 import Modal from 'react-native-modalbox'
 
 export default class BydayScreenItem extends Component{
@@ -11,21 +11,25 @@ export default class BydayScreenItem extends Component{
     }
     state = {
         isOpen: false,
-    };
+    }
     render(){
-        const { item, event } = this.props;
+        const { item, event } = this.props
         return(
             <View style={parent}>
                 <View style={container}>
                     <Image source={require('../../../assets/this_aint_no_mac-wallpaper-1440x900.jpg')} style={ImageStyle}/>
                     <Text style={AttractionsName}>{item.name}</Text>
                     <Text style={EventTime}>{fWaktu(event)}</Text>
-                    <Text>{item.vicinity}</Text>
+                    <Text style={Vicinity}>{item.vicinity}</Text>
+                    <View style={line1}></View>
                     <View style={RatingandPrice}>
-                        <Text>{item.rating}</Text>
-                        <Text>Price  IDR 200.000</Text>
+                        <Text style={RatingText}>  {item.rating} Star     </Text>
+                        <View style={VerLine}></View>
+                        <Text style={PriceText}>     Price  IDR 200.000</Text>
                     </View>
-                    <Text ELLIPSIZEMODE={"tail"} numberOfLines={4} onPress={()=>this.refs.modal1.open()}>{item.description}</Text>
+                    <View style={line2}></View>
+                    <Text style={Description} ELLIPSIZEMODE={"tail"} numberOfLines={4} onPress={()=>this.refs.modal1.open()}>{item.description}</Text>
+                    <View style={line3}></View>
                 </View>
                 <Modal
                     isOpen={this.state.isOpen}
@@ -34,11 +38,11 @@ export default class BydayScreenItem extends Component{
                     style={modal}
                     postion={"center"}
                 >
-                    <View>
+                    <ScrollView>
                         <Image source={require('../../../assets/this_aint_no_mac-wallpaper-1440x900.jpg')} style={ImageStyle}/>
                         <Text style={AttractionsName}>{item.name}</Text>
-                        <Text>{item.description}</Text>
-                    </View>
+                        <Text style={ModalDescription}>{item.description}</Text>
+                    </ScrollView>
                 </Modal>
             </View>
         )
@@ -46,16 +50,50 @@ export default class BydayScreenItem extends Component{
 }
 
 const fWaktu = (event)=>{
-    const jamS = event.start.jam + 1;
-    const menS = event.start.menit >=10 ? event.start.menit : 0+event.start.menit;
-    let menF = event.todo.recommended_duration - (60 - event.start.menit);
-    const jamF = event.start.jam + event.todo.recommended_duration / 60;
-    menF = menF % 60;
-    return(jamS+"."+menS+"-"+jamF+"."+menF)
+    const jamS = event.start.jam >= 10 ? event.start.jam : "0" + event.start.jam
+    const menS = event.start.menit >=10 ? event.start.menit : "0" + event.start.menit
+    let men = event.todo.recommended_duration - (60 - event.start.menit)
+    const jamF = event.start.jam + 1 + Math.floor(men / 60)
+    const menF = men % 60
+    return(jamS + "."+menS + "-" + (jamF >= 10 ? jamF : "0" + jamF) + "." + (menF >= 10 ? menF : "0" + menF))
 }
 
 const dimension = Dimensions.get('window')
-
+const VerLine = {
+    width: 1.3,
+    height: 60,
+    backgroundColor: "#2ecc71"
+}
+const line1 = {
+    marginTop: 21,
+    height: 1.3,
+    backgroundColor: "#2ecc71"
+}
+const line2 = {
+    height: 1.3,
+    marginBottom: 22,
+    backgroundColor: "#2ecc71"
+}
+const line3 = {
+    height: 1.3,
+    marginTop: 21,
+    marginBottom: 100,
+    backgroundColor: "#2ecc71"
+}
+const PriceText = {
+    marginTop: 17,
+    fontFamily: "Ubuntu",
+    fontSize: 20,
+    letterSpacing: 0.08,
+    color: "#2ecc71"
+}
+const RatingText = {
+    marginTop: 17,
+    fontFamily: "Ubuntu",
+    fontSize: 20,
+    letterSpacing: 0.08,
+    color: "#2ecc71"
+}
 const modal = {
     height:500,
 }
@@ -66,31 +104,51 @@ const container = {
     width:320,
     marginRight: 36,
     marginLeft: 36,
-    marginTop: 83
+    marginTop: 65
 }
 const RatingandPrice = {
     flexDirection: "row",
-    width: 290
+    width: 290,
 }
 const ImageStyle = {
     width: 240,
     height: 170
 }
+const ImageStyleModal = {
+    width: 240,
+    height: 170
+}
 const AttractionsName = {
-    width: 134.3,
-    height: 15.7,
+    marginTop: 24,
+    marginBottom: 24,
     fontFamily: "Ubuntu",
-    fontSize: 16,
+    fontSize: 20,
     letterSpacing: 0.08,
-    textAlign: "center",
     color: "#2ecc71"
-};
+}
 const EventTime = {
-    width: 72.3,
-    height: 9.7,
+    marginBottom: 5,
     fontFamily: "Cabin",
-    fontSize: 12.6,
+    fontSize: 16,
     letterSpacing: 0.06,
-    textAlign: "center",
     color: "#bcc2c3"
-};
+}
+const Vicinity = {
+    fontFamily: "Cabin",
+    fontSize: 16,
+    letterSpacing: 0.06,
+    color: "#bcc2c3"
+}
+const Description = {
+    fontFamily: "Cabin",
+    fontSize: 16,
+    letterSpacing: 0.06,
+    textAlign: "justify",
+    color: "#b7bdbe"
+}
+const ModalDescription = {
+    fontFamily: "Cabin",
+    fontSize: 16,
+    letterSpacing: 0.06,
+    textAlign: "justify",
+}

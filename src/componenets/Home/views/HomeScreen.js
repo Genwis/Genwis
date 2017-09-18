@@ -8,26 +8,26 @@ import { NavigationActions }  from 'react-navigation'
 export default class HomeScreen extends Component{
     static navigationOptions = {
         header: null,
-    };
+    }
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+        BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
     }
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress)
     }
     onBackPress = () => {
-        const { dispatch, state } = this.props.navigation;
+        const { dispatch, state } = this.props.navigation
         if (state.routeName === "Home") {
-            BackHandler.removeEventListener();
-            BackHandler.exitApp();
-            return false;
+            BackHandler.removeEventListener()
+            BackHandler.exitApp()
+            return false
         } else {
-            dispatch(NavigationActions.back());
-            return true;
+            dispatch(NavigationActions.back())
+            return true
         }
-    };
+    }
     render(){
-        const { navigation } = this.props;
+        const { navigation } = this.props
         return(
             <View  style={container1} >
                 <StatusBar backgroundColor="#ffffff"/>
@@ -81,11 +81,11 @@ const wonderfull = {
     letterSpacing: 0.1,
     textAlign: "center",
     color: "#2ecc71"
-};
+}
 const enjoy = {
     fontFamily: "Cabin",
     fontSize: 18,
     letterSpacing: 0.08,
     textAlign: "center",
     color: "#b7bdbe"
-};
+}

@@ -2,9 +2,9 @@
  * Created by iampamungkas on 7/24/17.
  */
 import  Axios  from 'axios'
-export const REQUEST_ITINERARY = 'REQUEST_ITINERARY';
-export const SELECT_DETAIL = 'SELECT_DETAIL';
-export const RECEIVE_ITINERARY = 'RECEIVE_ITINERARY';
+export const REQUEST_ITINERARY = 'REQUEST_ITINERARY'
+export const SELECT_DETAIL = 'SELECT_DETAIL'
+export const RECEIVE_ITINERARY = 'RECEIVE_ITINERARY'
 
 
 export function selectDetail(detail) {
@@ -34,7 +34,7 @@ function receiveItinerary(detail, data) {
 
 export function fetchItineray(detail){
     return dispatch =>  {
-        dispatch(requestItinerary(detail));
+        dispatch(requestItinerary(detail))
         return Axios.post('https://genwis.herokuapp.com/itinerary',JSON.stringify(detail))
             .then(response => dispatch(receiveItinerary(detail, response.data)))
     }

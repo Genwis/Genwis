@@ -1,7 +1,7 @@
 /**
  * Created by iampamungkas on 7/28/17.
  */
-'use strict';
+'use strict'
 
 // React
 import React from 'react'
@@ -18,15 +18,15 @@ const mapStateToProps = (state) => {
     return {
         navigationState: state.Byday,
     }
-};
+}
 
 class BydayNavigation extends React.Component {
     static navigationOptions = {
         header: null,
     }
     render(){
-        const { navigationState, dispatch, navigation } = this.props;
-        navigationState.routes[0].params = navigation.state.params;
+        const { navigationState, dispatch, navigation } = this.props
+        navigationState.routes[0].params = navigation.state.params
         return (
             <NavigatorByday
                 navigation={

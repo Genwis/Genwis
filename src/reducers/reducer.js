@@ -26,7 +26,7 @@ function selectedDetail (state = {
 }, action) {
     switch (action.type){
         case SELECT_DETAIL:
-            return action.detail;
+            return action.detail
         default:
             return state
     }
@@ -43,15 +43,15 @@ function itineraryByDetail(
                 return {
                     ...state,
                     isFetching: true
-                };
+                }
             case RECEIVE_ITINERARY:
                 return {
                     ...state,
                     isFetching: false,
                     itinerary: action.response
-                };
+                }
             default:
-                return state;
+                return state
         }
 }
 // Navigation
@@ -69,6 +69,6 @@ const rootReducer = combineReducers({
     List: (state,action) => NavigatorList.router.getStateForAction(action,state),
     Book: (state,action) => NavigatorBook.router.getStateForAction(action,state),
     Byday: (state,action) => NavigatorByday.router.getStateForAction(action,state)
-});
+})
 
 export default rootReducer

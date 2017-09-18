@@ -5,9 +5,9 @@ import React, { Component } from 'react'
 import { ScrollView, Text, TextInput, Button, View, ToolbarAndroid} from 'react-native'
 import ListScreenItems from './ListScreenItems'
 export default class ListScreenForm extends Component {
-    itinerary = this.props.List.itinerary;
-    detail = this.props.Detail;
-    navigation = this.props.navigation;
+    itinerary = this.props.List.itinerary
+    detail = this.props.Detail
+    navigation = this.props.navigation
     render(){
         return(
             <ScrollView>
@@ -34,31 +34,31 @@ const Done = {
     letterSpacing: 0.2,
     textAlign: "center",
     color: "#2ecc71"
-};
+}
 function bulan(month) {
     switch (month){
         case 1:
-            return "Januari";
+            return "Januari"
         case 2:
-            return "Februari";
+            return "Februari"
         case 3:
-            return "Maret";
+            return "Maret"
         case 4:
-            return "April";
+            return "April"
         case 5:
-            return "Mei";
+            return "Mei"
         case 6:
-            return "Juni";
+            return "Juni"
         case 7:
-            return "Juli";
+            return "Juli"
         case 8:
-            return "Agustus";
+            return "Agustus"
         case 9:
-            return "September";
+            return "September"
         case 11:
-            return "October";
+            return "October"
         case 10:
-            return "November";
+            return "November"
         case 12:
             return "Desember"
     }

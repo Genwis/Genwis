@@ -42,7 +42,7 @@ function Attr(timeline) {
                         </Text>
                     </View>
                 )
-            });
+            })
             return(<View key={id}>{timeShow}</View>)
         }
     })

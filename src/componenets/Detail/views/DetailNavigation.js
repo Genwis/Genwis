@@ -1,7 +1,7 @@
 /**
  * Created by iampamungkas on 7/28/17.
  */
-'use strict';
+'use strict'
 
 // React
 import React from 'react'
@@ -18,14 +18,14 @@ const mapStateToProps = (state) => {
     return {
         navigationState: state.Detail,
     }
-};
+}
 
 class DetailNavigation extends React.Component {
     static navigationOptions = {
         header: null,
     }
     render(){
-        const { navigationState, dispatch } = this.props;
+        const { navigationState, dispatch } = this.props
         return (
             <NavigatorDetail
                 navigation={

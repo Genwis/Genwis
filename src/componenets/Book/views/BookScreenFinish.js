@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import { View, Text, TextInput, Button, Image,StatusBar} from 'react-native'
 export default class BookScreenFinish extends Component{
     render(){
-        const { navigation } = this.props;
+        const { navigation } = this.props
         return(
             <View style={container1}>
                 <StatusBar backgroundColor="#2ecc71"/>
@@ -52,11 +52,11 @@ const wonderfull = {
     letterSpacing: 0.1,
     textAlign: "center",
     color: "#2ecc71"
-};
+}
 const enjoy = {
     fontFamily: "Cabin",
     fontSize: 18,
     letterSpacing: 0.08,
     textAlign: "center",
     color: "#b7bdbe"
-};
+}
