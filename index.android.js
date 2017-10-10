@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import {
     AppRegistry,
-    StyleSheet,
-    Text,
     View
 } from 'react-native';
 import configureStore from './src/store/configureStore'
 import { Provider } from 'react-redux'
 
-import { StatusBar } from 'react-native'
 import HomeNavigation from './src/componenets/Home/views/HomeNavigation'
 const store = configureStore();
 

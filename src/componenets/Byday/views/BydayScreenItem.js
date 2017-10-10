@@ -19,8 +19,14 @@ export default class BydayScreenItem extends Component{
                 <View style={container}>
                     <Image source={require('../../../assets/this_aint_no_mac-wallpaper-1440x900.jpg')} style={ImageStyle}/>
                     <Text style={AttractionsName}>{item.name}</Text>
-                    <Text style={EventTime}>{fWaktu(event)}</Text>
-                    <Text style={Vicinity}>{item.vicinity}</Text>
+                    <View style={row1}>
+                        <Image style={sizeIcon} source={require('../../../assets/icon/clock_2017-09-18/drawable-xxxhdpi/clock.png')}/>
+                        <Text style={EventTime}>  {fWaktu(event)}</Text>
+                    </View>
+                    <View style={row1}>
+                        <Image style={sizeIcon} source={require('../../../assets/icon/placeholder_3_2017-09-18/drawable-xxxhdpi/placeholder_3.png')}/>
+                        <Text style={Vicinity} ELLIPSIZEMODE={"tail"} numberOfLines={1} >  {item.vicinity}</Text>
+                    </View>
                     <View style={line1}></View>
                     <View style={RatingandPrice}>
                         <Text style={RatingText}>  {item.rating} Star     </Text>
@@ -59,9 +65,16 @@ const fWaktu = (event)=>{
 }
 
 const dimension = Dimensions.get('window')
+
+const sizeIcon = {
+    marginTop: 4,
+    width: 12.7,
+    height: 14,
+}
+
 const VerLine = {
     width: 1.3,
-    height: 60,
+    height: 50,
     backgroundColor: "#2ecc71"
 }
 const line1 = {
@@ -80,17 +93,21 @@ const line3 = {
     marginBottom: 100,
     backgroundColor: "#2ecc71"
 }
+const row1 = {
+    flexDirection: "row",
+    marginBottom: 5
+}
 const PriceText = {
-    marginTop: 17,
-    fontFamily: "Ubuntu",
-    fontSize: 20,
+    marginTop: 15,
+    fontFamily: "Ubuntu-Medium",
+    fontSize: 16,
     letterSpacing: 0.08,
     color: "#2ecc71"
 }
 const RatingText = {
-    marginTop: 17,
-    fontFamily: "Ubuntu",
-    fontSize: 20,
+    marginTop: 15,
+    fontFamily: "Ubuntu-Medium",
+    fontSize: 16,
     letterSpacing: 0.08,
     color: "#2ecc71"
 }
@@ -122,33 +139,32 @@ const AttractionsName = {
     marginTop: 24,
     marginBottom: 24,
     fontFamily: "Ubuntu",
-    fontSize: 20,
+    fontSize: 18,
     letterSpacing: 0.08,
     color: "#2ecc71"
 }
 const EventTime = {
-    marginBottom: 5,
     fontFamily: "Cabin",
-    fontSize: 16,
+    fontSize: 14,
     letterSpacing: 0.06,
     color: "#bcc2c3"
 }
 const Vicinity = {
     fontFamily: "Cabin",
-    fontSize: 16,
+    fontSize: 14,
     letterSpacing: 0.06,
     color: "#bcc2c3"
 }
 const Description = {
     fontFamily: "Cabin",
-    fontSize: 16,
+    fontSize: 14,
     letterSpacing: 0.06,
     textAlign: "justify",
     color: "#b7bdbe"
 }
 const ModalDescription = {
     fontFamily: "Cabin",
-    fontSize: 16,
+    fontSize: 14,
     letterSpacing: 0.06,
     textAlign: "justify",
 }

@@ -62,9 +62,9 @@ export default class DetailScreenForm extends Component {
                                 <Text style={date}> {detail.start.day} {bulan(detail.start.month)} {detail.start.year}</Text>
                             </View>
                         </TouchableOpacity>
-                        <Text style={date}> - </Text>
+                        <Text style={setrip}> - </Text>
                         <TouchableOpacity onPress={()=> this.refs.modal2.open()}>
-                            <View style={container3}>
+                            <View style={container4}>
                                 <Image source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')}/>
                                 <Text style={date}> {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
                             </View>
@@ -83,7 +83,7 @@ export default class DetailScreenForm extends Component {
                     style={modal}
                     postion={"center"}
                 >
-                    <View style={container3}>
+                    <View style={datepick}>
                         <Text style={date}>{detail.start.day} {bulan(detail.start.month)} {detail.start.year} - {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
                     </View>
                     <Calendar
@@ -98,7 +98,7 @@ export default class DetailScreenForm extends Component {
                     style={modal}
                     postion={"center"}
                 >
-                    <View style={container3}>
+                    <View style={datepick}>
                         <Text style={date}>{detail.start.day} {bulan(detail.start.month)} {detail.start.year} - {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
                     </View>
                     <Calendar
@@ -112,8 +112,8 @@ export default class DetailScreenForm extends Component {
 }
 const datepick = {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: 'center',
-    alignItems: 'center'
 }
 const modal = {
     height : 400,
@@ -144,11 +144,21 @@ const date = {
     fontFamily: "Ubuntu",
     fontSize: 20,
 }
+const setrip = {
+    fontFamily: "Ubuntu",
+    fontSize: 30,
+    marginRight: 15,
+    marginLeft: 15
+}
 const container3 = {
     marginTop: 5,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: 'center',
+    marginRight: 1,
+}
+const container4 = {
+    marginTop: 5,
+    flexDirection: "row",
+    marginLeft: 1,
 }
 const OthercityDestination = {
     marginLeft: 36,
@@ -178,28 +188,28 @@ const enjoyYourTour = {
 function bulan(month) {
     switch (month){
         case 1:
-            return "Januari"
+            return "Jan"
         case 2:
-            return "Februari"
+            return "Feb"
         case 3:
-            return "Maret"
+            return "Mar"
         case 4:
-            return "April"
+            return "Apr"
         case 5:
             return "Mei"
         case 6:
-            return "Juni"
+            return "Jun"
         case 7:
-            return "Juli"
+            return "Jul"
         case 8:
-            return "Agustus"
+            return "Agst"
         case 9:
-            return "September"
+            return "Sept"
         case 11:
-            return "October"
+            return "Oct"
         case 10:
-            return "November"
+            return "Nov"
         case 12:
-            return "Desember"
+            return "Des"
     }
 }

@@ -3,7 +3,6 @@
  */
 'use strict'
 import React, { Component } from 'react'
-import { View, Text, TextInput,StatusBar} from 'react-native'
 import { connect } from 'react-redux'
 import DetailScreenForm from "./DetailScreenForm"
 const mapStateToProps = (state) => {
