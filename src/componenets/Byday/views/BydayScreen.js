@@ -6,6 +6,7 @@ import React, { Component } from 'react'
 import { View, Text, ScrollView, Button} from 'react-native'
 import { connect } from 'react-redux'
 import  BydayScreenItem  from './BydayScreenItem'
+import Swiper from 'react-native-swiper';
 
 function mapStateToProps(state) {
     const { itineraryByDetail } = state
@@ -34,9 +35,9 @@ class BydayScreen extends Component {
             return (<BydayScreenItem item={attractions[event.todo.key]} event={event} key={index}/>)
         })
         return(
-            <ScrollView horizontal={true} style={ScrollViewStyle}>
+            <Swiper style={swiperStyle} loop={false}>
                 { list }
-            </ScrollView>
+            </Swiper>
         )
     }
 }
@@ -45,8 +46,7 @@ const container = {
     flex: 1,
     backgroundColor: "#ffffff"
 }
-const ScrollViewStyle ={
-    flexDirection: "row",
+const swiperStyle ={
     flex: 1,
     backgroundColor: "#ffffff"
 }

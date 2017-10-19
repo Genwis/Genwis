@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react'
-import { View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image } from 'react-native'
 import Modal from 'react-native-modalbox'
 import Calendar from "react-native-calendars/src/calendar/index"
 import {selectDetail} from '../../../actions/actions'
@@ -41,40 +41,41 @@ export default class DetailScreenForm extends Component {
             <View style={parent}>
                 <View style = {container1} >
                     <StatusBar backgroundColor="#2ecc71"/>
-                    <Text style={enjoyYourTour} >
-                        Enjoy{"\n"}your tour!
-                    </Text>
-                    <Text style={cityDestination}>
-                        City Destination
-                    </Text>
-                    <TextInput placeholder={detail.city} style={margin1} underlineColorAndroid="#2ecc71"/>
-                    <Text style={OthercityDestination}>
-                        Budget
-                    </Text>
-                    <TextInput placeholder={"5000000"} style={margin1} underlineColorAndroid="#2ecc71"/>
-                    <Text style={OthercityDestination}>
-                        Time Period
-                    </Text>
-                    <View style={datepick}>
-                        <TouchableOpacity onPress={()=> this.refs.modal1.open() }>
-                            <View style={container3}>
-                                <Image source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')}/>
-                                <Text style={date}> {detail.start.day} {bulan(detail.start.month)} {detail.start.year}</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <Text style={setrip}> - </Text>
-                        <TouchableOpacity onPress={()=> this.refs.modal2.open()}>
-                            <View style={container4}>
-                                <Image source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')}/>
-                                <Text style={date}> {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
                     <View style={container2}>
-                        <Button
-                            color="#2ecc71" title="GENERATE" onPress={() => navigation.navigate('ListNavigation')}
-                        />
+                        <Text style={enjoyYourTour} >
+                            Enjoy{"\n"}your tour!
+                        </Text>
+                        <Text style={cityDestination}>
+                            City Destination
+                        </Text>
+                        <TextInput placeholder={detail.city} style={margin1} underlineColorAndroid="#2ecc71"/>
+                        <Text style={OthercityDestination}>
+                            Budget
+                        </Text>
+                        <TextInput placeholder={"5000000"} style={margin1} underlineColorAndroid="#2ecc71"/>
+                        <Text style={OthercityDestination}>
+                            Time Period
+                        </Text>
+                        <View style={datepick}>
+                            <TouchableOpacity onPress={()=> this.refs.modal1.open() }>
+                                <View style={container3}>
+                                    <Image style={{width: 19, height: 21}} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')}/>
+                                    <Text style={date}> {detail.start.day} {bulan(detail.start.month)} {detail.start.year}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={setrip}> - </Text>
+                            <TouchableOpacity onPress={()=> this.refs.modal2.open()}>
+                                <View style={container4}>
+                                    <Image style={{width: 19, height: 21}} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')}/>
+                                    <Text style={date}> {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{backgroundColor: '#2ecc71', height: 1.25}}/>
                     </View>
+                    <TouchableOpacity style={buttonGene} onPress={() => navigation.navigate('ListNavigation')}>
+                        <Text style={generateText}>GENERATE</Text>
+                    </TouchableOpacity>
                 </View>
                 <Modal
                     isOpen={this.state.isOpen}
@@ -83,12 +84,20 @@ export default class DetailScreenForm extends Component {
                     style={modal}
                     postion={"center"}
                 >
-                    <View style={datepick}>
-                        <Text style={date}>{detail.start.day} {bulan(detail.start.month)} {detail.start.year} - {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
+                    <View style={bar}/>
+                    <View style={dateShow}>
+                        <Text style={day}>{detail.start.day}</Text>
+                        <Text style={month}>{bulan(detail.start.month)}</Text>
+                        <Text style={year}>{detail.start.year}</Text>
                     </View>
                     <Calendar
                         current={this.state.currentStart}
                         onDayPress={(day) => {this.onStartDateChange(day)}}
+                        theme={{
+                            textDayFontSize: 12,
+                            textMonthFontSize: 12,
+                            textDayHeaderFontSize: 12
+                        }}
                     />
                 </Modal>
                 <Modal
@@ -98,17 +107,52 @@ export default class DetailScreenForm extends Component {
                     style={modal}
                     postion={"center"}
                 >
-                    <View style={datepick}>
-                        <Text style={date}>{detail.start.day} {bulan(detail.start.month)} {detail.start.year} - {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
+                    <View style={bar}/>
+                    <View style={dateShow}>
+                        <Text style={day}>{detail.end.day}</Text>
+                        <Text style={month}>{bulan(detail.end.month)}</Text>
+                        <Text style={year}>{detail.end.year}</Text>
                     </View>
                     <Calendar
+                        minDate={this.state.currentStart}
                         current={this.state.currentEnd}
                         onDayPress={(day) => {this.onEndDateChange(day)}}
+                        theme={{
+                            textDayFontSize: 12,
+                            textMonthFontSize: 12,
+                            textDayHeaderFontSize: 12
+                        }}
                     />
                 </Modal>
             </View>
         )
     }
+}
+const d = Dimensions.get('window')
+
+const bar = {
+    backgroundColor: '#16a085',
+    height: d.height * 0.03
+}
+
+const day = {
+    fontSize: 70,
+    color: "white"
+}
+
+const month = {
+    fontSize: 25,
+    color: "white"
+}
+
+const year = {
+    fontSize: 25,
+    color: "white"
+}
+
+const dateShow = {
+    backgroundColor: '#1abc9c',
+    alignItems: "center",
 }
 const datepick = {
     flexDirection: "row",
@@ -116,39 +160,37 @@ const datepick = {
     justifyContent: 'center',
 }
 const modal = {
-    height : 400,
+    height : d.height * 0.85,
+    width : d.width * 0.7,
 }
 const parent = {
     flex: 1
 }
 const container1 = {
     backgroundColor: "#ffffff",
-    flex: 1
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
 }
 const container2 = {
-    padding: 36,
-    marginTop:20,
+    width: d.width * 0.8,
 }
 const margin2 = {
-    marginLeft: 36,
-    marginRight: 36,
     marginBottom: 20
 }
 const margin1 = {
     fontFamily: "Ubuntu",
     fontSize: 20,
-    marginLeft: 36,
-    marginRight: 36,
 }
 const date = {
     fontFamily: "Ubuntu",
-    fontSize: 20,
+    fontSize: 18,
 }
 const setrip = {
     fontFamily: "Ubuntu",
     fontSize: 30,
-    marginRight: 15,
-    marginLeft: 15
+    marginRight: 10,
+    marginLeft: 10,
 }
 const container3 = {
     marginTop: 5,
@@ -161,7 +203,6 @@ const container4 = {
     marginLeft: 1,
 }
 const OthercityDestination = {
-    marginLeft: 36,
     fontFamily: "Ubuntu",
     fontSize: 20,
     letterSpacing: 0.08,
@@ -169,21 +210,35 @@ const OthercityDestination = {
 }
 const cityDestination = {
     marginTop: 30,
-    marginLeft: 36,
+    
     fontFamily: "Ubuntu",
     fontSize: 20,
     letterSpacing: 0.08,
     color: "#b7bdbe"
 }
 const enjoyYourTour = {
-    marginTop: 90,
-    marginLeft: 36,
     fontFamily: "Ubuntu",
     fontSize: 39.3,
     fontWeight: "bold",
     letterSpacing: 0.2,
     textAlign: "left",
     color: "#2ecc71"
+}
+const buttonGene = {
+    backgroundColor: "#2ecc71",
+    borderRadius: 30,
+    width: d.width * 0.8,
+    height: d.height * 0.07,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+}
+const generateText = {
+    color: "white",
+    fontFamily: "Ubuntu",
+    fontSize: 15,
+    fontWeight: "bold",
+    letterSpacing: 0.1,
 }
 function bulan(month) {
     switch (month){

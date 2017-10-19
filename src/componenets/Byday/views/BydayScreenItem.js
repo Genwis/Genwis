@@ -25,7 +25,7 @@ export default class BydayScreenItem extends Component{
                     </View>
                     <View style={row1}>
                         <Image style={sizeIcon} source={require('../../../assets/icon/placeholder_3_2017-09-18/drawable-xxxhdpi/placeholder_3.png')}/>
-                        <Text style={Vicinity} ELLIPSIZEMODE={"tail"} numberOfLines={1} >  {item.vicinity}</Text>
+                        <Text style={Vicinity} ELLIPSIZEMODE={"tail"} numberOfLines={2} >  {item.vicinity}</Text>
                     </View>
                     <View style={line1}></View>
                     <View style={RatingandPrice}>

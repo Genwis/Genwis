@@ -3,7 +3,7 @@
  */
 'use strict'
 import React, { Component } from 'react'
-import { View, Text, TextInput, Button,StatusBar} from 'react-native'
+import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import { fetchItineray } from '../../../actions/actions'
 
@@ -45,19 +45,32 @@ class ListScreen extends Component{
                 }
                 {
                     isFetching ? false :
-                        <View style={button}>
-                            <Button
-                                color="#2ecc71" title="BOOK NOW" onPress={() => navigation.navigate('BookNavigation')}
-                            />
-                        </View>
+                        <TouchableOpacity style={button} onPress={() => navigation.navigate('BookNavigation')}>
+                            <Text style={bookNowText}>BOOK NOW</Text>
+                        </TouchableOpacity>
                 }
             </View>
         )
     }
 }
-const button = {
-    padding: 10
+const d = Dimensions.get('window')
+
+const bookNowText = {
+    color: "white",
+    fontFamily: "Ubuntu",
+    fontSize: 16,
+    fontWeight: "bold",
+    letterSpacing: 0.1,
 }
+
+const button = {
+    width: d.width,
+    height: d.height * 0.07,
+    backgroundColor: "#2ecc71",
+    alignItems: "center",
+    justifyContent: "center"
+}
+
 const container2={
     alignItems: "center"
 }

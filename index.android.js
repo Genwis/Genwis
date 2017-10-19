@@ -7,6 +7,7 @@ import configureStore from './src/store/configureStore'
 import { Provider } from 'react-redux'
 
 import HomeNavigation from './src/componenets/Home/views/HomeNavigation'
+import MapScreen from './src/componenets/Map/views/MapScreen'
 const store = configureStore();
 
 export default class GenwisApp extends Component {

@@ -2,7 +2,7 @@
  * Created by iampamungkas on 7/29/17.
  */
 import React, { Component } from 'react'
-import {Text, View} from 'react-native'
+import { Dimensions, Text, View} from 'react-native'
 export default class ListScreenTimeline extends Component {
     render(){
         const timeline = this.props.Day.time_line
@@ -12,7 +12,9 @@ export default class ListScreenTimeline extends Component {
                     <Text style={Days}> Day {this.props.Nday} </Text>
                 </View>
                 <View style={container3}>
-                    <Attr timeline={timeline} />
+                    <View style={stylePadJam}>
+                        <Attr timeline={timeline} />
+                    </View>
                 </View>
             </View>
         )
@@ -27,7 +29,7 @@ function Attr(timeline) {
                         <Text style={attraction}>
                             {val.todo.name}{"\n"}
                         </Text>
-                        <Text >
+                        <Text>
                             <Text>
                                 {
                                     (val.start.jam < 10) ? <Text style={Jam}>0{val.start.jam}.{(val.start.menit<10)?<Text style={Jam}>0{val.start.menit}</Text>:<Text style={Jam}>{val.start.menit}</Text>}{"\n"}</Text>:<Text style={Jam}>{val.start.jam}.{(val.start.menit<10)?<Text style={Jam}>0{val.start.menit}</Text>:<Text style={Jam}>{val.start.menit}</Text>}{"\n"}</Text>
@@ -48,10 +50,10 @@ function Attr(timeline) {
     })
     return(<View>{showTime}</View>)
 }
+const d = Dimensions.get("window")
 const container1 = {
-    width: 275,
+    width: d.width * 265/360,
     marginTop: 30,
-    marginLeft: 69
 }
 const container2 = {
     backgroundColor: "#2ecc71",
@@ -69,7 +71,7 @@ const attraction = {
     fontFamily: "Cabin",
     fontSize: 16,
     letterSpacing: 0.06,
-    color: "#29292b"
+    color: "#29292b",
 }
 const Days = {
     marginLeft: 5,
@@ -85,5 +87,11 @@ const Jam = {
     fontSize: 16,
     fontWeight: "500",
     letterSpacing: 0.06,
-    color: "#2ecc71"
+    color: "#2ecc71",
+}
+const stylePadJam = {
+    marginTop: d.width * 7/360,
+    marginLeft: d.width * 7/360,
+    marginBottom: d.width * 7/360,
+    marginRight: d.width * 7/360
 }
