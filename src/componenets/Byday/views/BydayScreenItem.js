@@ -17,7 +17,7 @@ export default class BydayScreenItem extends Component{
         return(
             <View style={parent}>
                 <View style={container}>
-                    <Image source={require('../../../assets/this_aint_no_mac-wallpaper-1440x900.jpg')} style={ImageStyle}/>
+                    <Image source={iconsMap[""+item.id.slice(0,8)]} style={ImageStyle}/>
                     <Text style={AttractionsName}>{item.name}</Text>
                     <View style={row1}>
                         <Image style={sizeIcon} source={require('../../../assets/icon/clock_2017-09-18/drawable-xxxhdpi/clock.png')}/>
@@ -25,7 +25,7 @@ export default class BydayScreenItem extends Component{
                     </View>
                     <View style={row1}>
                         <Image style={sizeIcon} source={require('../../../assets/icon/placeholder_3_2017-09-18/drawable-xxxhdpi/placeholder_3.png')}/>
-                        <Text style={Vicinity} ELLIPSIZEMODE={"tail"} numberOfLines={2} >  {item.vicinity}</Text>
+                        <Text style={Vicinity} ELLIPSIZEMODE={"tail"} numberOfLines={1} >  {item.vicinity}</Text>
                     </View>
                     <View style={line1}></View>
                     <View style={RatingandPrice}>
@@ -45,9 +45,10 @@ export default class BydayScreenItem extends Component{
                     postion={"center"}
                 >
                     <ScrollView>
-                        <Image source={require('../../../assets/this_aint_no_mac-wallpaper-1440x900.jpg')} style={ImageStyle}/>
-                        <Text style={AttractionsName}>{item.name}</Text>
-                        <Text style={ModalDescription}>{item.description}</Text>
+                        <View style={{marginLeft: 60, marginRight: 10}}>
+                            <Text style={AttractionsName}>{item.name}</Text>
+                            <Text style={ModalDescription}>{item.description}</Text>
+                        </View>
                     </ScrollView>
                 </Modal>
             </View>
@@ -70,6 +71,7 @@ const sizeIcon = {
     marginTop: 4,
     width: 12.7,
     height: 14,
+    resizeMode: "contain"
 }
 
 const VerLine = {
@@ -112,16 +114,15 @@ const RatingText = {
     color: "#2ecc71"
 }
 const modal = {
-    height:500,
+    height: dimension.height * 0.7,
 }
 const parent = {
     width: dimension.width
 }
 const container = {
-    width:320,
-    marginRight: 36,
-    marginLeft: 36,
-    marginTop: 65
+    width:dimension.width * 0.8,
+    marginRight: 50,
+    marginLeft: 50,
 }
 const RatingandPrice = {
     flexDirection: "row",
@@ -129,7 +130,8 @@ const RatingandPrice = {
 }
 const ImageStyle = {
     width: 240,
-    height: 170
+    height: 170,
+    resizeMode: "contain"
 }
 const ImageStyleModal = {
     width: 240,
@@ -159,7 +161,7 @@ const Description = {
     fontFamily: "Cabin",
     fontSize: 14,
     letterSpacing: 0.06,
-    textAlign: "justify",
+    textAlign: "auto",
     color: "#b7bdbe"
 }
 const ModalDescription = {
@@ -167,4 +169,26 @@ const ModalDescription = {
     fontSize: 14,
     letterSpacing: 0.06,
     textAlign: "justify",
+}
+const iconsMap = {
+    "1d9a9f00" : require('../../../assets/Tempat/1d9a9f00.jpg'),
+    "2a577c29" : require('../../../assets/Tempat/2a577c29.jpg'),
+    "4cb28eaf" : require('../../../assets/Tempat/4cb28eaf.jpg'),
+    "8e1709cd" : require('../../../assets/Tempat/8e1709cd.jpg'),
+    "10da722f" : require('../../../assets/Tempat/10da722f.jpg'),
+    "12c71c6a" : require('../../../assets/Tempat/12c71c6a.jpg'),
+    "27bcb0b3" : require('../../../assets/Tempat/27bcb0b3.jpg'),
+    "68dbbc4f" : require('../../../assets/Tempat/68dbbc4f.jpg'),
+    "00262d00" : require('../../../assets/Tempat/00262d00.jpg'),
+    "4449fe0a" : require('../../../assets/Tempat/4449fe0a.jpg'),
+    "6557df81" : require('../../../assets/Tempat/6557df81.jpg'),
+    "8807eced" : require('../../../assets/Tempat/8807eced.jpg'),
+    "41794ab6" : require('../../../assets/Tempat/41794ab6.jpg'),
+    "46146616" : require('../../../assets/Tempat/46146616.jpg'),
+    "ac6524c0" : require('../../../assets/Tempat/ac6524c0.jpg'),
+    "b1bc1d07" : require('../../../assets/Tempat/b1bc1d07.jpg'),
+    "bebf30ca" : require('../../../assets/Tempat/bebf30ca.jpg'),
+    "d4059285" : require('../../../assets/Tempat/d4059285.jpg'),
+    "de2ae42e" : require('../../../assets/Tempat/de2ae42e.jpg'),
+    "fd37b6ed" : require('../../../assets/Tempat/fd37b6ed.jpg'),
 }

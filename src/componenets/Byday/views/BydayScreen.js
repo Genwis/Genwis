@@ -1,15 +1,15 @@
 /**
- * Created by iampamungkas on 9/11/17.
+ * Created by iampamungkas on 10/20/17.
  */
-'use strict'
-import React, { Component } from 'react'
-import { View, Text, ScrollView, Button} from 'react-native'
+import React, {Component} from 'react';
+import {Dimensions, View, TouchableOpacity, Text} from 'react-native'
 import { connect } from 'react-redux'
-import  BydayScreenItem  from './BydayScreenItem'
-import Swiper from 'react-native-swiper';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { NavigationActions }  from 'react-navigation'
+import BydayScreenList from './BydayScreenList'
 
 function mapStateToProps(state) {
-    const { itineraryByDetail } = state
+    const { selecetedDetail, itineraryByDetail } = state
     const {
         isFetching,
         itinerary: List
@@ -24,39 +24,96 @@ function mapStateToProps(state) {
     }
 }
 class BydayScreen extends Component {
-    render(){
-        const { params } = this.props.navigation.state
-        const timeline = params.items.time_line;
-        const attractions = this.props.List.attractions
-        const day = params.day;
-        let Nday
-        const list =  Object.values(timeline).map(function (event,index) {
-            Nday++
-            return (<BydayScreenItem item={attractions[event.todo.key]} event={event} key={index}/>)
-        })
-        return(
-            <Swiper style={swiperStyle} loop={false}>
-                { list }
-            </Swiper>
-        )
+    state = {
+        day: 0,
+    }
+    onPlus = () => {
+        const {List} = this.props
+        this.state.day !== List.itinerary.length -1 ?
+        this.setState({
+            day: this.state.day + 1
+        }) : false
+    }
+    onMin = () => {
+        this.state.day !== 0 ?
+        this.setState({
+            day: this.state.day - 1
+        }) : false
+    }
+    render() {
+        const {dispatch, List, navigation} = this.props
+        return (
+            <View style={{flex: 1, backgroundColor: "white"}}>
+                <View style={bar}>
+                    <TouchableOpacity style={{marginLeft: 1}} onPress={()=> this.onMin()}>
+                        <Icon name="arrow-left" style={{fontSize: 30, color: "#2ecc71"}}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginLeft: d.width * 0.7}} onPress={()=> this.onPlus()}>
+                        <Icon name="arrow-right" style={{fontSize: 30, color: "#2ecc71"}}/>
+                    </TouchableOpacity>
+                </View>
+                <Text style={day}> Day {this.state.day+1}</Text>
+                <View style={{flex:1}}>
+                    <BydayScreenList items={List.itinerary[this.state.day]}/>
+                </View>
+                <TouchableOpacity style={button} onPress={() => navigation.navigate('BookNavigation')}>
+                    <Text style={bookNowText}>BOOK NOW</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={fab} onPress={()=> dispatch(NavigationActions.back())}>
+                    <Icon name="clock-o" style={{fontSize: 25, color: "white"}}/>
+                </TouchableOpacity>
+            </View>
+        );
     }
 }
+
+
 export default connect(mapStateToProps)(BydayScreen)
-const container = {
-    flex: 1,
-    backgroundColor: "#ffffff"
+
+const d = Dimensions.get("window")
+
+const bar  = {
+    flexDirection: "row",
+    backgroundColor: "white",
+    height: d.height * 0.08,
+    width: d.width,
+    alignItems: "center",
+    justifyContent: "center"
 }
-const swiperStyle ={
-    flex: 1,
-    backgroundColor: "#ffffff"
-}
+
 const day = {
-    width: 45.3,
-    height: 17.3,
+    color: "#2ecc71",
     fontFamily: "Ubuntu",
     fontSize: 19.3,
     fontWeight: "500",
     letterSpacing: 0.1,
-    textAlign: "center",
-    color: "#2ecc71"
-};
+    marginLeft: 50
+}
+const bookNowText = {
+    color: "white",
+    fontFamily: "Ubuntu",
+    fontSize: 16,
+    fontWeight: "bold",
+    letterSpacing: 0.1,
+}
+
+const button = {
+    bottom: 0,
+    width: d.width,
+    height: d.height * 0.07,
+    backgroundColor: "#2ecc71",
+    alignItems: "center",
+    justifyContent: "center"
+}
+
+const fab = {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#2ecc71',
+    position: 'absolute',
+    bottom: 250,
+    left: -22,
+    alignItems: "center",
+    justifyContent: "center",
+}

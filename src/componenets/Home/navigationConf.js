@@ -10,7 +10,7 @@ import DetailNavigation from '../Detail/views/DetailNavigation'
 import ListNavigation from'../List/views/ListNavigation'
 import BookNavigation from'../Book/views/BookNavigation'
 import HomeScreen from './views/HomeScreen'
-import BydayNavigation from '../Byday/views/BydaylNavigation'
+import BydayNavigation from '../Byday/views/BydayNavigation'
 import MapNavigation from '../Map/views/MapNavigation'
 
 const routeConfiguration = {

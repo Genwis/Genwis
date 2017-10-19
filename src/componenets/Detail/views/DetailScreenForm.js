@@ -49,17 +49,17 @@ export default class DetailScreenForm extends Component {
                             City Destination
                         </Text>
                         <TextInput placeholder={detail.city} style={margin1} underlineColorAndroid="#2ecc71"/>
-                        <Text style={OthercityDestination}>
+                        <Text style={budget}>
                             Budget
                         </Text>
                         <TextInput placeholder={"5000000"} style={margin1} underlineColorAndroid="#2ecc71"/>
-                        <Text style={OthercityDestination}>
+                        <Text style={timePeriod}>
                             Time Period
                         </Text>
                         <View style={datepick}>
                             <TouchableOpacity onPress={()=> this.refs.modal1.open() }>
                                 <View style={container3}>
-                                    <Image style={{width: 19, height: 21}} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')}/>
+                                    <Image style={{height: 21, resizeMode: "contain"}} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')}/>
                                     <Text style={date}> {detail.start.day} {bulan(detail.start.month)} {detail.start.year}</Text>
                                 </View>
                             </TouchableOpacity>
@@ -71,7 +71,7 @@ export default class DetailScreenForm extends Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                        <View style={{backgroundColor: '#2ecc71', height: 1.25}}/>
+                        <View style={{backgroundColor: '#2ecc71', height: 1.25, marginLeft: 5}}/>
                     </View>
                     <TouchableOpacity style={buttonGene} onPress={() => navigation.navigate('ListNavigation')}>
                         <Text style={generateText}>GENERATE</Text>
@@ -202,17 +202,27 @@ const container4 = {
     flexDirection: "row",
     marginLeft: 1,
 }
-const OthercityDestination = {
+const budget = {
+    marginBottom: -10,
+    marginLeft: 3,
     fontFamily: "Ubuntu",
-    fontSize: 20,
+    fontSize: 16,
+    letterSpacing: 0.08,
+    color: "#b7bdbe"
+}
+const timePeriod = {
+    marginBottom: -7,
+    fontFamily: "Ubuntu",
+    fontSize: 16,
     letterSpacing: 0.08,
     color: "#b7bdbe"
 }
 const cityDestination = {
     marginTop: 30,
-    
+    marginBottom: -10,
+    marginLeft: 3,
     fontFamily: "Ubuntu",
-    fontSize: 20,
+    fontSize: 16,
     letterSpacing: 0.08,
     color: "#b7bdbe"
 }
@@ -231,7 +241,7 @@ const buttonGene = {
     height: d.height * 0.07,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 25,
 }
 const generateText = {
     color: "white",

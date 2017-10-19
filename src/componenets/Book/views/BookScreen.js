@@ -17,11 +17,11 @@ export default class BookScreen extends Component{
                     <Text style={email}>
                         Email
                     </Text>
-                    <TextInput underlineColorAndroid="#2ecc71"/>
+                    <TextInput placeholder={"genwis@mailinator.com"} style={inputan} underlineColorAndroid="#2ecc71"/>
                     <Text style={KTP}>
                         No. Identity (KTP/Paspor/SIM)
                     </Text>
-                    <TextInput style={margin1} underlineColorAndroid="#2ecc71"/>
+                    <TextInput placeholder={"10016416426457891267"} style={inputan} underlineColorAndroid="#2ecc71"/>
                 </View>
                 <TouchableOpacity style={buttonBook} onPress={() => navigation.navigate('BookScreenFinish')}>
                     <Text style={bookText}>BOOK</Text>
@@ -57,19 +57,20 @@ const bookText = {
     fontWeight: "bold",
     letterSpacing: 0.1,
 }
-const margin1 = {
-    marginBottom: 20
-}
 const KTP = {
+    marginBottom: -10,
+    marginLeft: 3,
     fontFamily: "Ubuntu",
-    fontSize: 20,
+    fontSize: 16,
     letterSpacing: 0.08,
     color: "#b7bdbe"
 }
 const email = {
     marginTop: 36,
+    marginLeft: 3,
+    marginBottom: -10,
     fontFamily: "Ubuntu",
-    fontSize: 20,
+    fontSize: 16,
     letterSpacing: 0.08,
     color: "#b7bdbe"
 }
@@ -80,4 +81,10 @@ const enjoyYourTour = {
     letterSpacing: 0.2,
     textAlign: "left",
     color: "#2ecc71"
+}
+const inputan = {
+    fontSize: 20,
+    fontFamily: "Ubuntu",
+    color: "black",
+    opacity: 0.87
 }

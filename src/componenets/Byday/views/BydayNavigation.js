@@ -26,7 +26,6 @@ class BydayNavigation extends React.Component {
     }
     render(){
         const { navigationState, dispatch, navigation } = this.props
-        navigationState.routes[0].params = navigation.state.params
         return (
             <NavigatorByday
                 navigation={

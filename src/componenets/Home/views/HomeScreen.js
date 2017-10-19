@@ -74,7 +74,7 @@ const container3 = {
 }
 const wonderfull = {
     marginTop: 36,
-    marginBottom: 22,
+    marginBottom: 11,
     fontFamily: "Ubuntu",
     fontSize: 24.2,
     fontWeight: "bold",
@@ -84,7 +84,7 @@ const wonderfull = {
 }
 const enjoy = {
     fontFamily: "Cabin",
-    fontSize: 18,
+    fontSize: 14,
     letterSpacing: 0.08,
     textAlign: "center",
     color: "#b7bdbe"

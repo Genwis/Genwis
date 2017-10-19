@@ -11,17 +11,13 @@ export default class ListScreenItems extends Component{
     }
     render(){
         const { iten, navigation } =  this.props
-        onPress = (itinerary, index)=>{
-            const { navigation } = this.props
-            navigation.navigate('BydayNavigation',{items: itinerary, day: index})
-        }
         let Nday = 0
         const list =  Object.values(iten).map(function (itinerary,index) {
             Nday++
             return (
-                <TouchableOpacity onPress={()=> onPress(itinerary, index)} key={index}>
+                <View key={index}>
                     <ListScreenTimeline Day={itinerary} Nday={Nday}/>
-                </TouchableOpacity>
+                </View>
             )
         })
         return (<View>{list}</View>)

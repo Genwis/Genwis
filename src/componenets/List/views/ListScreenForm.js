@@ -25,7 +25,8 @@ export default class ListScreenForm extends Component {
                 <ScrollView contentContainerStyle={scrolViewStyle}>
                     <ListScreenItems navigation={this.navigation} iten={this.itinerary}/>
                 </ScrollView>
-                <TouchableOpacity style={fab}>
+                {/*<View style={bSpace}/>*/}
+                <TouchableOpacity style={fab} onPress={()=> this.props.navigation.navigate("BydayNavigation")}>
                     <Icon name="list-ul" style={{fontSize: 25, color: "white"}}/>
                 </TouchableOpacity>
             </View>
@@ -34,7 +35,13 @@ export default class ListScreenForm extends Component {
 }
 
 const d = Dimensions.get('window')
-
+const bSpace = {
+    width: 10,
+    height: d.height,
+    backgroundColor: '#2ecc71',
+    position: 'absolute',
+    right: 30
+}
 const fab = {
     width: 60,
     height: 60,

@@ -53,7 +53,8 @@ function Attr(timeline) {
 const d = Dimensions.get("window")
 const container1 = {
     width: d.width * 265/360,
-    marginTop: 30,
+    marginTop: 15,
+    marginBottom: 15,
 }
 const container2 = {
     backgroundColor: "#2ecc71",
