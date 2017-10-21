@@ -12,6 +12,7 @@ import BookNavigation from'../Book/views/BookNavigation'
 import HomeScreen from './views/HomeScreen'
 import BydayNavigation from '../Byday/views/BydayNavigation'
 import MapNavigation from '../Map/views/MapNavigation'
+import LoginNavigation from '../Login/views/LoginNavigation'
 
 const routeConfiguration = {
     HomeScreen: { screen: HomeScreen },
@@ -20,5 +21,6 @@ const routeConfiguration = {
     BookNavigation: { screen: BookNavigation },
     BydayNavigation: {  screen: BydayNavigation},
     MapNavigation: {  screen: MapNavigation},
+    LoginNavigation: {  screen: LoginNavigation},
 }
 export const NavigatorHome = StackNavigator(routeConfiguration)

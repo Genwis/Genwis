@@ -61,6 +61,7 @@ import { NavigatorList} from '../componenets/List/navigationConf'
 import { NavigatorBook} from '../componenets/Book/navigationConf'
 import { NavigatorByday} from '../componenets/Byday/navigationConf'
 import { NavigatorMap} from '../componenets/Map/navigationConf'
+import { NavigatorLogin} from '../componenets/Login/navigationConf'
 
 const rootReducer = combineReducers({
     itineraryByDetail,
@@ -70,7 +71,8 @@ const rootReducer = combineReducers({
     List: (state,action) => NavigatorList.router.getStateForAction(action,state),
     Book: (state,action) => NavigatorBook.router.getStateForAction(action,state),
     Byday: (state,action) => NavigatorByday.router.getStateForAction(action,state),
-    Map: (state,action) => NavigatorMap.router.getStateForAction(action,state)
+    Map: (state,action) => NavigatorMap.router.getStateForAction(action,state),
+    Login: (state,action) => NavigatorLogin.router.getStateForAction(action,state),
 })
 
 export default rootReducer
