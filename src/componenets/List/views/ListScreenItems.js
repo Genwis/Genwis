@@ -22,7 +22,7 @@ export default class ListScreenItems extends Component{
 					<Text style={{textAlign: 'center',color:'#d0d0d0'}}>{bulan(itinerary.waktu.month)}</Text>
 				</View>
 				<View style={{alignItems: "center"}}>
-					<View style={{backgroundColor:(index===0)?"#2ecc71":"#fff",borderColor:"#2ecc71",borderWidth:1,borderRadius:100,width:11,height:11,position:"absolute",top:25,zIndex:2}}/>
+					<View style={{backgroundColor:(index===0)?"#2ecc71":"#fefefe",borderColor:"#2ecc71",borderWidth:1,borderRadius:100,width:11,height:11,position:"absolute",top:25,zIndex:2}}/>
 						
 					
 					<View style={{flex:1,backgroundColor:"#e0e0e0",width:1,marginTop:(index===0)?25:0}}/>
