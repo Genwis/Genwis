@@ -78,12 +78,6 @@ class SignUpScreen extends Component {
                 <TouchableOpacity style={buttonBook} onPress={() => this.onRegisterPress()}>
                     <Text style={bookText}>Sign Up</Text>
                 </TouchableOpacity>
-				<View style={{marginTop:20,justifyContent: "center",alignItems: "center",marginBottom:20}}>
-				<Text style={deft}>Or</Text>
-				<TouchableOpacity style={buttonF} onPress={() => navigation.navigate('DetailNavigation')}>
-                    <Text style={fText}>Sign up with Facebook</Text>
-                </TouchableOpacity>
-				</View>
             </View>
         )
     }

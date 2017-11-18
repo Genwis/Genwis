@@ -89,3 +89,11 @@ export function login(detail){
       .then(response => dispatch(receiveLogin(detail, response.data)))
   }
 }
+
+export function loginFB(detail) {
+  return dispatch =>  {
+    dispatch(requestLogin(detail))
+    return Axios.post('http://10.0.3.2:8000/api/users/loginFB',JSON.stringify(detail))
+      .then(response => dispatch(receiveLogin(detail, response.data)))
+  }
+}

@@ -3,8 +3,8 @@
  */
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { Dimensions, View, Text, TextInput, Button, TouchableOpacity, Image} from 'react-native'
-import { login } from '../../../actions/actions'
+import {Dimensions, View, Text, TextInput, Button, TouchableOpacity, Image, error} from 'react-native'
+import { login, loginFB } from '../../../actions/actions'
 
 class LoginScreen extends Component {
     state = {
@@ -40,7 +40,7 @@ class LoginScreen extends Component {
     }
   }
     render(){
-        const { navigation } = this.props
+        const { navigation, dispatch } = this.props
         return(
             <View style = {container1} >
                 <View style={container2}>
@@ -63,9 +63,10 @@ class LoginScreen extends Component {
                 </TouchableOpacity>
 				<View style={{marginTop:20,justifyContent: "center",alignItems: "center",marginBottom:20}}>
 				<Text style={deft}>Or</Text>
-				<TouchableOpacity style={buttonF} onPress={() => navigation.navigate('DetailNavigation')}>
-                    <Text style={fText}>Log in with Facebook</Text>
-                </TouchableOpacity>
+				{/*<TouchableOpacity style={buttonF} onPress={() => navigation.navigate('DetailNavigation')}>*/}
+                    {/*<Text style={fText}>Log in with Facebook</Text>*/}
+                {/*</TouchableOpacity>*/}
+                <Login dispatch={dispatch} navigation={navigation}/>
 				</View>
 				<View style={{flexDirection:'row'}}>
 				<Text style={deft}>Haven't had an account? </Text>
@@ -173,3 +174,49 @@ const enjoy = {
     textAlign: "center",
     color: "#b7bdbe"
 }
+
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginButton,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager
+} = FBSDK;
+
+const Login = React.createClass({
+  _responseInfoCallback (error: {}, result: {}){
+    if (error) {
+      alert('Error fetching data: ' + error.toString());
+    } else {
+      const { navigation } = this.props
+      const { dispatch } = this.props
+      dispatch(loginFB({username: result.email}));
+      setTimeout(function(){ navigation.navigate("DetailNavigation"); }, 2000);
+    }
+  },
+  render: function() {
+    return (
+      <View>
+        <LoginButton
+          readPermissions={["email"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("login has error: " + result.error);
+              } else if (result.isCancelled) {
+                alert("login is cancelled.");
+              } else {
+                const infoRequest = new GraphRequest('/me?fields=id,name,email', null, this._responseInfoCallback)
+                new GraphRequestManager().addRequest(infoRequest).start();
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                  }
+                )
+              }
+            }
+          }
+          onLogoutFinished={() => alert("logout.")}/>
+      </View>
+    );
+  }
+});
