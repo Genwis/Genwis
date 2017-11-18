@@ -6,13 +6,14 @@ import { Dimensions, ScrollView, Text, TextInput, Button, View, ToolbarAndroid, 
 import ListScreenItems from './ListScreenItems'
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import bulan from '../../../helper/month';
 export default class ListScreenForm extends Component {
     itinerary = this.props.List.itinerary
     detail = this.props.Detail
     navigation = this.props.navigation
     render(){
         return(
-            <View style={{flex: 1}}>
+            <View style={{flex: 1,backgroundColor:"#fefefe"}}>
                 <StatusBar backgroundColor="#2ecc71"/>
                 <View style={Toolbar}>
                     <Text style={timelineToolbarText}>
@@ -56,7 +57,12 @@ const fab = {
 
 
 const scrolViewStyle = {
-    marginLeft: d.width * 24/360
+    /*marginLeft: d.width * 24/360,
+	marginRight: d.width * 24/360,*/
+	marginTop: d.width * 24/360,
+	marginBottom: d.width * 24/360,
+	paddingBottom: (d.height * 0.07)-24
+
 }
 
 const timelineToolbarText = {
@@ -88,34 +94,7 @@ const Done = {
     textAlign: "center",
     color: "#2ecc71"
 }
-function bulan(month) {
-    switch (month){
-        case 1:
-            return "Januari"
-        case 2:
-            return "Februari"
-        case 3:
-            return "Maret"
-        case 4:
-            return "April"
-        case 5:
-            return "Mei"
-        case 6:
-            return "Juni"
-        case 7:
-            return "Juli"
-        case 8:
-            return "Agustus"
-        case 9:
-            return "September"
-        case 11:
-            return "October"
-        case 10:
-            return "November"
-        case 12:
-            return "Desember"
-    }
-}
+
 
 function toolbarSubtitile(iten, detail) {
     return (iten[0].waktu.day.toString()+" "+bulan(iten[0].waktu.month)+" "+iten[0].waktu.year.toString()+
