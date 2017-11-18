@@ -8,9 +8,9 @@ export default class ListScreenTimeline extends Component {
         const timeline = this.props.Day.time_line
         return(
             <View style={container1}>
-                <View style={container2}>
-                    <Text style={Days}> Day {this.props.Nday} </Text>
-                </View>
+                {/*<View style={container2}>*/}
+                    {/*<Text style={Days}> Day {this.props.Nday} </Text>*/}
+                {/*</View>*/}
                 <View style={container3}>
                     <View style={stylePadJam}>
                         <Attr timeline={timeline} />
