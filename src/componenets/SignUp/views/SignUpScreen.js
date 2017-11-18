@@ -2,9 +2,56 @@
  * Created by iampamungkas on 10/20/17.
  */
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import { Dimensions, View, Text, TextInput, Button, TouchableOpacity, Image} from 'react-native'
+import { register } from '../../../actions/actions'
 
-export default class SignUpScreen extends Component {
+class SignUpScreen extends Component {
+  state = {
+    data: {
+      username: "",
+      password: "",
+      retype: "",
+    }
+  }
+  onChangeEmail = (text) => {
+    // console.log(this.state.data)
+    this.setState({
+      data:{
+        username: text,
+        password: this.state.data.password,
+        retype: this.state.data.retype
+      }
+    })
+  }
+  onChangePassword = (text) => {
+    // console.log(this.state.data)
+    this.setState({
+      data:{
+        username: this.state.data.username,
+        password: text,
+        retype: this.state.data.retype
+      }
+    })
+  }
+  onChangePasswordRetype = (text) => {
+    // console.log(this.state.data)
+    this.setState({
+      data:{
+        username: this.state.data.username,
+        password: this.state.data.password,
+        retype: text
+      }
+    })
+  }
+  onRegisterPress = () => {
+    const { navigation } = this.props
+    const { dispatch } = this.props
+    if(this.state.data.username !== "" && this.state.data.password !== "" && this.state.data.password === this.state.data.retype) {
+      dispatch(register({username: this.state.data.username, password: this.state.data.password}));
+      setTimeout(function(){ navigation.navigate("DetailNavigation"); }, 2000);
+    }
+  }
     render(){
         const { navigation } = this.props
         return(
@@ -17,18 +64,18 @@ export default class SignUpScreen extends Component {
                     <Text style={email}>
                         Email
                     </Text>
-                    <TextInput placeholder={"username@example.xyz"} style={inputan} underlineColorAndroid="#2ecc71"/>
+                    <TextInput onChangeText={(text) => this.onChangeEmail(text)} placeholder={"username@example.xyz"} style={inputan} underlineColorAndroid="#2ecc71"/>
                     <Text style={password}>
                         Password
                     </Text>
-                    <TextInput secureTextEntry={true} placeholder={"••••••••••••"} style={inputan} underlineColorAndroid="#2ecc71"/>
+                    <TextInput onChangeText={(text) => this.onChangePassword(text)} secureTextEntry={true} placeholder={"••••••••••••"} style={inputan} underlineColorAndroid="#2ecc71"/>
 					<Text style={password}>
                         Retype password
                     </Text>
-                    <TextInput secureTextEntry={true} placeholder={"••••••••••••"} style={inputan} underlineColorAndroid="#2ecc71"/>
+                    <TextInput onChangeText={(text) => this.onChangePasswordRetype(text)} secureTextEntry={true} placeholder={"••••••••••••"} style={inputan} underlineColorAndroid="#2ecc71"/>
 					
                 </View>
-                <TouchableOpacity style={buttonBook} onPress={() => navigation.navigate('DetailNavigation')}>
+                <TouchableOpacity style={buttonBook} onPress={() => this.onRegisterPress()}>
                     <Text style={bookText}>Sign Up</Text>
                 </TouchableOpacity>
 				<View style={{marginTop:20,justifyContent: "center",alignItems: "center",marginBottom:20}}>
@@ -41,6 +88,10 @@ export default class SignUpScreen extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+  return state
+}
+export default connect(mapStateToProps)(SignUpScreen)
 const d = Dimensions.get("window")
 
 const container1 = {

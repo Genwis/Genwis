@@ -10,7 +10,7 @@ import { persistStore } from 'redux-persist'
 import HomeNavigation from './src/componenets/Home/views/HomeNavigation'
 
 const store = configureStore();
-persistStore(store, {storage: AsyncStorage, blacklist:['Home', 'Book']})
+persistStore(store, {storage: AsyncStorage, blacklist:['Home', 'Book']}).purge()
 export default class GenwisApp extends Component {
     render() {
         return (
