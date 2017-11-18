@@ -31,7 +31,7 @@ export default class HomeScreen extends Component{
         return(
             <View  style={container1} >
                 <StatusBar backgroundColor="#ffffff"/>
-                <TouchableOpacity onPress={()=> navigation.navigate('DetailNavigation')}>
+                <TouchableOpacity onPress={()=> navigation.navigate('LoginNavigation')}>
                     <View>
                         <View style={container2}>
                             <Image source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />

@@ -45,7 +45,7 @@ class ListScreen extends Component{
                 }
                 {
                     isFetching ? false :
-                        <TouchableOpacity style={button} onPress={() => navigation.navigate('LoginNavigation')}>
+                        <TouchableOpacity style={button} onPress={() => navigation.navigate('BookNavigation')}>
                             <Text style={bookNowText}>BOOK NOW</Text>
                         </TouchableOpacity>
                 }
