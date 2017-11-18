@@ -27,7 +27,7 @@ export default class LoginScreen extends Component {
                     </Text>
                     <TextInput secureTextEntry={true} placeholder={"*********"} style={inputan} underlineColorAndroid="#2ecc71"/>
                 </View>
-                <TouchableOpacity style={buttonBook} onPress={() => navigation.navigate('BookNavigation')}>
+                <TouchableOpacity style={buttonBook} onPress={() => navigation.navigate('DetailNavigation')}>
                     <Text style={bookText}>SIGN IN</Text>
                 </TouchableOpacity>
             </View>
