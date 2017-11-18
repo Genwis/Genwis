@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 import { Dimensions, View, Text, TextInput, Button, TouchableOpacity, Image} from 'react-native'
 
-export default class LoginScreen extends Component {
+export default class SignUpScreen extends Component {
     render(){
         const { navigation } = this.props
         return(
@@ -13,7 +13,7 @@ export default class LoginScreen extends Component {
                     <View style={{alignItems: "center", justifyContent: "center"}}>
                         <Image style={{resizeMode: "contain", height: d.height * 0.15}} source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
                     </View>
-                    <Text style={wonderfull}>Welcome to Genwis!</Text>
+                    <Text style={wonderfull}>Create an account</Text>
                     <Text style={email}>
                         Email
                     </Text>
@@ -22,20 +22,20 @@ export default class LoginScreen extends Component {
                         Password
                     </Text>
                     <TextInput secureTextEntry={true} placeholder={"••••••••••••"} style={inputan} underlineColorAndroid="#2ecc71"/>
+					<Text style={password}>
+                        Retype password
+                    </Text>
+                    <TextInput secureTextEntry={true} placeholder={"••••••••••••"} style={inputan} underlineColorAndroid="#2ecc71"/>
 					
                 </View>
                 <TouchableOpacity style={buttonBook} onPress={() => navigation.navigate('DetailNavigation')}>
-                    <Text style={bookText}>Sign In</Text>
+                    <Text style={bookText}>Sign Up</Text>
                 </TouchableOpacity>
 				<View style={{marginTop:20,justifyContent: "center",alignItems: "center",marginBottom:20}}>
 				<Text style={deft}>Or</Text>
 				<TouchableOpacity style={buttonF} onPress={() => navigation.navigate('DetailNavigation')}>
-                    <Text style={fText}>Log in with Facebook</Text>
+                    <Text style={fText}>Sign up with Facebook</Text>
                 </TouchableOpacity>
-				</View>
-				<View style={{flexDirection:'row'}}>
-				<Text style={deft}>Haven't had an account? </Text>
-	<TouchableOpacity onPress={() => navigation.navigate('SignUpNavigation')}><Text style={{color: "#2ecc71",fontFamily:"MarkPro"}}>Sign Up</Text></TouchableOpacity>
 				</View>
             </View>
         )

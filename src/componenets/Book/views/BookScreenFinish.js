@@ -52,7 +52,7 @@ const container2 = {
 }
 const buttonBook = {
     backgroundColor: "#2ecc71",
-    borderRadius: 30,
+    borderRadius: d.height * 0.07/2,
     width: d.width * 0.4,
     height: d.height * 0.07,
     justifyContent: "center",

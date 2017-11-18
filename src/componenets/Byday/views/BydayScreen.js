@@ -56,7 +56,7 @@ class BydayScreen extends Component {
                 <View style={{flex:1}}>
                     <BydayScreenList items={List.itinerary[this.state.day]}/>
                 </View>
-                <TouchableOpacity style={button} onPress={() => navigation.navigate('LoginNavigation')}>
+                <TouchableOpacity style={button} onPress={() => navigation.navigate('BookNavigation')}>
                     <Text style={bookNowText}>BOOK NOW</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={fab} onPress={()=> dispatch(NavigationActions.back())}>
