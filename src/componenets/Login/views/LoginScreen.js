@@ -2,9 +2,43 @@
  * Created by iampamungkas on 10/20/17.
  */
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import { Dimensions, View, Text, TextInput, Button, TouchableOpacity, Image} from 'react-native'
+import { login } from '../../../actions/actions'
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
+    state = {
+        data: {
+            username: "",
+            password: "",
+        }
+    }
+    onChangeEmail = (text) => {
+        // console.log(this.state.data)
+      this.setState({
+        data:{
+          username: text,
+          password: this.state.data.password
+        }
+      })
+    }
+  onChangePassword = (text) => {
+    // console.log(this.state.data)
+    this.setState({
+      data:{
+        username: this.state.data.username,
+        password: text
+      }
+    })
+  }
+  onLoginPress = () => {
+    const { navigation } = this.props
+    const { dispatch } = this.props
+    if(this.state.data.username !== "" && this.state.data.password !== "" ) {
+      dispatch(login(this.state.data));
+      setTimeout(function(){ navigation.navigate("DetailNavigation"); }, 2000);
+    }
+  }
     render(){
         const { navigation } = this.props
         return(
@@ -17,14 +51,14 @@ export default class LoginScreen extends Component {
                     <Text style={email}>
                         Email
                     </Text>
-                    <TextInput placeholder={"username@example.xyz"} style={inputan} underlineColorAndroid="#2ecc71"/>
+                    <TextInput onChangeText={(text) => this.onChangeEmail(text)} placeholder={"username@example.xyz"} style={inputan} underlineColorAndroid="#2ecc71"/>
                     <Text style={password}>
                         Password
                     </Text>
-                    <TextInput secureTextEntry={true} placeholder={"••••••••••••"} style={inputan} underlineColorAndroid="#2ecc71"/>
+                    <TextInput onChangeText={(text) => this.onChangePassword(text)} secureTextEntry={true} placeholder={"••••••••••••"} style={inputan} underlineColorAndroid="#2ecc71"/>
 					
                 </View>
-                <TouchableOpacity style={buttonBook} onPress={() => navigation.navigate('DetailNavigation')}>
+                <TouchableOpacity style={buttonBook} onPress={() => this.onLoginPress()}>
                     <Text style={bookText}>Sign In</Text>
                 </TouchableOpacity>
 				<View style={{marginTop:20,justifyContent: "center",alignItems: "center",marginBottom:20}}>
@@ -41,6 +75,11 @@ export default class LoginScreen extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+  return state
+}
+export default connect(mapStateToProps)(LoginScreen)
+
 const d = Dimensions.get("window")
 
 const container1 = {
