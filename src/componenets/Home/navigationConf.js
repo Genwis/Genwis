@@ -14,6 +14,7 @@ import BydayNavigation from '../Byday/views/BydayNavigation'
 import MapNavigation from '../Map/views/MapNavigation'
 import LoginNavigation from '../Login/views/LoginNavigation'
 import SignUpNavigation from '../SignUp/views/SignUpNavigation'
+import DashboardNavigation from '../Dashboard/views/DashboardNavigation'
 
 const routeConfiguration = {
     HomeScreen: { screen: HomeScreen },
@@ -23,6 +24,7 @@ const routeConfiguration = {
     BydayNavigation: {  screen: BydayNavigation},
     MapNavigation: {  screen: MapNavigation},
     LoginNavigation: {  screen: LoginNavigation},
-	SignUpNavigation: {  screen: SignUpNavigation},
+	  SignUpNavigation: {  screen: SignUpNavigation},
+    DashboardNavigation: {  screen: DashboardNavigation},
 }
 export const NavigatorHome = StackNavigator(routeConfiguration)

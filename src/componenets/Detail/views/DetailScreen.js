@@ -3,8 +3,8 @@
  */
 'use strict'
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import DetailScreenForm from "./DetailScreenForm"
+import { connect } from 'react-redux'
 const mapStateToProps = (state) => {
     return {
         detail: state.selectedDetail

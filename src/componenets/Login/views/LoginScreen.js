@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {Dimensions, View, Text, TextInput, Button, TouchableOpacity, Image, error} from 'react-native'
-import { login, loginFB } from '../../../actions/actions'
+import { login, loginFB } from '../../../actions/userActions'
 
 class LoginScreen extends Component {
     state = {

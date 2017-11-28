@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Dimensions, View, Text, TextInput, Button, TouchableOpacity, Image} from 'react-native'
-import { register } from '../../../actions/actions'
+import { register } from '../../../actions/userActions'
 
 class SignUpScreen extends Component {
   state = {

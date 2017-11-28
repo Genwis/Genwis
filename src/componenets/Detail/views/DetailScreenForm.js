@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image } from 'react-native'
 import Modal from 'react-native-modalbox'
 import Calendar from "react-native-calendars/src/calendar/index"
-import {selectDetail} from '../../../actions/actions'
+import { selectDetail } from '../../../actions/detailActions'
 export default class DetailScreenForm extends Component {
     state = {
         isOpen: false,

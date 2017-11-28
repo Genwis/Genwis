@@ -5,7 +5,7 @@
 import React, { Component } from 'react'
 import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
-import { fetchItineray } from '../../../actions/actions'
+import { fetchItineray } from '../../../actions/itineraryActions'
 
 import ListScreenForm from "./ListScreenForm"
 import ListScreenLoading from "./ListScreenLoading"
