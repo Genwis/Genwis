@@ -1,6 +1,6 @@
 {
   "name": "GenwisApp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -16,6 +16,7 @@
     "react-native": "0.53.3",
     "react-native-action-button": "^2.8.0",
     "react-native-calendars": "^1.5.8",
+    "react-native-image-picker": "^0.26.7",
     "react-native-maps": "^0.16.4",
     "react-native-modalbox": "^1.4.2",
     "react-native-photo-upload": "^1.2.0",

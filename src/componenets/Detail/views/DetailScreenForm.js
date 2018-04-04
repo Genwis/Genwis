@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react'
-import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native'
 import Modal from 'react-native-modalbox'
 import Calendar from 'react-native-calendars/src/calendar/index'
 import { selectDetail, isPreview } from '../../../actions/actions'
@@ -43,99 +43,102 @@ export default class DetailScreenForm extends Component {
       const { detail, navigation } = this.props
       return (
         <View style={parent}>
-          <View style={container1} >
-            <StatusBar backgroundColor="#27ae60" />
-            <View style={container2}>
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Image style={{ resizeMode: 'contain', height: d.height * 0.15 }} source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
-
-                <Text style={wonderfull} >
-                            Enjoy your tour!
+          <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
+            <View style={container1} >
+              <StatusBar backgroundColor="#27ae60" />
+              <View style={container2}>
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <Image style={{ resizeMode: 'contain', height: d.height * 0.15 }} source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
+  
+                  <Text style={wonderfull} >
+                              Enjoy your tour!
+                  </Text>
+  
+                  <Text style={{ color: '#bdbdbd', fontFamily: 'Campton' }}>
+              Determine tour itinerary as you wish
+                  </Text>
+                </View>
+                <Text style={cityDestination}>
+                              City Destination
                 </Text>
-
-                <Text style={{ color: '#bdbdbd', fontFamily: 'Campton' }}>
-						Determine tour itinerary as you wish
+                <TextInput placeholder={detail.city} style={margin1} underlineColorAndroid="#27ae60" />
+                <Text style={budget}>
+                              Budget
                 </Text>
+                <TextInput placeholder="5000000" style={margin1} underlineColorAndroid="#27ae60" />
+                <Text style={timePeriod}>
+                              Time Period
+                </Text>
+                <View style={datepick}>
+                  <TouchableOpacity onPress={() => this.refs.modal1.open()}>
+                    <View style={container3}>
+                      <Image style={{ height: 21, resizeMode: 'contain' }} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
+                      <Text style={date}> {detail.start.day} {bulan(detail.start.month)} {detail.start.year}</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <Text style={setrip}> - </Text>
+                  <TouchableOpacity onPress={() => this.refs.modal2.open()}>
+                    <View style={container4}>
+                      <Image style={{ width: 19, height: 21 }} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
+                      <Text style={date}> {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <View style={{ backgroundColor: '#27ae60', height: 2, marginLeft: 5 }} />
               </View>
-              <Text style={cityDestination}>
-                            City Destination
-              </Text>
-              <TextInput placeholder={detail.city} style={margin1} underlineColorAndroid="#27ae60" />
-              <Text style={budget}>
-                            Budget
-              </Text>
-              <TextInput placeholder="5000000" style={margin1} underlineColorAndroid="#27ae60" />
-              <Text style={timePeriod}>
-                            Time Period
-              </Text>
-              <View style={datepick}>
-                <TouchableOpacity onPress={() => this.refs.modal1.open()}>
-                  <View style={container3}>
-                    <Image style={{ height: 21, resizeMode: 'contain' }} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
-                    <Text style={date}> {detail.start.day} {bulan(detail.start.month)} {detail.start.year}</Text>
-                  </View>
-                </TouchableOpacity>
-                <Text style={setrip}> - </Text>
-                <TouchableOpacity onPress={() => this.refs.modal2.open()}>
-                  <View style={container4}>
-                    <Image style={{ width: 19, height: 21 }} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
-                    <Text style={date}> {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
-                  </View>
-                </TouchableOpacity>
+              <Text>Attraction Options</Text>
+              <TouchableOpacity style={buttonGene} onPress={() => navigation.navigate('ListNavigation')}>
+                <Text style={generateText}>GENERATE</Text>
+              </TouchableOpacity>
+            </View>
+            <Modal
+              isOpen={this.state.isOpen}
+              onClosed={() => this.setState({ isOpen: false })}
+              ref="modal1"
+              style={modal}
+              postion="center"
+            >
+              <View style={bar} />
+              <View style={dateShow}>
+                <Text style={day}>{detail.start.day}</Text>
+                <Text style={month}>{bulan(detail.start.month)}</Text>
+                <Text style={year}>{detail.start.year}</Text>
               </View>
-              <View style={{ backgroundColor: '#27ae60', height: 1.25, marginLeft: 5 }} />
-            </View>
-            <TouchableOpacity style={buttonGene} onPress={() => navigation.navigate('ListNavigation')}>
-              <Text style={generateText}>GENERATE</Text>
-            </TouchableOpacity>
-          </View>
-          <Modal
-            isOpen={this.state.isOpen}
-            onClosed={() => this.setState({ isOpen: false })}
-            ref="modal1"
-            style={modal}
-            postion="center"
-          >
-            <View style={bar} />
-            <View style={dateShow}>
-              <Text style={day}>{detail.start.day}</Text>
-              <Text style={month}>{bulan(detail.start.month)}</Text>
-              <Text style={year}>{detail.start.year}</Text>
-            </View>
-            <Calendar
-              current={this.state.currentStart}
-              onDayPress={(day) => { this.onStartDateChange(day) }}
-              theme={{
-                            textDayFontSize: 12,
-                            textMonthFontSize: 12,
-                            textDayHeaderFontSize: 12,
-                        }}
-            />
-          </Modal>
-          <Modal
-            isOpen={this.state.isOpen}
-            onClosed={() => this.setState({ isOpen: false })}
-            ref="modal2"
-            style={modal}
-            postion="center"
-          >
-            <View style={bar} />
-            <View style={dateShow}>
-              <Text style={day}>{detail.end.day}</Text>
-              <Text style={month}>{bulan(detail.end.month)}</Text>
-              <Text style={year}>{detail.end.year}</Text>
-            </View>
-            <Calendar
-              minDate={this.state.currentStart}
-              current={this.state.currentEnd}
-              onDayPress={(day) => { this.onEndDateChange(day) }}
-              theme={{
-                            textDayFontSize: 12,
-                            textMonthFontSize: 12,
-                            textDayHeaderFontSize: 12,
-                        }}
-            />
-          </Modal>
+              <Calendar
+                current={this.state.currentStart}
+                onDayPress={(day) => { this.onStartDateChange(day) }}
+                theme={{
+                              textDayFontSize: 12,
+                              textMonthFontSize: 12,
+                              textDayHeaderFontSize: 12,
+                          }}
+              />
+            </Modal>
+            <Modal
+              isOpen={this.state.isOpen}
+              onClosed={() => this.setState({ isOpen: false })}
+              ref="modal2"
+              style={modal}
+              postion="center"
+            >
+              <View style={bar} />
+              <View style={dateShow}>
+                <Text style={day}>{detail.end.day}</Text>
+                <Text style={month}>{bulan(detail.end.month)}</Text>
+                <Text style={year}>{detail.end.year}</Text>
+              </View>
+              <Calendar
+                minDate={this.state.currentStart}
+                current={this.state.currentEnd}
+                onDayPress={(day) => { this.onEndDateChange(day) }}
+                theme={{
+                              textDayFontSize: 12,
+                              textMonthFontSize: 12,
+                              textDayHeaderFontSize: 12,
+                          }}
+              />
+            </Modal>
+          </ScrollView>
         </View>
       )
     }
@@ -187,6 +190,7 @@ const parent = {
   flex: 1,
 }
 const container1 = {
+  marginTop: d.height * 0.1,
   backgroundColor: '#ffffff',
   flex: 1,
   alignItems: 'center',
@@ -226,27 +230,27 @@ const budget = {
   marginBottom: -10,
   marginLeft: 3,
   letterSpacing: 0.08,
-  color: '#b7bdbe',
-  fontFamily: 'Campton',
+  color: '#27ae60',
+  fontFamily: 'Poppins-Regular',
   fontSize: 14,
   marginTop: 10,
 }
 const timePeriod = {
   marginBottom: -7,
-  fontFamily: 'Campton',
+  fontFamily: 'Poppins-Regular',
   fontSize: 14,
   letterSpacing: 0.08,
-  color: '#b7bdbe',
+  color: '#27ae60',
   marginTop: 10,
 }
 const cityDestination = {
   marginTop: 30,
   marginBottom: -10,
   marginLeft: 3,
-  fontFamily: 'Campton',
+  fontFamily: 'Poppins-Regular',
   fontSize: 14,
   letterSpacing: 0.08,
-  color: '#b7bdbe',
+  color: '#27ae60',
 }
 const enjoyYourTour = {
   fontFamily: 'Poppins-Regular',

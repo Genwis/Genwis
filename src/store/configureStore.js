@@ -24,7 +24,7 @@ export default function configureStore(preloadedState) {
       autoRehydrate(),
       applyMiddleware(
         thunkMiddleware,
-        loggerMiddleware,
+        // loggerMiddleware,
         middleware
       ),
     ),

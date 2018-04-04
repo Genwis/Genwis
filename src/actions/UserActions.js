@@ -28,7 +28,11 @@ export function UserData(detail) {
       'Content-Type': 'text/plain',
     };
     return Axios.get(`http://dev.generatorwisata.com/api/user/${detail.username}`, { headers })
-      .then(response => dispatch(receiveUserData(detail, response.data)))
+      .then(response =>{
+        dispatch(receiveUserData(detail, response.data))
+        // console.log("xxx26")
+        // console.log(response.data)
+      })
       .catch((err) => {
         console.log(err)
       })
@@ -91,8 +95,47 @@ export function EditProfile(detail, profile) {
       Authentication: detail.data.authentication,
       'Content-Type': 'text/plain',
     }
+    // console.log("yyy24")
+    // console.log( JSON.stringify(profile))
     return Axios.put(`http://dev.generatorwisata.com/api/user/${detail.username}`, JSON.stringify(profile),{ headers })
       .then(response => dispatch(receiveEditProfile(detail, response.data)))
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
+export const REQUEST_UPLOAD_PHOTO_PROFILE = 'REQUEST_UPLOAD_PHOTO_PROFILE'
+export const RECEIVE_UPLOAD_PHOTO_PROFILE= 'RECEIVE_UPLOAD_PHOTO_PROFILE'
+function requestUploadPhotoProfile(detail) {
+  return {
+    type: REQUEST_UPLOAD_PHOTO_PROFILE,
+    detail,
+  }
+}
+
+function receiveUploadPhotoProfile(detail, data) {
+  return {
+    type: RECEIVE_UPLOAD_PHOTO_PROFILE,
+    detail,
+    data,
+  }
+}
+
+export function UploadPhotoProfile(detail, source) {
+  return (dispatch) => {
+    dispatch(requestUploadPhotoProfile(detail))
+    const headers = {
+      Authentication: detail.data.authentication,
+      'Content-Type': 'multipart/form-data',
+    }
+    const data = new FormData();
+    data.append('file', {
+      uri: source.uri,
+      type: 'image/jpeg',
+      name: 'photoProfile.jpeg'
+    });
+    return Axios.post(`http://dev.generatorwisata.com/api/user/upload/${detail.username}`, data, { headers })
+      .then(response => dispatch(receiveUploadPhotoProfile(detail, response.data)))
       .catch((err) => {
         console.log(err)
       })

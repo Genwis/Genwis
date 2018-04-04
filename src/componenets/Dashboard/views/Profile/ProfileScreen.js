@@ -3,10 +3,11 @@
  */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Dimensions, View, StatusBar, StyleSheet, ScrollView, Text, TouchableOpacity, TextInput } from 'react-native'
-import { UserData, Logout, EditProfile } from '../../../../actions/UserActions'
+import { Dimensions, View, StatusBar, StyleSheet, ScrollView, Text, TouchableOpacity, TextInput, Image } from 'react-native'
+import { UserData, Logout, EditProfile, UploadPhotoProfile } from '../../../../actions/UserActions'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import ImagePicker from 'react-native-image-picker';
 
 const style = StyleSheet.create({
   container: {
@@ -14,6 +15,11 @@ const style = StyleSheet.create({
     flex: 1,
   },
   profilePicture: {
+    height: 85,
+    width: 85,
+    borderRadius: 50,
+  },
+  profilePictureContainer: {
     height: 85,
     width: 85,
     borderRadius: 50,
@@ -103,6 +109,7 @@ function mapStateToProps(state) {
     users
   }
 }
+
 class ProfileScreen extends Component {
   constructor(props) {
     super(props)
@@ -114,7 +121,20 @@ class ProfileScreen extends Component {
   componentWillMount() {
     const { dispatch, users} = this.props
     if(!users.isUserData){
-      dispatch(UserData(users))
+      const edit = new Promise((resolve, reject) => {
+        const x = dispatch(UserData(users))
+        resolve(x)
+      })
+        .then((result) => {
+          if (this.props.users.isLogin) {
+            this.setState({
+              ...this.state,
+              profile: this.props.users.profile
+            })
+          } else {
+            alert('Update Profile Failed')
+          }
+        })
     }
   }
   logout = () => {
@@ -162,6 +182,8 @@ class ProfileScreen extends Component {
     if (this.state.isEditOn) {
       const { dispatch, users} = this.props
       const edit = new Promise((resolve, reject) => {
+        // console.log("xyxy123")
+        // console.log(this.state.profile)
         const x = dispatch(EditProfile(users, this.state.profile))
         resolve(x)
       })
@@ -177,6 +199,48 @@ class ProfileScreen extends Component {
       this.setState({isEditOn: true})
     }
   }
+  onImageFabPressed = () => {
+
+  // More info on all the options is below in the README...just some common use cases shown here
+    const options = {
+      title: 'Select Profile Picture',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    }
+  
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+    
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+      
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+        
+        console.log(source)
+        
+        const { dispatch, users} = this.props
+        const edit = new Promise((resolve, reject) => {
+          resolve(dispatch(UploadPhotoProfile(users, source)))
+        })
+          .then((result) => {
+            console.log("xxx24")
+            dispatch(UserData(users))
+          })
+      }
+    });
+  }
   render() {
     const { users } = this.props
     // console.warn(users.profile)
@@ -188,9 +252,17 @@ class ProfileScreen extends Component {
             My Profile
           </Text>
           <View style={style.containerHead}>
-            <View style={style.profilePicture}>
-              <Ionicons name="ios-person" size={85} color="grey"/>
-              <TouchableOpacity style={style.profilePictureFab} onPress={() => null}>
+            <View style={style.profilePictureContainer}>
+              {
+                users.profile.photo_profile != ""?
+                  <Image
+                    source={{uri: users.profile.photo_profile}}
+                    style={style.profilePicture}
+                  />
+                  :
+                  <Ionicons name="ios-person" size={85} color="grey"/>
+              }
+              <TouchableOpacity style={style.profilePictureFab} onPress={() => this.onImageFabPressed()}>
                 <FontAwesome name='camera' size={12} color='white' />
               </TouchableOpacity>
             </View>
