@@ -43,13 +43,13 @@ function Attr(timeline) {
           </Text>
           <Text style={Jam}>
             {
-              moment(val.start).format('hh-mm')
+              moment.parseZone(val.start).format('HH.mm')
             }
             {
               ' - '
             }
             {
-              moment(val.end).format('hh-mm')
+              moment.parseZone(val.end).format('HH.mm')
             }
           </Text>
         </View>

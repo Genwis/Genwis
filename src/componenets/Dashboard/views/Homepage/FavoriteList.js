@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import { AttractionCard } from './AttractionItems/AttractionCard'
 
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
@@ -23,10 +24,18 @@ export const FavoriteList = (props) => {
   return (
     <View>
       <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
-        <View style={style.containerCard} />
-        <View style={style.containerCard} />
-        <View style={style.containerCard} />
-        <View style={style.containerCard} />
+        <View style={style.containerCard}>
+          <AttractionCard/>
+        </View>
+        <View style={style.containerCard}>
+          <AttractionCard/>
+        </View>
+        <View style={style.containerCard}>
+          <AttractionCard/>
+        </View>
+        <View style={style.containerCard}>
+          <AttractionCard/>
+        </View>
       </ScrollView>
     </View>
   )

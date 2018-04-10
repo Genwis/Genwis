@@ -26,7 +26,7 @@ export function LocationData(detail) {
       Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
       'Content-Type': 'text/plain',
     }
-    return Axios.get(`http://dev.generatorwisata.com/api/location/${detail.location_id}`, { headers })
+    return Axios.get(`http://api.generatorwisata.com/api/location/${detail.location_id}`, { headers })
       .then((response) => {
         dispatch(receiveLocationData(detail, response.data))
       })
@@ -60,7 +60,7 @@ export function LocationLike(detail) {
       Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
       'Content-Type': 'text/plain',
     }
-    return Axios.get(`http://dev.generatorwisata.com/api/locations/like?key=${detail.key}`, { headers })
+    return Axios.get(`http://api.generatorwisata.com/api/locations/like?key=${detail.key}`, { headers })
       .then((response) => {
         dispatch(receiveLocationLike(detail, response.data))
       })

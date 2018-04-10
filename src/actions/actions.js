@@ -41,6 +41,7 @@ export function fetchItineray(detail) {
     Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
     'Content-Type': 'text/plain',
   }
+  console.log(detail)
   return (dispatch) => {
     dispatch(requestItinerary(detail))
     return Axios.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })

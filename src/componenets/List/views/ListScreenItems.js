@@ -17,7 +17,6 @@ export default class ListScreenItems extends Component {
     const list = Object.values(iten.time_line).map((itinerary, index) => {
       Nday++
       const time = moment(itinerary.time)
-      console.log(itinerary.events)
       return ((itinerary.events === null) ? null :
 
       <View key={index} style={{ flexDirection: 'row', flex: 1 }}>

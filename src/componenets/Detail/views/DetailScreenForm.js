@@ -7,7 +7,9 @@ import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity,
 import Modal from 'react-native-modalbox'
 import moment from 'moment'
 import Calendar from 'react-native-calendars/src/calendar/index'
+import Autocomplete from 'react-native-autocomplete-input'
 import { selectDetail, isPreview } from '../../../actions/actions'
+import Axios from 'axios'
 
 export default class DetailScreenForm extends Component {
     state = {
@@ -26,7 +28,14 @@ export default class DetailScreenForm extends Component {
         museum: false,
         amusement: false,
         hidden_paradise: false,
-      }
+      },
+      list:[
+        {city: "Bandung", state: "Jawa Barat", Country: "Indoneseia"},
+        {city: "Bandongan",  state: "Jawa Tengah", Country: "Indoneseia"},
+        {city: "Banten", state: "Banten", Country: "Indoneseia"},
+      ],
+      autocomplete:[],
+      inputValue: ""
     }
     componentWillMount() {
       this.props.dispatch(isPreview(false))
@@ -62,15 +71,34 @@ export default class DetailScreenForm extends Component {
         currentEnd: nextState.finish,
       })
     }
-    onFilterChange = (tags) =>{
+    onFilterChange = (tags) => {
       const nextState = this.props.detail
       nextState.tags = tags
-      console.log(tags)
       this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
         tags: nextState.tags,
       })
+    }
+    onLocationChange = (item) => {
+      const nextState = this.props.detail
+      nextState.location_id = item.id
+      this.props.dispatch(selectDetail(nextState))
+      this.setState({ ...this.state, autocomplete: [], inputValue:""+item.city+", "+item.state})
+    }
+    onShowAutocomplete = (like) => {
+      this.setState({ ...this.state, inputValue: like })
+      const headers = {
+        Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
+        'Content-Type': 'text/plain',
+      }
+      Axios.get(`http://api.generatorwisata.com/api/locations/like?key=${like}`, { headers })
+        .then((response) => {
+          this.setState({ ...this.state, autocomplete: response.data})
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
     render() {
       const { detail, navigation } = this.props
@@ -96,11 +124,34 @@ export default class DetailScreenForm extends Component {
                 <Text style={cityDestination}>
                               City Destination
                 </Text>
-                <TextInput placeholder="Bandung" style={margin1} underlineColorAndroid="#27ae60" />
+                {/*<TextInput placeholder="Bandung" style={margin1} underlineColorAndroid="#27ae60" />*/}
+                <View style={{marginTop: 2,marginBottom: d. height * 22/ 360, flex: 1}}>
+                  <Autocomplete
+                    inputContainerStyle={{borderWidth: 0, margin: 0.5}}
+                    containerStyle={autoCompleteContainer}
+                    data={this.state.autocomplete}
+                    value={this.state.inputValue}
+                    placeholder="Bandung"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    hideResults={this.state.inputValue === ""}
+                    onChangeText={text => this.onShowAutocomplete(text)}
+                    style={margin1}
+                    renderItem={(item)=>(
+                      <TouchableOpacity  onPress={() => {
+                        this.setState({ ...this.state, autocomplete: [], inputValue:""+item.city+", "+item.state})}
+                      }
+                      >
+                        <Text style={margin1}>{item.city}, {item.state}</Text>
+                      </TouchableOpacity>
+                    )
+                    }
+                  />
+                </View>
                 <Text style={budget}>
                               Budget
                 </Text>
-                <TextInput placeholder={`${this.state.budget}`} style={margin1} underlineColorAndroid="#27ae60" onChange={budget => this.onBudgetChange(budget)} />
+                <TextInput placeholder={`${this.state.budget}`} style={margin1} underlineColorAndroid="grey" onChange={budget => this.onBudgetChange(budget)} />
                 <Text style={timePeriod}>
                               Time Period
                 </Text>
@@ -119,7 +170,7 @@ export default class DetailScreenForm extends Component {
                     </View>
                   </TouchableOpacity>
                 </View>
-                <View style={{ backgroundColor: '#27ae60', height: 2, marginLeft: 5 }} />
+                <View style={{ backgroundColor: 'grey', height: 2, marginLeft: 5 }} />
                 <Text style={timePeriod}>Attraction Options</Text>
   
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
@@ -403,6 +454,15 @@ const generateText = {
   fontSize: 15,
   fontWeight: 'bold',
   letterSpacing: 0.1,
+}
+
+const autoCompleteContainer = {
+  flex: 1,
+  left: 0,
+  position: 'absolute',
+  right: 0,
+  top: 0,
+  zIndex: 1
 }
 function bulan(month) {
   switch (month) {

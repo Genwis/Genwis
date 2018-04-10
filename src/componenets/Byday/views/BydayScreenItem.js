@@ -15,8 +15,8 @@ export default class BydayScreenItem extends Component {
     }
     render() {
       const { event } = this.props
-      const start = moment(event.start)
-      const finish = moment(event.end)
+      const start = moment.parseZone(event.start)
+      const finish = moment.parseZone(event.end)
       return (
         <View style={parent}>
           <View style={container}>
@@ -25,7 +25,7 @@ export default class BydayScreenItem extends Component {
                 source={{ uri: event.attraction.photo[0] }}
                 style={{
 height: 150,
-                  width: 150,
+                  resizeMode: "contain"
 }}
               />
               :
@@ -147,7 +147,6 @@ const ImageStyleModal = {
   height: 170,
 }
 const AttractionsName = {
-  marginTop: 24,
   marginBottom: 24,
   fontFamily: 'Poppins-Regular',
   fontSize: 18,
@@ -178,26 +177,4 @@ const ModalDescription = {
   fontSize: 14,
   letterSpacing: 0.06,
   textAlign: 'justify',
-}
-const iconsMap = {
-  '1d9a9f00': require('../../../assets/Tempat/1d9a9f00.jpg'),
-  '2a577c29': require('../../../assets/Tempat/2a577c29.jpg'),
-  '4cb28eaf': require('../../../assets/Tempat/4cb28eaf.jpg'),
-  '8e1709cd': require('../../../assets/Tempat/8e1709cd.jpg'),
-  '10da722f': require('../../../assets/Tempat/10da722f.jpg'),
-  '12c71c6a': require('../../../assets/Tempat/12c71c6a.jpg'),
-  '27bcb0b3': require('../../../assets/Tempat/27bcb0b3.jpg'),
-  '68dbbc4f': require('../../../assets/Tempat/68dbbc4f.jpg'),
-  '00262d00': require('../../../assets/Tempat/00262d00.jpg'),
-  '4449fe0a': require('../../../assets/Tempat/4449fe0a.jpg'),
-  '6557df81': require('../../../assets/Tempat/6557df81.jpg'),
-  '8807eced': require('../../../assets/Tempat/8807eced.jpg'),
-  '41794ab6': require('../../../assets/Tempat/41794ab6.jpg'),
-  46146616: require('../../../assets/Tempat/46146616.jpg'),
-  ac6524c0: require('../../../assets/Tempat/ac6524c0.jpg'),
-  b1bc1d07: require('../../../assets/Tempat/b1bc1d07.jpg'),
-  bebf30ca: require('../../../assets/Tempat/bebf30ca.jpg'),
-  d4059285: require('../../../assets/Tempat/d4059285.jpg'),
-  de2ae42e: require('../../../assets/Tempat/de2ae42e.jpg'),
-  fd37b6ed: require('../../../assets/Tempat/fd37b6ed.jpg'),
 }
