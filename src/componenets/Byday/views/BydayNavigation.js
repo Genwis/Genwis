@@ -11,7 +11,7 @@ import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 import { NavigatorByday } from '../../Byday/navigationConf'
 import {
   createReduxBoundAddListener,
-} from 'react-navigation-redux-helpers';
+} from 'react-navigation-redux-helpers'
 
 // Redux
 import { connect } from 'react-redux'

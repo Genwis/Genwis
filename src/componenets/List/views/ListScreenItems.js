@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import ListScreenTimeline from './ListScreenTimeline'
 import bulan from '../../../helper/month'
+import moment from 'moment'
 
 export default class ListScreenItems extends Component {
   constructor(props) {
@@ -13,9 +14,11 @@ export default class ListScreenItems extends Component {
   render() {
     const { iten, navigation } = this.props
     let Nday = 0
-    const list = Object.values(iten).map((itinerary, index) => {
+    const list = Object.values(iten.time_line).map((itinerary, index) => {
       Nday++
-      return ((typeof (itinerary.time_line) === 'undefined') ? null :
+      const time = moment(itinerary.time)
+      console.log(itinerary.events)
+      return ((itinerary.events === null) ? null :
 
       <View key={index} style={{ flexDirection: 'row', flex: 1 }}>
         <View style={{
@@ -25,9 +28,9 @@ export default class ListScreenItems extends Component {
           <Text style={{
             textAlign: 'center', color: '#27ae60', lineHeight: 23, fontFamily: 'Campton', fontSize: 14,
           }}
-          >{itinerary.waktu.day}
+          >{time.format('DD')}
           </Text>
-          <Text style={{ textAlign: 'center', color: '#d0d0d0' }}>{bulan(itinerary.waktu.month)}</Text>
+          <Text style={{ textAlign: 'center', color: '#d0d0d0' }}>{time.format('MMMM')}</Text>
         </View>
         <View style={{ alignItems: 'center' }}>
           <View style={{

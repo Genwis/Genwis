@@ -7,7 +7,7 @@ import { Dimensions, View, StatusBar, StyleSheet, ScrollView, Text, TouchableOpa
 import { UserData, Logout, EditProfile, UploadPhotoProfile } from '../../../../actions/UserActions'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker'
 
 const style = StyleSheet.create({
   container: {
@@ -41,7 +41,7 @@ const style = StyleSheet.create({
     marginTop: 16,
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
-    color: '#5c5c5c'
+    color: '#5c5c5c',
   },
   textEmail: {
     fontFamily: 'Lato-Regular',
@@ -64,7 +64,7 @@ const style = StyleSheet.create({
   textName: {
     fontFamily: 'Poppins-Regular',
     fontSize: 12,
-    color: '#bdbdbd'
+    color: '#bdbdbd',
   },
   textNameValue: {
     fontFamily: 'Lato-Regular',
@@ -76,7 +76,7 @@ const style = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: 15,
     color: '#e74c3c',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   fab: {
     width: 50,
@@ -88,7 +88,7 @@ const style = StyleSheet.create({
     right: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 3
+    elevation: 3,
   },
   profilePictureFab: {
     width: 25,
@@ -100,13 +100,13 @@ const style = StyleSheet.create({
     right: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 3
-  }
+    elevation: 3,
+  },
 })
 function mapStateToProps(state) {
   const { users } = state
   return {
-    users
+    users,
   }
 }
 
@@ -116,11 +116,11 @@ class ProfileScreen extends Component {
   }
   state = {
     isEditOn: false,
-    profile: this.props.users.profile
+    profile: this.props.users.profile,
   }
   componentWillMount() {
-    const { dispatch, users} = this.props
-    if(!users.isUserData){
+    const { dispatch, users } = this.props
+    if (!users.isUserData) {
       const edit = new Promise((resolve, reject) => {
         const x = dispatch(UserData(users))
         resolve(x)
@@ -129,7 +129,7 @@ class ProfileScreen extends Component {
           if (this.props.users.isLogin) {
             this.setState({
               ...this.state,
-              profile: this.props.users.profile
+              profile: this.props.users.profile,
             })
           } else {
             alert('Update Profile Failed')
@@ -157,7 +157,7 @@ class ProfileScreen extends Component {
       profile: {
         ...this.state.profile,
         firstname: text,
-      }
+      },
     })
   }
   onChangeLastName = (text) => {
@@ -166,7 +166,7 @@ class ProfileScreen extends Component {
       profile: {
         ...this.state.profile,
         lastname: text,
-      }
+      },
     })
   }
   onChangePhoneNUmber = (text) => {
@@ -175,12 +175,12 @@ class ProfileScreen extends Component {
       profile: {
         ...this.state.profile,
         phone_number: text,
-      }
+      },
     })
   }
   onFabPressed =() => {
     if (this.state.isEditOn) {
-      const { dispatch, users} = this.props
+      const { dispatch, users } = this.props
       const edit = new Promise((resolve, reject) => {
         // console.log("xyxy123")
         // console.log(this.state.profile)
@@ -190,56 +190,52 @@ class ProfileScreen extends Component {
         .then((result) => {
           if (this.props.users.isLogin) {
             dispatch(UserData(users))
-            this.setState({isEditOn: false})
+            this.setState({ isEditOn: false })
           } else {
             alert('Update Profile Failed')
           }
         })
     } else {
-      this.setState({isEditOn: true})
+      this.setState({ isEditOn: true })
     }
   }
   onImageFabPressed = () => {
-
   // More info on all the options is below in the README...just some common use cases shown here
     const options = {
       title: 'Select Profile Picture',
       storageOptions: {
         skipBackup: true,
-        path: 'images'
-      }
+        path: 'images',
+      },
     }
-  
+
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-    
+      console.log('Response = ', response)
+
       if (response.didCancel) {
-        console.log('User cancelled image picker');
-      }
-      else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-        let source = { uri: response.uri };
-      
+        console.log('User cancelled image picker')
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error)
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton)
+      } else {
+        const source = { uri: response.uri }
+
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        
+
         console.log(source)
-        
-        const { dispatch, users} = this.props
+
+        const { dispatch, users } = this.props
         const edit = new Promise((resolve, reject) => {
           resolve(dispatch(UploadPhotoProfile(users, source)))
         })
           .then((result) => {
-            console.log("xxx24")
+            console.log('xxx24')
             dispatch(UserData(users))
           })
       }
-    });
+    })
   }
   render() {
     const { users } = this.props
@@ -247,31 +243,31 @@ class ProfileScreen extends Component {
     return (
       <View style={style.container}>
         <StatusBar backgroundColor="#27ae60" />
-        <ScrollView style={{padding: 20}}>
+        <ScrollView style={{ padding: 20 }}>
           <Text style={style.textMyProfile}>
             My Profile
           </Text>
           <View style={style.containerHead}>
             <View style={style.profilePictureContainer}>
               {
-                users.profile.photo_profile != ""?
+                users.profile.photo_profile != '' ?
                   <Image
-                    source={{uri: users.profile.photo_profile}}
+                    source={{ uri: users.profile.photo_profile }}
                     style={style.profilePicture}
                   />
                   :
-                  <Ionicons name="ios-person" size={85} color="grey"/>
+                  <Ionicons name="ios-person" size={85} color="grey" />
               }
               <TouchableOpacity style={style.profilePictureFab} onPress={() => this.onImageFabPressed()}>
-                <FontAwesome name='camera' size={12} color='white' />
+                <FontAwesome name="camera" size={12} color="white" />
               </TouchableOpacity>
             </View>
             <Text style={style.textUsername}>
               {users.username}
             </Text>
-            {/*<Text style={style.textEmail}>*/}
-              {/*{users.profile.email}*/}
-            {/*</Text>*/}
+            {/* <Text style={style.textEmail}> */}
+            {/* {users.profile.email} */}
+            {/* </Text> */}
           </View>
           <View style={style.containerCard}>
             <Text style={style.textContactDetail}>
@@ -280,37 +276,37 @@ class ProfileScreen extends Component {
             <Text style={style.textName}>
               Firstname
             </Text>
-            <TextInput placeholder={users.profile.firstname === '' ? '-' : users.profile.firstname} onChangeText={(text) => this.onChangeFirstName(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn}/>
+            <TextInput placeholder={users.profile.firstname === '' ? '-' : users.profile.firstname} onChangeText={text => this.onChangeFirstName(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
             <Text style={style.textName}>
               Lastname
             </Text>
-            <TextInput placeholder={users.profile.lastname === '' ? '-' : users.profile.lastname} onChangeText={(text) => this.onChangeLastName(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn}/>
+            <TextInput placeholder={users.profile.lastname === '' ? '-' : users.profile.lastname} onChangeText={text => this.onChangeLastName(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
             <Text style={style.textName}>
               Phone Number
             </Text>
-            <TextInput placeholder={users.profile.phone_number === '' ? '-' : users.profile.phone_number} onChangeText={(text) => this.onChangePhoneNUmber(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn}/>
+            <TextInput placeholder={users.profile.phone_number === '' ? '-' : users.profile.phone_number} onChangeText={text => this.onChangePhoneNUmber(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
             <Text style={style.textName}>
               Email
             </Text>
-            <TextInput placeholder={users.profile.email === '' ? '-' : users.profile.email}  style={style.textEmail} editable={false} selectTextOnFocus={false}/>
+            <TextInput placeholder={users.profile.email === '' ? '-' : users.profile.email} style={style.textEmail} editable={false} selectTextOnFocus={false} />
             <Text style={style.textName}>
               Password
             </Text>
-            <TextInput placeholder={Array(10).join('*')} style={style.textNameValue} editable={false} selectTextOnFocus={false}/>
+            <TextInput placeholder={Array(10).join('*')} style={style.textNameValue} editable={false} selectTextOnFocus={false} />
           </View>
-          <TouchableOpacity onPress={()=>{this.logout()}}>
+          <TouchableOpacity onPress={() => { this.logout() }}>
             <Text style={style.textLogout}>
               LOGOUT
             </Text>
           </TouchableOpacity>
-          <View style={{height: 100}}/>
+          <View style={{ height: 100 }} />
         </ScrollView>
         <TouchableOpacity style={style.fab} onPress={() => this.onFabPressed()}>
           {
             this.state.isEditOn ?
-              <Text style={{fontSize: 14, fontFamily: 'Poppins-Regular', color: 'white'}}>Save</Text>
+              <Text style={{ fontSize: 14, fontFamily: 'Poppins-Regular', color: 'white' }}>Save</Text>
               :
-              <FontAwesome name='edit' size={20} color='white' />
+              <FontAwesome name="edit" size={20} color="white" />
           }
         </TouchableOpacity>
       </View>

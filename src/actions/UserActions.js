@@ -26,9 +26,9 @@ export function UserData(detail) {
     const headers = {
       Authentication: detail.data.authentication,
       'Content-Type': 'text/plain',
-    };
-    return Axios.get(`http://dev.generatorwisata.com/api/user/${detail.username}`, { headers })
-      .then(response =>{
+    }
+    return Axios.get(`http://api.generatorwisata.com/api/user/${detail.username}`, { headers })
+      .then((response) => {
         dispatch(receiveUserData(detail, response.data))
         // console.log("xxx26")
         // console.log(response.data)
@@ -62,8 +62,8 @@ export function Logout(detail) {
     const headers = {
       Authentication: detail.data.authentication,
       'Content-Type': 'text/plain',
-    };
-    return Axios.delete('http://dev.generatorwisata.com/api/users/logout', { headers })
+    }
+    return Axios.delete('http://api.generatorwisata.com/api/users/logout', { headers })
       .then(response => dispatch(receiveLogout(detail, response.data)))
       .catch((err) => {
         console.log(err)
@@ -97,7 +97,7 @@ export function EditProfile(detail, profile) {
     }
     // console.log("yyy24")
     // console.log( JSON.stringify(profile))
-    return Axios.put(`http://dev.generatorwisata.com/api/user/${detail.username}`, JSON.stringify(profile),{ headers })
+    return Axios.put(`http://api.generatorwisata.com/api/user/${detail.username}`, JSON.stringify(profile), { headers })
       .then(response => dispatch(receiveEditProfile(detail, response.data)))
       .catch((err) => {
         console.log(err)
@@ -105,7 +105,7 @@ export function EditProfile(detail, profile) {
   }
 }
 export const REQUEST_UPLOAD_PHOTO_PROFILE = 'REQUEST_UPLOAD_PHOTO_PROFILE'
-export const RECEIVE_UPLOAD_PHOTO_PROFILE= 'RECEIVE_UPLOAD_PHOTO_PROFILE'
+export const RECEIVE_UPLOAD_PHOTO_PROFILE = 'RECEIVE_UPLOAD_PHOTO_PROFILE'
 function requestUploadPhotoProfile(detail) {
   return {
     type: REQUEST_UPLOAD_PHOTO_PROFILE,
@@ -128,13 +128,13 @@ export function UploadPhotoProfile(detail, source) {
       Authentication: detail.data.authentication,
       'Content-Type': 'multipart/form-data',
     }
-    const data = new FormData();
+    const data = new FormData()
     data.append('file', {
       uri: source.uri,
       type: 'image/jpeg',
-      name: 'photoProfile.jpeg'
-    });
-    return Axios.post(`http://dev.generatorwisata.com/api/user/upload/${detail.username}`, data, { headers })
+      name: 'photoProfile.jpeg',
+    })
+    return Axios.post(`http://api.generatorwisata.com/api/user/upload/${detail.username}`, data, { headers })
       .then(response => dispatch(receiveUploadPhotoProfile(detail, response.data)))
       .catch((err) => {
         console.log(err)

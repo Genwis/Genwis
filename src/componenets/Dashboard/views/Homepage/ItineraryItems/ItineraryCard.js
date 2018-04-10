@@ -2,8 +2,9 @@
  * Created by iampamungkas on 2/17/18.
  */
 import React from 'react'
-import {Dimensions, StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native'
-import bulan from '../../../../../helper/month'
+import { Dimensions, StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native'
+import moment from 'moment'
+
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
   containerScroll: {
@@ -11,7 +12,7 @@ const style = StyleSheet.create({
   },
   containerCard: {
     borderRadius: 2,
-    width: d.width * 286/ 360,
+    width: d.width * 286 / 360,
     height: d.height * 160 / 616,
     backgroundColor: 'white',
     marginRight: 20,
@@ -21,27 +22,27 @@ const style = StyleSheet.create({
   textCity: {
     fontFamily: 'Poppins-Medium',
     fontSize: 16,
-    color: '#616161'
+    color: '#616161',
   },
   textDetail: {
     fontFamily: 'Lato-Regular',
     fontSize: 10,
-    color:'#bdbdbd',
+    color: '#bdbdbd',
     marginBottom: 8,
   },
   containerImageThumbnails: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   imageThumbnail1: {
-    width: d.width * 54/360,
-    height: d.width * 54/360,
+    width: d.width * 54 / 360,
+    height: d.width * 54 / 360,
     backgroundColor: '#eeeeee',
     marginRight: 12,
   },
   imageThumbnail34: {
-    width: d.width * 54/360,
-    height: d.width * 54/360,
-    backgroundColor: '#eeeeee'
+    width: d.width * 54 / 360,
+    height: d.width * 54 / 360,
+    backgroundColor: '#eeeeee',
   },
   textPreview: {
     fontFamily: 'Poppins-Medium',
@@ -50,21 +51,21 @@ const style = StyleSheet.create({
     color: '#27ae60',
     marginTop: 15,
   },
-  thumbnail:{
-    width: d.width * 54/360,
-    height: d.width * 54/360,
-  }
+  thumbnail: {
+    width: d.width * 54 / 360,
+    height: d.width * 54 / 360,
+  },
 })
 
 export const ItineraryCard = (props) => {
-  const {itinerary, number} = props
+  const { itinerary, number } = props
   return (
     <View style={style.containerCard}>
       <Text style={style.textCity}>
-        {itinerary.detail.city}
+        {itinerary.itinerary.detail.location.city}
       </Text>
       <Text style={style.textDetail}>
-        {toolbarSubtitile(itinerary.itinerary, itinerary.detail)}
+        {toolbarSubtitile(itinerary.itinerary)}
       </Text>
       <View style={style.containerImageThumbnails}>
         <View style={style.imageThumbnail1}>
@@ -80,7 +81,7 @@ export const ItineraryCard = (props) => {
           <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
         </View>
       </View>
-      <TouchableOpacity onPress={()=> props.onPreviewClicked(number)}>
+      <TouchableOpacity onPress={() => props.onPreviewClicked(number)}>
         <Text style={style.textPreview}>
           PREVIEW ITINERARY
         </Text>
@@ -89,31 +90,29 @@ export const ItineraryCard = (props) => {
   )
 }
 
-function toolbarSubtitile(iten, detail) {
-  return (`${iten[0].waktu.day.toString()} ${bulan(iten[0].waktu.month)} ${iten[0].waktu.year.toString()
-    } - ${iten[iten.length - 1].waktu.day.toString()} ${bulan(iten[iten.length - 1].waktu.month)} ${iten[iten.length - 1].waktu.year.toString()
-    } | ${detail.city}`)
+function toolbarSubtitile(iten) {
+  return `${moment(iten.detail.start).format('D MMMM')} - ${moment(iten.detail.finish).format('D MMMM YYYY')}`
 }
 
 const iconsMap = {
-  '1': require('../../../../../assets/Tempat/1d9a9f00.jpg'),
-  '2': require('../../../../../assets/Tempat/2a577c29.jpg'),
-  '3': require('../../../../../assets/Tempat/4cb28eaf.jpg'),
-  '4': require('../../../../../assets/Tempat/8e1709cd.jpg'),
-  '5': require('../../../../../assets/Tempat/10da722f.jpg'),
-  '6': require('../../../../../assets/Tempat/12c71c6a.jpg'),
-  '7': require('../../../../../assets/Tempat/27bcb0b3.jpg'),
-  '8': require('../../../../../assets/Tempat/68dbbc4f.jpg'),
-  '9': require('../../../../../assets/Tempat/00262d00.jpg'),
-  '10': require('../../../../../assets/Tempat/4449fe0a.jpg'),
-  '11': require('../../../../../assets/Tempat/6557df81.jpg'),
-  '12': require('../../../../../assets/Tempat/8807eced.jpg'),
-  '13': require('../../../../../assets/Tempat/41794ab6.jpg'),
-  '14': require('../../../../../assets/Tempat/46146616.jpg'),
-  '15': require('../../../../../assets/Tempat/ac6524c0.jpg'),
-  '16': require('../../../../../assets/Tempat/b1bc1d07.jpg'),
-  '17': require('../../../../../assets/Tempat/bebf30ca.jpg'),
-  '18': require('../../../../../assets/Tempat/d4059285.jpg'),
-  '19': require('../../../../../assets/Tempat/de2ae42e.jpg'),
-  '20': require('../../../../../assets/Tempat/fd37b6ed.jpg'),
+  1: require('../../../../../assets/Tempat/1d9a9f00.jpg'),
+  2: require('../../../../../assets/Tempat/2a577c29.jpg'),
+  3: require('../../../../../assets/Tempat/4cb28eaf.jpg'),
+  4: require('../../../../../assets/Tempat/8e1709cd.jpg'),
+  5: require('../../../../../assets/Tempat/10da722f.jpg'),
+  6: require('../../../../../assets/Tempat/12c71c6a.jpg'),
+  7: require('../../../../../assets/Tempat/27bcb0b3.jpg'),
+  8: require('../../../../../assets/Tempat/68dbbc4f.jpg'),
+  9: require('../../../../../assets/Tempat/00262d00.jpg'),
+  10: require('../../../../../assets/Tempat/4449fe0a.jpg'),
+  11: require('../../../../../assets/Tempat/6557df81.jpg'),
+  12: require('../../../../../assets/Tempat/8807eced.jpg'),
+  13: require('../../../../../assets/Tempat/41794ab6.jpg'),
+  14: require('../../../../../assets/Tempat/46146616.jpg'),
+  15: require('../../../../../assets/Tempat/ac6524c0.jpg'),
+  16: require('../../../../../assets/Tempat/b1bc1d07.jpg'),
+  17: require('../../../../../assets/Tempat/bebf30ca.jpg'),
+  18: require('../../../../../assets/Tempat/d4059285.jpg'),
+  19: require('../../../../../assets/Tempat/de2ae42e.jpg'),
+  20: require('../../../../../assets/Tempat/fd37b6ed.jpg'),
 }

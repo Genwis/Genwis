@@ -88,11 +88,11 @@ class SignUpScreen extends Component {
           <Text style={username}>
             Username
           </Text>
-          <TextInput onChangeText={text => this.onChangeUsername(text)} placeholder="username" style={inputan} underlineColorAndroid="#27ae60" autoCapitalize={'none'}/>
+          <TextInput onChangeText={text => this.onChangeUsername(text)} placeholder="username" style={inputan} underlineColorAndroid="#27ae60" autoCapitalize="none" />
           <Text style={text}>
                         Email
           </Text>
-          <TextInput onChangeText={text => this.onChangeEmail(text)} placeholder="email@example.xyz" style={inputan} underlineColorAndroid="#27ae60" autoCapitalize={'none'}/>
+          <TextInput onChangeText={text => this.onChangeEmail(text)} placeholder="email@example.xyz" style={inputan} underlineColorAndroid="#27ae60" autoCapitalize="none" />
           <Text style={text}>
                         Password
           </Text>

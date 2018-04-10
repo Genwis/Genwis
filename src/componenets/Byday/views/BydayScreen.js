@@ -22,7 +22,7 @@ function mapStateToProps(state) {
   return {
     itinerary,
     isFetching,
-    shownItinerary
+    shownItinerary,
   }
 }
 class BydayScreen extends Component {
@@ -30,12 +30,16 @@ class BydayScreen extends Component {
       day: 0,
     }
     onPlus = () => {
-      const { itinerary, shownItinerary  } = this.props
+      const { itinerary, shownItinerary } = this.props
       const List = itinerary[shownItinerary]
-      this.state.day !== List.itinerary.length - 1 ?
-        this.setState({
-          day: this.state.day + 1,
-        }) : false
+      console.log('xas')
+      console.log(List)
+      List.itinerary.time_line[this.state.day + 1].events!= null ?
+        (this.state.day !== List.itinerary.time_line.events.length - 1) ?
+          this.setState({
+            day: this.state.day + 1,
+          }) : false
+        : false
     }
     onMin = () => {
       this.state.day !== 0 ?
@@ -44,10 +48,10 @@ class BydayScreen extends Component {
         }) : false
     }
     render() {
-      const { dispatch, itinerary, navigation, shownItinerary } = this.props
+      const {
+        dispatch, itinerary, navigation, shownItinerary,
+      } = this.props
       const List = itinerary[shownItinerary]
-      console.log('xxxxxx')
-      console.log(List)
       return (
         <View style={{ flex: 1, backgroundColor: '#fefefe' }}>
           <View style={bar}>
@@ -60,10 +64,10 @@ class BydayScreen extends Component {
           </View>
           <Text style={day}> Day {this.state.day + 1}</Text>
           <View style={{ flex: 1 }}>
-            <BydayScreenList items={List.itinerary[this.state.day]} Attractions={List.attractions}/>
+            <BydayScreenList items={List.itinerary.time_line[this.state.day]} />
           </View>
           <TouchableOpacity style={button} onPress={() => navigation.navigate('BookNavigation')}>
-            <Text style={bookNowText}>BOOK NOW</Text>
+            <Text style={bookNowText}>SAVE IT!</Text>
           </TouchableOpacity>
           <TouchableOpacity style={fab} onPress={() => dispatch(NavigationActions.back())}>
             <Icon name="clock-o" style={{ fontSize: 25, color: '#27ae60' }} />

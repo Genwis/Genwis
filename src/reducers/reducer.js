@@ -3,6 +3,7 @@
  */
 
 import { combineReducers } from 'redux'
+import moment from 'moment'
 import {
   RECEIVE_ITINERARY,
   REQUEST_ITINERARY,
@@ -18,22 +19,25 @@ import {
   RECEIVE_USER_DATA,
   REQUEST_USER_DATA,
   RECEIVE_LOGOUT,
-  REQUEST_LOGOUT
+  REQUEST_LOGOUT,
 } from '../actions/UserActions'
 
 function selectedDetail(state = {
-  city: 'Bandung',
-  state: 'Jawa Barat',
-  country: 'Indonesia',
-  start: {
-    day: 1,
-    month: 3,
-    year: 2018,
-  },
-  end: {
-    day: 5,
-    month: 3,
-    year: 2018,
+  location_id: '8ec9ee93-8863-419a-96f9-9a2a4cc7d815',
+  start: moment().format('YYYY-MMM-DD'),
+  finish: moment().add(3, 'd').format('YYYY-MMM-DD'),
+  budget: 1000000.0,
+  tags: {
+    culture: false,
+    outdoors: false,
+    history: false,
+    shopping: false,
+    wildlife: false,
+    beaches: false,
+    mountain: false,
+    museum: false,
+    amusement: false,
+    hidden_paradise: false,
   },
 }, action) {
   switch (action.type) {
@@ -67,12 +71,12 @@ function itineraryByDetail(state = {
     case SHOWN_ITINERARY:
       return {
         ...state,
-        shownItinerary: action.number
+        shownItinerary: action.number,
       }
     case IS_PREVIEW:
       return {
         ...state,
-        isPreview: action.ans
+        isPreview: action.ans,
       }
     default:
       return state

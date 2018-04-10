@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import { Dimensions, ScrollView, Text, TextInput, Button, View, ToolbarAndroid, TouchableOpacity, StatusBar } from 'react-native'
 import ListScreenItems from './ListScreenItems'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import bulan from '../../../helper/month'
+import moment from 'moment'
 
 export default class ListScreenForm extends Component {
     itinerary = this.props.List.itinerary
@@ -20,7 +20,7 @@ export default class ListScreenForm extends Component {
                         Timeline
             </Text>
             <Text style={subtitleToolbarText}>
-              {toolbarSubtitile(this.itinerary, this.detail)}
+              {toolbarSubtitile(this.itinerary)}
             </Text>
           </View>
           <ScrollView contentContainerStyle={scrolViewStyle}>
@@ -97,8 +97,6 @@ const Done = {
 }
 
 
-function toolbarSubtitile(iten, detail) {
-  return (`${iten[0].waktu.day.toString()} ${bulan(iten[0].waktu.month)} ${iten[0].waktu.year.toString()
-  } - ${iten[iten.length - 1].waktu.day.toString()} ${bulan(iten[iten.length - 1].waktu.month)} ${iten[iten.length - 1].waktu.year.toString()
-  } | ${detail.city}`)
+function toolbarSubtitile(iten) {
+  return `${moment(iten.detail.start).format('D MMMM')} - ${moment(iten.detail.finish).format('D MMMM YYYY')} ${iten.detail.location.city}`
 }

@@ -9,13 +9,13 @@ import { autoRehydrate } from 'redux-persist'
 import {
   createReduxBoundAddListener,
   createReactNavigationReduxMiddleware,
-} from 'react-navigation-redux-helpers';
+} from 'react-navigation-redux-helpers'
 
 const loggerMiddleware = createLogger()
 const middleware = createReactNavigationReduxMiddleware(
-  "root",
+  'root',
   state => state.nav,
-);
+)
 export default function configureStore(preloadedState) {
   return createStore(
     rootReducer,
@@ -25,7 +25,7 @@ export default function configureStore(preloadedState) {
       applyMiddleware(
         thunkMiddleware,
         // loggerMiddleware,
-        middleware
+        middleware,
       ),
     ),
   )

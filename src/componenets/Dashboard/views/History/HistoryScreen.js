@@ -15,7 +15,7 @@ const style = StyleSheet.create({
 })
 export default class extends Component {
   render() {
-    const {dispatch, navigation} = this.props
+    const { dispatch, navigation } = this.props
     return (
       <View style={style.container}>
         <StatusBar backgroundColor="#27ae60" />
@@ -30,7 +30,7 @@ export default class extends Component {
             textStyle={{ color: '#27ae60', fontWeight: 'bold', fontSize: 10 }}
             activeTextStyle={{ color: '#27ae60', fontWeight: 'bold', fontSize: 10 }}
           >
-            <ActiveScreen dispatch={dispatch} navigation={navigation}/>
+            <ActiveScreen dispatch={dispatch} navigation={navigation} />
           </Tab>
           <Tab
             heading="RECENT"
@@ -39,7 +39,7 @@ export default class extends Component {
             textStyle={{ color: '#27ae60', fontWeight: 'bold', fontSize: 10 }}
             activeTextStyle={{ color: '#27ae60', fontWeight: 'bold', fontSize: 10 }}
           >
-            <RecentScreen dispatch={dispatch} navigation={navigation}/>
+            <RecentScreen dispatch={dispatch} navigation={navigation} />
           </Tab>
         </Tabs>
       </View>

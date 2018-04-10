@@ -6,9 +6,10 @@ import { Dimensions, View, StatusBar, StyleSheet, TouchableOpacity, Image, TextI
 import { connect } from 'react-redux'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { showItinerary, isPreview } from '../../../../actions/actions'
-import {ItineraryList} from './ItineraryList'
-import {DiscountList} from './DiscountList'
-import {FavoriteList} from './FavoriteList'
+import { ItineraryList } from './ItineraryList'
+import { DiscountList } from './DiscountList'
+import { FavoriteList } from './FavoriteList'
+
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
   container: {
@@ -25,7 +26,7 @@ const style = StyleSheet.create({
     right: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 3
+    elevation: 3,
   },
   video: {
     backgroundColor: '#fcfcfc',
@@ -38,27 +39,27 @@ const style = StyleSheet.create({
   },
   searchText: {
     width: d.width * 0.85,
-    fontFamily:'Poppins-Regular',
+    fontFamily: 'Poppins-Regular',
     fontSize: 14,
     elevation: 2,
   },
   searchBar: {
-    margin:  d.width * 0.05,
-    height: d.height * 48/650,
+    margin: d.width * 0.05,
+    height: d.height * 48 / 650,
     backgroundColor: 'white',
     borderRadius: 10,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  textRecent :{
-    marginRight:  d.width * 0.05,
-    marginLeft:  d.width * 0.05,
-    fontFamily: "Poppins-SemiBold",
+  textRecent: {
+    marginRight: d.width * 0.05,
+    marginLeft: d.width * 0.05,
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 14,
     letterSpacing: 0.59,
-    textAlign: "left",
-    color: "#616161"
-  }
+    textAlign: 'left',
+    color: '#616161',
+  },
 })
 
 class HomepageScreen extends Component {
@@ -84,9 +85,9 @@ class HomepageScreen extends Component {
         <StatusBar backgroundColor="#27ae60" />
         <ScrollView>
           <View style={style.searchBar}>
-            <TextInput placeholder='Search place, discount etc.' style={style.searchText} underlineColorAndroid="transparent" />
-            <TouchableOpacity style={{position:'absolute', right: 18}}>
-              <Ionicons name="ios-search" size={25} style={{color:'#27ae60'}}/>
+            <TextInput placeholder="Search place, discount etc." style={style.searchText} underlineColorAndroid="transparent" />
+            <TouchableOpacity style={{ position: 'absolute', right: 18 }}>
+              <Ionicons name="ios-search" size={25} style={{ color: '#27ae60' }} />
             </TouchableOpacity>
           </View>
           {
@@ -101,16 +102,16 @@ class HomepageScreen extends Component {
             itinerary.length === 0 ?
               null
               :
-              <ItineraryList itinerary={itinerary} onPreviewClicked={this.onPreviewClicked}/>
+              <ItineraryList itinerary={itinerary} onPreviewClicked={this.onPreviewClicked} />
           }
           <Text style={style.textRecent}>
             Discount and Promo
           </Text>
-          <DiscountList itinerary={this.props.itinerary}/>
+          <DiscountList itinerary={this.props.itinerary} />
           <Text style={style.textRecent}>
             Favorite Places
           </Text>
-          <FavoriteList itinerary={this.props.itinerary}/>
+          <FavoriteList itinerary={this.props.itinerary} />
         </ScrollView>
         <TouchableOpacity style={style.fab} onPress={() => this.props.navigation.navigate('DetailNavigation')}>
           <Image style={{ resizeMode: 'contain', height: d.height * 0.05 }} source={require('../../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
@@ -126,7 +127,7 @@ function mapStateToProps(state) {
   } = itineraryByDetail || {
     itinerary: { },
   }
-  
+
   return {
     itinerary,
   }

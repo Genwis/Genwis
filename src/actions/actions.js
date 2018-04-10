@@ -31,17 +31,21 @@ function receiveItinerary(detail, data) {
     type: RECEIVE_ITINERARY,
     response: {
       detail,
-      itinerary: data.itinerary,
-      attractions: data.att_list,
+      itinerary: data,
     },
   }
 }
 
 export function fetchItineray(detail) {
+  const headers = {
+    Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
+    'Content-Type': 'text/plain',
+  }
   return (dispatch) => {
     dispatch(requestItinerary(detail))
-    return Axios.post('https://genwis.herokuapp.com/itinerary', JSON.stringify(detail))
+    return Axios.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })
       .then(response => dispatch(receiveItinerary(detail, response.data)))
+      .catch(err => console.log(err))
   }
 }
 
@@ -63,7 +67,7 @@ function receiveRegister(detail, data) {
 export function register(detail) {
   return (dispatch) => {
     dispatch(requestRegister(detail))
-    return Axios.post('http://dev.generatorwisata.com/api/user', JSON.stringify(detail))
+    return Axios.post('http://api.generatorwisata.com/api/user', JSON.stringify(detail))
       .then(response => dispatch(receiveRegister(detail, response.data)))
   }
 }
@@ -86,7 +90,7 @@ function receiveLogin(detail, data) {
 export function login(detail) {
   return (dispatch) => {
     dispatch(requestLogin(detail))
-    return Axios.post('http://dev.generatorwisata.com/api/users/login', JSON.stringify(detail))
+    return Axios.post('http://api.generatorwisata.com/api/users/login', JSON.stringify(detail))
       .then(response => dispatch(receiveLogin(detail, response.data)))
       .catch((err) => {
         console.log(err)
@@ -94,18 +98,18 @@ export function login(detail) {
   }
 }
 
-export const SHOWN_ITINERARY = 'SHOWN_ITINERARY';
-export const showItinerary = (number) => ((dispatch) => {
+export const SHOWN_ITINERARY = 'SHOWN_ITINERARY'
+export const showItinerary = number => ((dispatch) => {
   dispatch({
     type: SHOWN_ITINERARY,
     number,
   })
 })
 
-export const IS_PREVIEW = 'IS_PREVIEW';
-export const isPreview = (ans) => ((dispatch) => {
+export const IS_PREVIEW = 'IS_PREVIEW'
+export const isPreview = ans => ((dispatch) => {
   dispatch({
     type: IS_PREVIEW,
-    ans
+    ans,
   })
 })

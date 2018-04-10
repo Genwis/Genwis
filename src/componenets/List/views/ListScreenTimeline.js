@@ -4,10 +4,11 @@
 import React, { Component } from 'react'
 import { Dimensions, Text, View } from 'react-native'
 import bulan from '../../../helper/month'
+import moment from 'moment'
 
 export default class ListScreenTimeline extends Component {
   render() {
-    const timeline = this.props.Day.time_line
+    const timeline = this.props.Day.events
     return (
       <View style={container1}>
         <View style={container3}>
@@ -38,28 +39,17 @@ function Attr(timeline) {
       const timeShow = isi.map((val, n) => (
         <View key={n} style={container4}>
           <Text style={attraction}>
-            {val.todo.name}
+            {val.attraction.name}
           </Text>
-          <Text>
+          <Text style={Jam}>
             {
-              (val.start.jam < 10) ?
-                <Text style={Jam}>
-									0{val.start.jam}.{(val.start.menit < 10) ? <Text style={Jam}>0{val.start.menit}</Text> : <Text style={Jam}>{val.start.menit}</Text>}
-                </Text>
-									:
-                <Text style={Jam}>
-                  {val.start.jam}.{(val.start.menit < 10) ? <Text style={Jam}>0{val.start.menit}</Text> : <Text style={Jam}>{val.start.menit}</Text>}
-                </Text>
-
+              moment(val.start).format('hh-mm')
             }
             {
               ' - '
             }
             {
-              Meniter(val.start.jam, val.start.menit, val.todo.recommended_duration)
-            }
-            {
-              (val.todo.RecommendedDuration) ? <Text>Recommended Duration: {val.todo.RecommendedDuration}</Text> : false
+              moment(val.end).format('hh-mm')
             }
           </Text>
         </View>
@@ -108,5 +98,5 @@ const Jam = {
   color: '#757575',
 }
 const stylePadJam = {
-  marginBottom: d.width * 7/360
+  marginBottom: d.width * 7 / 360,
 }

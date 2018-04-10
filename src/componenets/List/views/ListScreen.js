@@ -18,7 +18,7 @@ function mapStateToProps(state) {
     isFetching,
     itinerary,
     shownItinerary,
-    isPreview
+    isPreview,
   } = itineraryByDetail || {
     isFetching: true,
     itinerary: { },
@@ -29,7 +29,7 @@ function mapStateToProps(state) {
     itinerary,
     isFetching,
     shownItinerary,
-    isPreview
+    isPreview,
   }
 }
 class ListScreen extends Component {
@@ -38,7 +38,8 @@ class ListScreen extends Component {
   }
   componentWillMount() {
     const { dispatch, selectedDetail, isPreview } = this.props
-    if(!isPreview) {
+    console.log(selectedDetail)
+    if (!isPreview) {
       dispatch(fetchItineray(selectedDetail))
     }
   }
@@ -60,7 +61,7 @@ class ListScreen extends Component {
   }
   render() {
     const {
-      isFetching, itinerary, selectedDetail, navigation, shownItinerary
+      isFetching, itinerary, selectedDetail, navigation, shownItinerary,
     } = this.props
     const List = itinerary[shownItinerary]
     return (
@@ -73,7 +74,7 @@ class ListScreen extends Component {
         {
                     isFetching ? false :
                     <TouchableOpacity style={button} onPress={() => navigation.navigate('BookNavigation')}>
-                      <Text style={bookNowText}>BOOK NOW</Text>
+                      <Text style={bookNowText}>SAVE IT!</Text>
                     </TouchableOpacity>
                 }
       </View>

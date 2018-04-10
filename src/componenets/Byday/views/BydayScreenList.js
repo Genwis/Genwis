@@ -10,8 +10,9 @@ import Swiper from 'react-native-swiper'
 export default class BydayScreenList extends Component {
   render() {
     const { items, Attractions } = this.props
-    const timeline = items.time_line
-    const list = Object.values(timeline).map((event, index) => (<BydayScreenItem item={Attractions[event.todo.key]} event={event} key={index} />))
+    console.log(items)
+    const timeline = items.events
+    const list = Object.values(timeline).map((event, index) => (<BydayScreenItem event={event} key={index} />))
     return (
       <Swiper style={swiperStyle} loop={false}>
         { list }

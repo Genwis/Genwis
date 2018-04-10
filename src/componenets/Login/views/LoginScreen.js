@@ -60,7 +60,7 @@ class LoginScreen extends Component {
           <Text style={email}>
                         Username
           </Text>
-          <TextInput onChangeText={text => this.onChangeEmail(text)} placeholder="myusername" style={inputan} underlineColorAndroid="#27ae60" autoCapitalize={'none'}/>
+          <TextInput onChangeText={text => this.onChangeEmail(text)} placeholder="myusername" style={inputan} underlineColorAndroid="#27ae60" autoCapitalize="none" />
           <Text style={password}>
                         Password
           </Text>
@@ -73,8 +73,7 @@ class LoginScreen extends Component {
         <View style={{
 marginTop: 20, justifyContent: 'center', alignItems: 'center', marginBottom: 20,
 }}
-        >
-        </View>
+        />
         <View style={{ flexDirection: 'row' }}>
           <Text style={deft}>Haven't had an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('SignUpNavigation')}><Text style={{ color: '#27ae60', fontFamily: 'MarkPro' }}>Sign Up</Text></TouchableOpacity>

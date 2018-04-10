@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react'
 import { Dimensions, View, StatusBar, StyleSheet, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
+
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
   container: {
@@ -14,13 +15,13 @@ const style = StyleSheet.create({
     backgroundColor: '#fcfcfc',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 150
+    marginTop: 150,
   },
-  textKet : {
+  textKet: {
     fontFamily: 'Lato-Regular',
     fontSize: 12,
     textAlign: 'center',
-    color: '#bdbdbd'
+    color: '#bdbdbd',
   },
   textEmpty: {
     fontFamily: 'Poppins-Medium',
@@ -42,12 +43,12 @@ const style = StyleSheet.create({
   generateText: {
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
-    color: 'white'
-  }
+    color: 'white',
+  },
 })
 export default class extends Component {
   render() {
-    const {navigation} = this.props
+    const { navigation } = this.props
     return (
       <View style={style.container}>
         <StatusBar backgroundColor="#27ae60" />

@@ -11,14 +11,14 @@ import { addNavigationHelpers } from 'react-navigation'
 import { NavigatorHome } from '../navigationConf'
 import {
   createReduxBoundAddListener,
-} from 'react-navigation-redux-helpers';
+} from 'react-navigation-redux-helpers'
 // Redux
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
   navigationState: state.Home,
 })
-const addListener = createReduxBoundAddListener("root");
+const addListener = createReduxBoundAddListener('root')
 
 class HomeNavigation extends React.Component {
     static navigationOptions = {

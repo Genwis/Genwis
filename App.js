@@ -21,7 +21,7 @@ export default class App extends Component<Props> {
           <HomeNavigation />
         </View>
       </Provider>
-    );
+    )
   }
 }
 const container1 = {

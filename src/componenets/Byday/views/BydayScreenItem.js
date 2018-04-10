@@ -4,6 +4,7 @@
 import React, { Component } from 'react'
 import { View, Image, Text, Dimensions, ScrollView } from 'react-native'
 import Modal from 'react-native-modalbox'
+import moment from 'moment'
 
 export default class BydayScreenItem extends Component {
   constructor(props) {
@@ -13,28 +14,45 @@ export default class BydayScreenItem extends Component {
       isOpen: false,
     }
     render() {
-      const { item, event } = this.props
+      const { event } = this.props
+      const start = moment(event.start)
+      const finish = moment(event.end)
       return (
         <View style={parent}>
           <View style={container}>
-            <Image source={iconsMap[`${item.id.slice(0, 8)}`]} style={ImageStyle} />
-            <Text style={AttractionsName}>{item.name}</Text>
+            {event.attraction.photo != null ?
+              <Image
+                source={{ uri: event.attraction.photo[0] }}
+                style={{
+height: 150,
+                  width: 150,
+}}
+              />
+              :
+              <View style={{
+height: 150,
+                width: 150,
+}}
+              />
+
+            }
+            <Text style={AttractionsName}>{event.attraction.name}</Text>
             <View style={row1}>
               <Image style={sizeIcon} source={require('../../../assets/icon/clock_2017-09-18/drawable-xxxhdpi/clock.png')} />
-              <Text style={EventTime}>  {fWaktu(event)}</Text>
+              <Text style={EventTime}>  {start.format('hh.mm')}-{finish.format('hh.mm')}</Text>
             </View>
             <View style={row1}>
               <Image style={sizeIcon} source={require('../../../assets/icon/placeholder_3_2017-09-18/drawable-xxxhdpi/placeholder_3.png')} />
-              <Text style={Vicinity} ELLIPSIZEMODE="tail" numberOfLines={1} >  {item.vicinity}</Text>
+              <Text style={Vicinity} ELLIPSIZEMODE="tail" numberOfLines={1} >  {event.attraction.vicinity}</Text>
             </View>
             <View style={line1} />
             <View style={RatingandPrice}>
-              <Text style={RatingText}>  {item.rating} Star     </Text>
+              <Text style={RatingText}>  {event.attraction.rating} Star     </Text>
               <View style={VerLine} />
-              <Text style={PriceText}>     Price  IDR 200.000</Text>
+              <Text style={PriceText}>     Price  IDR {event.attraction.price}</Text>
             </View>
             <View style={line2} />
-            <Text style={Description} ELLIPSIZEMODE="tail" numberOfLines={4} onPress={() => this.refs.modal1.open()}>{item.description}</Text>
+            <Text style={Description} ELLIPSIZEMODE="tail" numberOfLines={4} onPress={() => this.refs.modal1.open()}>{event.attraction.description}</Text>
             <View style={line3} />
           </View>
           <Modal
@@ -46,23 +64,14 @@ export default class BydayScreenItem extends Component {
           >
             <ScrollView>
               <View style={{ marginLeft: 60, marginRight: 10 }}>
-                <Text style={AttractionsName}>{item.name}</Text>
-                <Text style={ModalDescription}>{item.description}</Text>
+                <Text style={AttractionsName}>{event.attraction.name}</Text>
+                <Text style={ModalDescription}>{event.attraction.description}</Text>
               </View>
             </ScrollView>
           </Modal>
         </View>
       )
     }
-}
-
-const fWaktu = (event) => {
-  const jamS = event.start.jam >= 10 ? event.start.jam : `0${event.start.jam}`
-  const menS = event.start.menit >= 10 ? event.start.menit : `0${event.start.menit}`
-  const men = event.todo.recommended_duration - (60 - event.start.menit)
-  const jamF = event.start.jam + 1 + Math.floor(men / 60)
-  const menF = men % 60
-  return (`${jamS}.${menS}-${jamF >= 10 ? jamF : `0${jamF}`}.${menF >= 10 ? menF : `0${menF}`}`)
 }
 
 const dimension = Dimensions.get('window')

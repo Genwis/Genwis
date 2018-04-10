@@ -5,67 +5,102 @@
 import React, { Component } from 'react'
 import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native'
 import Modal from 'react-native-modalbox'
+import moment from 'moment'
 import Calendar from 'react-native-calendars/src/calendar/index'
 import { selectDetail, isPreview } from '../../../actions/actions'
 
 export default class DetailScreenForm extends Component {
     state = {
       isOpen: false,
-      currentStart: `${this.props.detail.start.year}-${this.props.detail.start.month > 10 ? this.props.detail.start.month : `0${this.props.detail.start.month}`}-${this.props.detail.start.day > 10 ? this.props.detail.start.day : `0${this.props.detail.start.day}`}`,
-      currentEnd: `${this.props.detail.end.year}-${this.props.detail.end.month > 10 ? this.props.detail.end.month : `0${this.props.detail.end.month}`}-${this.props.detail.end.day > 10 ? this.props.detail.end.day : `0${this.props.detail.end.day}`}`,
+      currentStart: this.props.detail.start,
+      currentEnd: this.props.detail.finish,
+      budget: this.props.detail.budget,
+      tags: {
+        culture: false,
+        outdoors: false,
+        history: false,
+        shopping: false,
+        wildlife: false,
+        beaches: false,
+        mountain: false,
+        museum: false,
+        amusement: false,
+        hidden_paradise: false,
+      }
     }
     componentWillMount() {
       this.props.dispatch(isPreview(false))
     }
+    onBudgetChange(budget) {
+      const nextState = this.props.detail
+      nextState.budget = parseFloat(budget)
+      this.props.dispatch(selectDetail(nextState))
+      this.setState({
+        ...this.state,
+        budget,
+      })
+    }
     onStartDateChange(day) {
       const nextState = this.props.detail
       this.refs.modal1.close()
-      nextState.start.day = day.day
-      nextState.start.year = day.year
-      nextState.start.month = day.month
+      nextState.start = `${day.year}-${bulan(day.month)}-${day.day > 10 ? day.day : `0${day.day}`}`
+      nextState.finish = `${day.year}-${bulan(day.month)}-${day.day > 10 ? day.day + 3 : `0${day.day + 3}`}`
       this.props.dispatch(selectDetail(nextState))
       this.setState({
-        currentStart: `${nextState.start.year}-${nextState.start.month > 10 ? nextState.start.month : `0${nextState.start.month}`}-${nextState.start.day > 10 ? nextState.start.day : `0${nextState.start.day}`}`,
+        ...this.state,
+        currentStart: nextState.start,
+        currentEnd: nextState.finish,
       })
     }
     onEndDateChange(day) {
       const nextState = this.props.detail
       this.refs.modal2.close()
-      nextState.end.day = day.day
-      nextState.end.year = day.year
-      nextState.end.month = day.month
+      nextState.finish = `${day.year}-${bulan(day.month)}-${day.day > 10 ? day.day : `0${day.day}`}`
       this.props.dispatch(selectDetail(nextState))
       this.setState({
-        currentEnd: `${nextState.end.year}-${nextState.end.month > 10 ? nextState.end.month : `0${nextState.end.month}`}-${nextState.end.day > 10 ? nextState.end.day : `0${nextState.end.day}`}`,
+        ...this.state,
+        currentEnd: nextState.finish,
+      })
+    }
+    onFilterChange = (tags) =>{
+      const nextState = this.props.detail
+      nextState.tags = tags
+      console.log(tags)
+      this.props.dispatch(selectDetail(nextState))
+      this.setState({
+        ...this.state,
+        tags: nextState.tags,
       })
     }
     render() {
       const { detail, navigation } = this.props
+      const start = moment(detail.start, 'YYYY-MMM-DD')
+      const finish = moment(detail.finish, 'YYYY-MMM-DD')
       return (
         <View style={parent}>
-          <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
+          <ScrollView style={{ backgroundColor: 'white' }}>
             <View style={container1} >
               <StatusBar backgroundColor="#27ae60" />
               <View style={container2}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <Image style={{ resizeMode: 'contain', height: d.height * 0.15 }} source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
-  
+
                   <Text style={wonderfull} >
                               Enjoy your tour!
                   </Text>
-  
+
                   <Text style={{ color: '#bdbdbd', fontFamily: 'Campton' }}>
-              Determine tour itinerary as you wish
+                    Determine tour itinerary as you wish
                   </Text>
                 </View>
                 <Text style={cityDestination}>
                               City Destination
                 </Text>
-                <TextInput placeholder={detail.city} style={margin1} underlineColorAndroid="#27ae60" />
+                <TextInput placeholder="Bandung" style={margin1} underlineColorAndroid="#27ae60" />
                 <Text style={budget}>
                               Budget
                 </Text>
-                <TextInput placeholder="5000000" style={margin1} underlineColorAndroid="#27ae60" />
+                <TextInput placeholder={`${this.state.budget}`} style={margin1} underlineColorAndroid="#27ae60" onChange={budget => this.onBudgetChange(budget)} />
                 <Text style={timePeriod}>
                               Time Period
                 </Text>
@@ -73,20 +108,75 @@ export default class DetailScreenForm extends Component {
                   <TouchableOpacity onPress={() => this.refs.modal1.open()}>
                     <View style={container3}>
                       <Image style={{ height: 21, resizeMode: 'contain' }} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
-                      <Text style={date}> {detail.start.day} {bulan(detail.start.month)} {detail.start.year}</Text>
+                      <Text style={date}> {start.format('DD MMM YYYY')}</Text>
                     </View>
                   </TouchableOpacity>
                   <Text style={setrip}> - </Text>
                   <TouchableOpacity onPress={() => this.refs.modal2.open()}>
                     <View style={container4}>
                       <Image style={{ width: 19, height: 21 }} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
-                      <Text style={date}> {detail.end.day} {bulan(detail.end.month)} {detail.end.year}</Text>
+                      <Text style={date}> {finish.format('DD MMM YYYY')}</Text>
                     </View>
                   </TouchableOpacity>
                 </View>
                 <View style={{ backgroundColor: '#27ae60', height: 2, marginLeft: 5 }} />
+                <Text style={timePeriod}>Attraction Options</Text>
+  
+                <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, culture: !this.state.tags.culture})}>
+                    <View style={this.state.tags.culture ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.culture ? filterTextActive : filterTextPassive}>Culture</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, mountain: !this.state.tags.mountain})}>
+                    <View style={this.state.tags.mountain ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.mountain ? filterTextActive : filterTextPassive}>Mountain</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, museum: !this.state.tags.museum})}>
+                    <View style={this.state.tags.museum ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.museum ? filterTextActive : filterTextPassive}>Museum</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, amusement: !this.state.tags.amusement})}>
+                    <View style={this.state.tags.amusement ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.amusement ? filterTextActive : filterTextPassive}>Amusement</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                
+                <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, outdoors: !this.state.tags.outdoors})}>
+                    <View style={this.state.tags.outdoors ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.outdoors ? filterTextActive : filterTextPassive}>Outdoors</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, hidden_paradise: !this.state.tags.hidden_paradise})}>
+                    <View style={this.state.tags.hidden_paradise ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.hidden_paradise ? filterTextActive : filterTextPassive}>Hidden Paradise</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, beaches: !this.state.tags.beaches})}>
+                    <View style={this.state.tags.beaches ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.beaches ? filterTextActive : filterTextPassive}>Beaches</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                
+                <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, history: !this.state.tags.history})}>
+                    <View style={this.state.tags.history ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.history ? filterTextActive : filterTextPassive}>History</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, wildlife: !this.state.tags.wildlife})}>
+                    <View style={this.state.tags.wildlife ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.wildlife ? filterTextActive : filterTextPassive}>Wildlife</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                
               </View>
-              <Text>Attraction Options</Text>
               <TouchableOpacity style={buttonGene} onPress={() => navigation.navigate('ListNavigation')}>
                 <Text style={generateText}>GENERATE</Text>
               </TouchableOpacity>
@@ -100,12 +190,12 @@ export default class DetailScreenForm extends Component {
             >
               <View style={bar} />
               <View style={dateShow}>
-                <Text style={day}>{detail.start.day}</Text>
-                <Text style={month}>{bulan(detail.start.month)}</Text>
-                <Text style={year}>{detail.start.year}</Text>
+                <Text style={day}>{start.format('DD')}</Text>
+                <Text style={month}>{start.format('MMMM')}</Text>
+                <Text style={year}>{start.format('YYYY')}</Text>
               </View>
               <Calendar
-                current={this.state.currentStart}
+                current={start.format('YYYY-MM-DD')}
                 onDayPress={(day) => { this.onStartDateChange(day) }}
                 theme={{
                               textDayFontSize: 12,
@@ -123,13 +213,13 @@ export default class DetailScreenForm extends Component {
             >
               <View style={bar} />
               <View style={dateShow}>
-                <Text style={day}>{detail.end.day}</Text>
-                <Text style={month}>{bulan(detail.end.month)}</Text>
-                <Text style={year}>{detail.end.year}</Text>
+                <Text style={day}>{finish.format('DD')}</Text>
+                <Text style={month}>{finish.format('MMMM')}</Text>
+                <Text style={year}>{finish.format('YYYY')}</Text>
               </View>
               <Calendar
-                minDate={this.state.currentStart}
-                current={this.state.currentEnd}
+                minDate={start.format('YYYY-MM-DD')}
+                current={finish.format('YYYY-MM-DD')}
                 onDayPress={(day) => { this.onEndDateChange(day) }}
                 theme={{
                               textDayFontSize: 12,
@@ -144,6 +234,43 @@ export default class DetailScreenForm extends Component {
     }
 }
 const d = Dimensions.get('window')
+const filterButtonPassive = {
+  paddingRight: 4,
+  paddingLeft: 4,
+  height: 31.3,
+  borderRadius: 1.7,
+  alignItems:'center',
+  justifyContent: 'center',
+  backgroundColor: "#e0e0e0"
+}
+const filterButtonActive = {
+  paddingRight: 4,
+  paddingLeft: 4,
+  height: 31.3,
+  borderRadius: 1.7,
+  alignItems:'center',
+  justifyContent: 'center',
+  backgroundColor: "#27ae60"
+}
+const filterTextActive = {
+  fontFamily: "Lato",
+  fontSize: 13.3,
+  fontWeight: "normal",
+  fontStyle: "normal",
+  letterSpacing: 0.36,
+  textAlign: "left",
+  color: "#ffffff"
+}
+const filterTextPassive = {
+  fontFamily: "Lato",
+  fontSize: 13.3,
+  fontWeight: "normal",
+  fontStyle: "normal",
+  letterSpacing: 0.36,
+  textAlign: "left",
+  color: "#616161"
+}
+
 const wonderfull = {
   marginTop: 25,
   marginBottom: 11,
@@ -268,6 +395,7 @@ const buttonGene = {
   justifyContent: 'center',
   alignItems: 'center',
   marginTop: 25,
+  marginBottom: 25,
 }
 const generateText = {
   color: 'white',
@@ -293,9 +421,9 @@ function bulan(month) {
     case 7:
       return 'Jul'
     case 8:
-      return 'Agst'
+      return 'Aug'
     case 9:
-      return 'Sept'
+      return 'Sep'
     case 11:
       return 'Oct'
     case 10:
