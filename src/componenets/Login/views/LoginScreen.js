@@ -71,9 +71,8 @@ class LoginScreen extends Component {
           <Text style={bookText}>Sign In</Text>
         </TouchableOpacity>
         <View style={{
-marginTop: 20, justifyContent: 'center', alignItems: 'center', marginBottom: 20,
-}}
-        />
+            marginTop: 20, justifyContent: 'center', alignItems: 'center', marginBottom: 20,
+        }}/>
         <View style={{ flexDirection: 'row' }}>
           <Text style={deft}>Haven't had an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('SignUpNavigation')}><Text style={{ color: '#27ae60', fontFamily: 'MarkPro' }}>Sign Up</Text></TouchableOpacity>

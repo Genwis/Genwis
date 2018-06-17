@@ -39,10 +39,22 @@ export default class DetailScreenForm extends Component {
     }
     componentWillMount() {
       this.props.dispatch(isPreview(false))
-    }
-    onBudgetChange(budget) {
       const nextState = this.props.detail
-      nextState.budget = parseFloat(budget)
+      const start = moment()
+      nextState.start = start.format("YYYY-MMM-DD")
+      nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
+      console.log(nextState)
+      this.props.dispatch(selectDetail(nextState))
+      this.setState({
+        ...this.state,
+        currentStart: nextState.start,
+        currentEnd: nextState.finish,
+      })
+    }
+    onBudgetChange = (budget) => {
+      const nextState = this.props.detail
+      console.log(budget)
+      nextState.budget = parseInt(budget)
       this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
@@ -52,8 +64,14 @@ export default class DetailScreenForm extends Component {
     onStartDateChange(day) {
       const nextState = this.props.detail
       this.refs.modal1.close()
-      nextState.start = `${day.year}-${bulan(day.month)}-${day.day > 10 ? day.day : `0${day.day}`}`
-      nextState.finish = `${day.year}-${bulan(day.month)}-${day.day > 10 ? day.day + 3 : `0${day.day + 3}`}`
+      const start = moment(`${day.year}-${day.month}-${day.day >= 10 ? day.day : `0${day.day}`}`, "YYYY-MM-DD")
+      nextState.start = start.format("YYYY-MMM-DD")
+      if (
+        moment(nextState.finish, 'YYYY-MMM-DD').dayOfYear() - start.dayOfYear() < 3
+      ) {
+        nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
+      }
+      console.log(nextState)
       this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
@@ -64,7 +82,8 @@ export default class DetailScreenForm extends Component {
     onEndDateChange(day) {
       const nextState = this.props.detail
       this.refs.modal2.close()
-      nextState.finish = `${day.year}-${bulan(day.month)}-${day.day > 10 ? day.day : `0${day.day}`}`
+      const finish = moment(`${day.year}-${day.month}-${day.day >= 10 ? day.day : `0${day.day}`}`, "YYYY-MM-DD")
+      nextState.finish = finish.format("YYYY-MMM-DD")
       this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
@@ -102,6 +121,7 @@ export default class DetailScreenForm extends Component {
     }
     render() {
       const { detail, navigation } = this.props
+      const now = moment()
       const start = moment(detail.start, 'YYYY-MMM-DD')
       const finish = moment(detail.finish, 'YYYY-MMM-DD')
       return (
@@ -149,30 +169,34 @@ export default class DetailScreenForm extends Component {
                   />
                 </View>
                 <Text style={budget}>
-                              Budget
+                              Budget per person
                 </Text>
-                <TextInput placeholder={`${this.state.budget}`} style={margin1} underlineColorAndroid="grey" onChange={budget => this.onBudgetChange(budget)} />
-                <Text style={timePeriod}>
-                              Time Period
+                <TextInput placeholder="1000000" style={margin1} underlineColorAndroid="grey" onChangeText={(budget) => this.onBudgetChange(budget)} keyboardType='numeric' />
+                <Text style={{...timePeriod, marginTop: 0}}>
+                  Itinerary Start
                 </Text>
                 <View style={datepick}>
                   <TouchableOpacity onPress={() => this.refs.modal1.open()}>
                     <View style={container3}>
-                      <Image style={{ height: 21, resizeMode: 'contain' }} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
-                      <Text style={date}> {start.format('DD MMM YYYY')}</Text>
-                    </View>
-                  </TouchableOpacity>
-                  <Text style={setrip}> - </Text>
-                  <TouchableOpacity onPress={() => this.refs.modal2.open()}>
-                    <View style={container4}>
-                      <Image style={{ width: 19, height: 21 }} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
-                      <Text style={date}> {finish.format('DD MMM YYYY')}</Text>
+                      <Text style={date}> {start.format('DD MMMM YYYY')}</Text>
+                      <Image style={{ height: 21, resizeMode: 'contain', position: 'absolute', right: 0}} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
                     </View>
                   </TouchableOpacity>
                 </View>
-                <View style={{ backgroundColor: 'grey', height: 2, marginLeft: 5 }} />
+                <View style={{ backgroundColor: 'grey', height: 1.5, marginLeft: 5 }} />
+                <Text style={timePeriod}>
+                  Itinerary End
+                </Text>
+                <View style={datepick}>
+                  <TouchableOpacity onPress={() => this.refs.modal2.open()}>
+                    <View style={container3}>
+                      <Text style={date}> {finish.format('DD MMMM YYYY')}</Text>
+                      <Image style={{ height: 21, resizeMode: 'contain', position: 'absolute', right: 0}} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <View style={{ backgroundColor: 'grey', height: 1.5, marginLeft: 5 }} />
                 <Text style={timePeriod}>Attraction Options</Text>
-  
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
                   <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, culture: !this.state.tags.culture})}>
                     <View style={this.state.tags.culture ? filterButtonActive : filterButtonPassive}>
@@ -187,11 +211,6 @@ export default class DetailScreenForm extends Component {
                   <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, museum: !this.state.tags.museum})}>
                     <View style={this.state.tags.museum ? filterButtonActive : filterButtonPassive}>
                       <Text style={this.state.tags.museum ? filterTextActive : filterTextPassive}>Museum</Text>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, amusement: !this.state.tags.amusement})}>
-                    <View style={this.state.tags.amusement ? filterButtonActive : filterButtonPassive}>
-                      <Text style={this.state.tags.amusement ? filterTextActive : filterTextPassive}>Amusement</Text>
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -225,6 +244,11 @@ export default class DetailScreenForm extends Component {
                       <Text style={this.state.tags.wildlife ? filterTextActive : filterTextPassive}>Wildlife</Text>
                     </View>
                   </TouchableOpacity>
+                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, amusement: !this.state.tags.amusement})}>
+                    <View style={this.state.tags.amusement ? filterButtonActive : filterButtonPassive}>
+                      <Text style={this.state.tags.amusement ? filterTextActive : filterTextPassive}>Amusement</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
                 
               </View>
@@ -247,6 +271,7 @@ export default class DetailScreenForm extends Component {
               </View>
               <Calendar
                 current={start.format('YYYY-MM-DD')}
+                minDate={now.format('YYYY-MM-DD')}
                 onDayPress={(day) => { this.onStartDateChange(day) }}
                 theme={{
                               textDayFontSize: 12,
@@ -357,8 +382,6 @@ const dateShow = {
 }
 const datepick = {
   flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
 }
 const modal = {
   height: d.height * 0.85,
@@ -397,12 +420,7 @@ const setrip = {
 const container3 = {
   marginTop: 5,
   flexDirection: 'row',
-  marginRight: 1,
-}
-const container4 = {
-  marginTop: 5,
-  flexDirection: 'row',
-  marginLeft: 1,
+  width: d.width * 0.8,
 }
 const budget = {
   marginBottom: -10,
@@ -463,32 +481,4 @@ const autoCompleteContainer = {
   right: 0,
   top: 0,
   zIndex: 1
-}
-function bulan(month) {
-  switch (month) {
-    case 1:
-      return 'Jan'
-    case 2:
-      return 'Feb'
-    case 3:
-      return 'Mar'
-    case 4:
-      return 'Apr'
-    case 5:
-      return 'Mei'
-    case 6:
-      return 'Jun'
-    case 7:
-      return 'Jul'
-    case 8:
-      return 'Aug'
-    case 9:
-      return 'Sep'
-    case 11:
-      return 'Oct'
-    case 10:
-      return 'Nov'
-    case 12:
-      return 'Des'
-  }
 }

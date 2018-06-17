@@ -38,9 +38,14 @@ class ListScreen extends Component {
   }
   componentWillMount() {
     const { dispatch, selectedDetail, isPreview } = this.props
-    console.log(selectedDetail)
     if (!isPreview) {
-      dispatch(fetchItineray(selectedDetail))
+      const show = new Promise((resolve, reject) => {
+        const x = dispatch(fetchItineray(selectedDetail))
+        resolve(x)
+      })
+        .then(() => {
+        
+        })
     }
   }
   componentDidMount() {
@@ -61,9 +66,14 @@ class ListScreen extends Component {
   }
   render() {
     const {
-      isFetching, itinerary, selectedDetail, navigation, shownItinerary,
+      isFetching, itinerary, selectedDetail, navigation, shownItinerary, isPreview
     } = this.props
-    const List = itinerary[shownItinerary]
+    let shown  = shownItinerary
+    if (!isPreview){
+      shown = 0
+    }
+    // console.log(itinerary)
+    const List = itinerary[shown]
     return (
 
       <View style={container1}>
@@ -72,10 +82,7 @@ class ListScreen extends Component {
                     isFetching ? <ListScreenLoading /> : <ListScreenForm List={List} Detail={List.detail} navigation={navigation} />
                 }
         {
-                    isFetching ? false :
-                    <TouchableOpacity style={button} onPress={() => navigation.navigate('BookNavigation')}>
-                      <Text style={bookNowText}>SAVE IT!</Text>
-                    </TouchableOpacity>
+                    isFetching ? false : false
                 }
       </View>
     )

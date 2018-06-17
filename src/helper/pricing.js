@@ -1,8 +1,9 @@
 /**
  * Created by iampamungkas on 4/9/18.
+ * @return {string}
  */
 
-function Pricing(price) {
+export function Pricing(price) {
   const money = parseFloat(price)
   let numerator = 0
   let res = ''

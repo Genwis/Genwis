@@ -114,3 +114,10 @@ export const isPreview = ans => ((dispatch) => {
     ans,
   })
 })
+
+export const NOT_NEW = 'NOT_NEW'
+export const notNew = () => ((dispatch) => {
+  dispatch({
+    type: NOT_NEW,
+  })
+})

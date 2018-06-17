@@ -5,7 +5,8 @@ import React, { Component } from 'react'
 import { View, Image, Text, Dimensions, ScrollView } from 'react-native'
 import Modal from 'react-native-modalbox'
 import moment from 'moment'
-
+import StarRating from 'react-native-star-rating'
+const d = Dimensions.get('window')
 export default class BydayScreenItem extends Component {
   constructor(props) {
     super(props)
@@ -18,36 +19,49 @@ export default class BydayScreenItem extends Component {
       const start = moment.parseZone(event.start)
       const finish = moment.parseZone(event.end)
       return (
-        <View style={parent}>
+        <ScrollView style={parent} contentContainerStyle={{
+          alignItems: 'center',
+        }}>
           <View style={container}>
             {event.attraction.photo != null ?
               <Image
                 source={{ uri: event.attraction.photo[0] }}
                 style={{
-height: 150,
-                  resizeMode: "contain"
-}}
+                  height: 150,
+                  borderRadius: 5
+                }}
+                resizeMode='cover'
               />
               :
               <View style={{
-height: 150,
+                height: 150,
                 width: 150,
-}}
+              }}
               />
 
             }
-            <Text style={AttractionsName}>{event.attraction.name}</Text>
             <View style={row1}>
-              <Image style={sizeIcon} source={require('../../../assets/icon/clock_2017-09-18/drawable-xxxhdpi/clock.png')} />
-              <Text style={EventTime}>  {start.format('hh.mm')}-{finish.format('hh.mm')}</Text>
+              <Text style={{...AttractionsName, color: "#616161"}}>{event.attraction.name}</Text>
             </View>
             <View style={row1}>
-              <Image style={sizeIcon} source={require('../../../assets/icon/placeholder_3_2017-09-18/drawable-xxxhdpi/placeholder_3.png')} />
+              <Text style={{...EventTime, color: "#616161"}}>  {start.format('HH.mm')} - {finish.format('HH.mm')}</Text>
+            </View>
+            <View style={row1}>
               <Text style={Vicinity} ELLIPSIZEMODE="tail" numberOfLines={1} >  {event.attraction.vicinity}</Text>
+            </View>
+            <View style={row1}>
+              <Text style={{...Vicinity, color: "#27ae60"}} ELLIPSIZEMODE="tail" numberOfLines={1} >  {event.attraction.phone_number}</Text>
             </View>
             <View style={line1} />
             <View style={RatingandPrice}>
-              <Text style={RatingText}>  {event.attraction.rating} Star     </Text>
+              <StarRating
+                disabled
+                maxStars={5}
+                rating={event.attraction.rating}
+                fullStarColor={'#ffef00'}
+                starSize={16}
+                containerStyle={{marginTop: 18}}
+              />
               <View style={VerLine} />
               <Text style={PriceText}>     Price  IDR {event.attraction.price}</Text>
             </View>
@@ -69,7 +83,7 @@ height: 150,
               </View>
             </ScrollView>
           </Modal>
-        </View>
+        </ScrollView>
       )
     }
 }
@@ -130,8 +144,6 @@ const parent = {
 }
 const container = {
   width: dimension.width * 0.8,
-  marginRight: 50,
-  marginLeft: 50,
 }
 const RatingandPrice = {
   flexDirection: 'row',
@@ -147,10 +159,9 @@ const ImageStyleModal = {
   height: 170,
 }
 const AttractionsName = {
-  marginBottom: 24,
   fontFamily: 'Poppins-Regular',
   fontSize: 18,
-  letterSpacing: 0.08,
+  letterSpacing: 0.06,
   color: '#27ae60',
 }
 const EventTime = {

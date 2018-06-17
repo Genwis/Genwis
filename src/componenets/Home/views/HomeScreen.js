@@ -1,22 +1,37 @@
 /**
  * Created by iampamungkas on 7/30/17.
  */
-
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TextInput, Button, Image, TouchableOpacity, StatusBar, BackHandler } from 'react-native'
+import { Dimensions, View, Text, TextInput, Button, Image, TouchableOpacity, StatusBar, BackHandler } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import TimerMixin from 'react-timer-mixin';
+import Video from 'react-native-video'
+import {login} from "../../../actions/actions";
 
+const d = Dimensions.get('window')
 class HomeScreen extends Component {
     static navigationOptions = {
       header: null,
     }
     componentDidMount() {
       BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
+      const redirect = new Promise((resolve, reject) => {
+        this.timer = TimerMixin.setTimeout(() => {resolve()}, 1000)
+      })
+        .then((result) => {
+          if (this.props.users.isLogin) {
+            const { navigation, users } = this.props
+            navigation.navigate('DashboardNavigation')
+          } else {
+            const { navigation, users } = this.props
+            navigation.navigate('LoginNavigation')
+          }
+        })
     }
     componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this.onBackPress)
+      TimerMixin.clearTimeout(this.timer)
     }
     onBackPress = () => {
       const { dispatch, state } = this.props.navigation
@@ -33,19 +48,17 @@ class HomeScreen extends Component {
       return (
         <View style={container1} >
           <StatusBar backgroundColor="#ffffff" />
-          <TouchableOpacity onPress={() => navigation.navigate(users.isLogin ? 'DashboardNavigation' : 'LoginNavigation')}>
-            <View>
-              <View style={container2}>
-                <Image source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
-                <Text style={wonderfull}>Welcome to Genwis !</Text>
-                <Text style={enjoy}>
-                                Start your tour with your couple{'\n'}
-                                and don’t forget to be happy
-                </Text>
-                <Text style={TAP}>TAP ANYWHERE TO START</Text>
-              </View>
+          <View>
+            <View style={container2}>
+              <Video
+                source={require('../../../assets/loading.mp4')} // Can be a URL or a local file.
+                muted // Pauses playback entirely.
+                resizeMode="cover" // Fill the whole screen at aspect ratio.*
+                repeat
+                style={video}
+              />
             </View>
-          </TouchableOpacity>
+          </View>
         </View>
       )
     }
@@ -96,4 +109,13 @@ const enjoy = {
   letterSpacing: 0.08,
   textAlign: 'center',
   color: '#b7bdbe',
+}
+const video = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+  backgroundColor: 'white',
+  height: d.width * 0.8,
 }

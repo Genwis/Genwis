@@ -11,11 +11,12 @@ const style = StyleSheet.create({
     padding: 20,
   },
   containerCard: {
+    flex: 1,
     borderRadius: 2,
     width: d.width * 200 / 360,
-    height: d.height * 180 / 616,
     backgroundColor: '#eeeeee',
     marginRight: 20,
+    elevation: 5,
   },
 })
 

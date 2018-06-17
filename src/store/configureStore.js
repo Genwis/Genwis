@@ -10,6 +10,7 @@ import {
   createReduxBoundAddListener,
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers'
+import screenTracking from "../middleware/scrennTracking"
 
 const loggerMiddleware = createLogger()
 const middleware = createReactNavigationReduxMiddleware(
@@ -23,6 +24,7 @@ export default function configureStore(preloadedState) {
     compose(
       autoRehydrate(),
       applyMiddleware(
+        screenTracking,
         thunkMiddleware,
         // loggerMiddleware,
         middleware,

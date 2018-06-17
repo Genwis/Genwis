@@ -4,7 +4,7 @@
 import React from 'react'
 import { Dimensions, StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native'
 import moment from 'moment'
-
+import numeral from 'numeral'
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
   containerScroll: {
@@ -13,11 +13,10 @@ const style = StyleSheet.create({
   containerCard: {
     borderRadius: 2,
     width: d.width * 286 / 360,
-    height: d.height * 160 / 616,
     backgroundColor: 'white',
     marginRight: 20,
     padding: 16,
-    elevation: 1,
+    elevation: 5,
   },
   textCity: {
     fontFamily: 'Poppins-Medium',
@@ -28,7 +27,13 @@ const style = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     fontSize: 10,
     color: '#bdbdbd',
-    marginBottom: 8,
+  },
+  textPrice: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 10,
+    color: '#3498db',
+    position: 'absolute',
+    right: 1
   },
   containerImageThumbnails: {
     flexDirection: 'row',
@@ -64,9 +69,14 @@ export const ItineraryCard = (props) => {
       <Text style={style.textCity}>
         {itinerary.itinerary.detail.location.city}
       </Text>
-      <Text style={style.textDetail}>
-        {toolbarSubtitile(itinerary.itinerary)}
-      </Text>
+      <View style={{flexDirection: 'row', marginBottom: 8, alignItems: 'stretch'}}>
+        <Text style={style.textDetail}>
+          {toolbarSubtitile(itinerary.itinerary)}
+        </Text>
+        <Text style={style.textPrice}>
+          Rp. {numeral(itinerary.itinerary.cost).format('0,0')}
+        </Text>
+      </View>
       <View style={style.containerImageThumbnails}>
         <View style={style.imageThumbnail1}>
           <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />

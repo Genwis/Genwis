@@ -44,7 +44,7 @@ const bSpace = {
   right: 30,
 }
 const fab = {
-  elevation: 1,
+  elevation: 12,
   width: 60,
   height: 60,
   borderRadius: 30,

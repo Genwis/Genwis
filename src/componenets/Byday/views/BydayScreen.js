@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { NavigationActions } from 'react-navigation'
 import BydayScreenList from './BydayScreenList'
+import moment from 'moment'
 
 function mapStateToProps(state) {
   const { itineraryByDetail } = state
@@ -32,10 +33,10 @@ class BydayScreen extends Component {
     onPlus = () => {
       const { itinerary, shownItinerary } = this.props
       const List = itinerary[shownItinerary]
-      console.log('xas')
-      console.log(List)
-      List.itinerary.time_line[this.state.day + 1].events!= null ?
-        (this.state.day !== List.itinerary.time_line.events.length - 1) ?
+      // console.log('xas')
+      // console.log(List)
+      List.itinerary.time_line[this.state.day + 1] != null ?
+        (this.state.day !== List.itinerary.time_line.length - 1) ?
           this.setState({
             day: this.state.day + 1,
           }) : false
@@ -49,26 +50,37 @@ class BydayScreen extends Component {
     }
     render() {
       const {
-        dispatch, itinerary, navigation, shownItinerary,
+        dispatch, itinerary, navigation, shownItinerary, isPreview
       } = this.props
-      const List = itinerary[shownItinerary]
+      let shown  = shownItinerary
+      if (!isPreview){
+        shown = 0
+      }
+      const List = itinerary[shown]
+      // console.log("XyX")
+      // console.log(List.itinerary)
       return (
         <View style={{ flex: 1, backgroundColor: '#fefefe' }}>
+          <View style={Toolbar}>
+            <Text style={timelineToolbarText}>
+              Detil
+            </Text>
+            <Text style={subtitleToolbarText}>
+              {toolbarSubtitile(List.itinerary)}
+            </Text>
+          </View>
           <View style={bar}>
-            <TouchableOpacity style={{ marginLeft: 1 }} onPress={() => this.onMin()}>
+            <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => this.onMin()}>
               <Icon name="arrow-left" style={{ fontSize: 30, color: '#27ae60' }} />
             </TouchableOpacity>
-            <TouchableOpacity style={{ marginLeft: d.width * 0.7 }} onPress={() => this.onPlus()}>
+            <Text style={day}> {moment.parseZone(List.itinerary.time_line[this.state.day].time).format("DD MMMM YYYY")}</Text>
+            <TouchableOpacity style={{ position: 'absolute', right: 10 }} onPress={() => this.onPlus()}>
               <Icon name="arrow-right" style={{ fontSize: 30, color: '#27ae60' }} />
             </TouchableOpacity>
           </View>
-          <Text style={day}> Day {this.state.day + 1}</Text>
           <View style={{ flex: 1 }}>
             <BydayScreenList items={List.itinerary.time_line[this.state.day]} />
           </View>
-          <TouchableOpacity style={button} onPress={() => navigation.navigate('BookNavigation')}>
-            <Text style={bookNowText}>SAVE IT!</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={fab} onPress={() => dispatch(NavigationActions.back())}>
             <Icon name="clock-o" style={{ fontSize: 25, color: '#27ae60' }} />
           </TouchableOpacity>
@@ -87,8 +99,6 @@ const bar = {
   backgroundColor: 'white',
   height: d.height * 0.08,
   width: d.width,
-  alignItems: 'center',
-  justifyContent: 'center',
 }
 
 const day = {
@@ -97,7 +107,6 @@ const day = {
   fontSize: 19.3,
   fontWeight: '500',
   letterSpacing: 0.1,
-  marginLeft: 50,
 }
 const bookNowText = {
   color: 'white',
@@ -122,9 +131,33 @@ const fab = {
   borderRadius: 30,
   backgroundColor: 'white',
   position: 'absolute',
-  bottom: 250,
+  bottom: 200,
   left: -22,
   alignItems: 'center',
   justifyContent: 'center',
-  elevation: 1,
+  elevation: 12,
+}
+const timelineToolbarText = {
+  marginTop: 20,
+  marginLeft: d.width * 24 / 360,
+  fontFamily: 'Poppins-Regular',
+  fontSize: 18,
+  letterSpacing: 0.15,
+  color: 'white',
+}
+
+const subtitleToolbarText = {
+  marginLeft: d.width * 24 / 360,
+  fontFamily: 'Poppins-Regular',
+  fontSize: 12,
+  letterSpacing: 0.1,
+  color: 'white',
+}
+const Toolbar = {
+  backgroundColor: '#27ae60',
+  height: 70,
+}
+
+function toolbarSubtitile(iten) {
+  return `${moment(iten.detail.start).format('D MMMM')} - ${moment(iten.detail.finish).format('D MMMM YYYY')} ${iten.detail.location.city}`
 }

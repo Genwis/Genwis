@@ -14,6 +14,7 @@ import {
   SELECT_DETAIL,
   SHOWN_ITINERARY,
   IS_PREVIEW,
+  NOT_NEW,
 } from '../actions/actions'
 import {
   RECEIVE_USER_DATA,
@@ -21,6 +22,17 @@ import {
   RECEIVE_LOGOUT,
   REQUEST_LOGOUT,
 } from '../actions/UserActions'
+
+function tutorial(state = {
+  new : true
+}, action) {
+  switch (action.type) {
+    case NOT_NEW:
+      return {...state, new: false}
+    default:
+      return state
+  }
+}
 
 function selectedDetail(state = {
   location_id: '8ec9ee93-8863-419a-96f9-9a2a4cc7d815',
@@ -162,6 +174,7 @@ const rootReducer = combineReducers({
   itineraryByDetail,
   selectedDetail,
   users,
+  tutorial,
   Detail: (state, action) => NavigatorDetail.router.getStateForAction(action, state),
   Home: (state, action) => NavigatorHome.router.getStateForAction(action, state),
   List: (state, action) => NavigatorList.router.getStateForAction(action, state),
