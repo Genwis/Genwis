@@ -13,7 +13,7 @@ import { FavoriteList } from './FavoriteList'
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#fcfcfc',
+    backgroundColor: '#f7f7f7',
     flex: 1,
   },
   fab: {
@@ -29,7 +29,7 @@ const style = StyleSheet.create({
     elevation: 3,
   },
   video: {
-    backgroundColor: '#fcfcfc',
+    backgroundColor: '#f7f7f7',
     width: 100,
     height: 100,
     top: 0,
@@ -144,12 +144,12 @@ class HomepageScreen extends Component {
             :
             false
           }
-          <View style={style.searchBar}>
-            <TextInput placeholder="Search place, discount etc." style={style.searchText} underlineColorAndroid="transparent" />
-            <TouchableOpacity style={{ position: 'absolute', right: 18 }}>
-              <Ionicons name="ios-search" size={25} style={{ color: '#27ae60' }} />
-            </TouchableOpacity>
-          </View>
+          {/*<View style={style.searchBar}>*/}
+            {/*<TextInput placeholder="Search place, discount etc." style={style.searchText} underlineColorAndroid="transparent" />*/}
+            {/*<TouchableOpacity style={{ position: 'absolute', right: 18 }}>*/}
+              {/*<Ionicons name="ios-search" size={25} style={{ color: '#27ae60' }} />*/}
+            {/*</TouchableOpacity>*/}
+          {/*</View>*/}
           {
             itinerary.length === 0 ?
               null

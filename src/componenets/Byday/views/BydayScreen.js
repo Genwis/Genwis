@@ -15,6 +15,7 @@ function mapStateToProps(state) {
     isFetching,
     itinerary,
     shownItinerary,
+    isPreview,
   } = itineraryByDetail || {
     isFetching: true,
     itinerary: { },
@@ -24,6 +25,7 @@ function mapStateToProps(state) {
     itinerary,
     isFetching,
     shownItinerary,
+    isPreview,
   }
 }
 class BydayScreen extends Component {
@@ -54,6 +56,7 @@ class BydayScreen extends Component {
       } = this.props
       let shown  = shownItinerary
       if (!isPreview){
+        console.log("hehehhe")
         shown = 0
       }
       const List = itinerary[shown]

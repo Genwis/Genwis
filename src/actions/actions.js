@@ -13,6 +13,7 @@ export const SELECT_DETAIL = 'SELECT_DETAIL'
 
 
 export function selectDetail(detail) {
+  console.log(detail)
   return {
     type: SELECT_DETAIL,
     detail,
@@ -112,6 +113,13 @@ export const isPreview = ans => ((dispatch) => {
   dispatch({
     type: IS_PREVIEW,
     ans,
+  })
+})
+
+export const DELETE = 'DELETE'
+export const ngeDelete = () => ((dispatch) => {
+  dispatch({
+    type: DELETE,
   })
 })
 

@@ -5,13 +5,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Dimensions, View, StatusBar, StyleSheet, ScrollView, Text, TouchableOpacity, TextInput, Image } from 'react-native'
 import { UserData, Logout, EditProfile, UploadPhotoProfile } from '../../../../actions/UserActions'
+import { ngeDelete } from '../../../../actions/actions'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import ImagePicker from 'react-native-image-picker'
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#fcfcfc',
+    backgroundColor: '#f7f7f7',
     flex: 1,
   },
   profilePicture: {
@@ -140,6 +141,7 @@ class ProfileScreen extends Component {
   logout = () => {
     const { dispatch, users, navigation } = this.props
     const signup = new Promise((resolve, reject) => {
+      dispatch(ngeDelete())
       const x = dispatch(Logout(users))
       resolve(x)
     })

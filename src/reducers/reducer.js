@@ -15,6 +15,7 @@ import {
   SHOWN_ITINERARY,
   IS_PREVIEW,
   NOT_NEW,
+  DELETE,
 } from '../actions/actions'
 import {
   RECEIVE_USER_DATA,
@@ -89,6 +90,14 @@ function itineraryByDetail(state = {
       return {
         ...state,
         isPreview: action.ans,
+      }
+    case DELETE:
+      return {
+        ...state,
+        isFetching: true,
+        itinerary: [],
+        shownItinerary: 0,
+        isPreview: false,
       }
     default:
       return state

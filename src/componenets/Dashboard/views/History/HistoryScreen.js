@@ -9,7 +9,7 @@ import RecentScreen from './ActiveScreen'
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#fcfcfc',
+    backgroundColor: '#f7f7f7',
     flex: 1,
   },
 })

@@ -7,12 +7,12 @@ import { Dimensions, View, StatusBar, StyleSheet, Text, ScrollView, Image, Touch
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#fcfcfc',
+    backgroundColor: '#f7f7f7',
     flex: 1,
   },
   insideContainer: {
     flex: 1,
-    backgroundColor: '#fcfcfc',
+    backgroundColor: '#f7f7f7',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 150,

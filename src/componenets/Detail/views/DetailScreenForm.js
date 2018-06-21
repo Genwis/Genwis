@@ -159,7 +159,7 @@ export default class DetailScreenForm extends Component {
                     style={margin1}
                     renderItem={(item)=>(
                       <TouchableOpacity  onPress={() => {
-                        this.setState({ ...this.state, autocomplete: [], inputValue:""+item.city+", "+item.state})}
+                        this.onLocationChange(item)}
                       }
                       >
                         <Text style={margin1}>{item.city}, {item.state}</Text>
