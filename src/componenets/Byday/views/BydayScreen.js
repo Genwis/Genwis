@@ -36,12 +36,13 @@ class BydayScreen extends Component {
       const { itinerary, shownItinerary } = this.props
       const List = itinerary[shownItinerary]
       // console.log('xas')
-      // console.log(List)
-      List.itinerary.time_line[this.state.day + 1] != null ?
+      typeof List.itinerary.time_line[this.state.day + 1] !== "undefined" ?
         (this.state.day !== List.itinerary.time_line.length - 1) ?
-          this.setState({
-            day: this.state.day + 1,
-          }) : false
+          (List.itinerary.time_line[this.state.day + 1].events) ?
+            this.setState({
+              day: this.state.day + 1,
+            }) : false
+            : false
         : false
     }
     onMin = () => {

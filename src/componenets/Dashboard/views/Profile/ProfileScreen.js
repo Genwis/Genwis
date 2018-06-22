@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Dimensions, View, StatusBar, StyleSheet, ScrollView, Text, TouchableOpacity, TextInput, Image } from 'react-native'
 import { UserData, Logout, EditProfile, UploadPhotoProfile } from '../../../../actions/UserActions'
 import { ngeDelete } from '../../../../actions/actions'
+import { NavBarComponent } from "../NavBarComponent";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import ImagePicker from 'react-native-image-picker'
@@ -245,6 +246,7 @@ class ProfileScreen extends Component {
     return (
       <View style={style.container}>
         <StatusBar backgroundColor="#27ae60" />
+        <NavBarComponent/>
         <ScrollView style={{ padding: 20 }}>
           <Text style={style.textMyProfile}>
             My Profile

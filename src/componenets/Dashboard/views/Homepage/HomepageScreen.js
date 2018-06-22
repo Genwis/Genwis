@@ -9,6 +9,7 @@ import { showItinerary, isPreview, notNew } from '../../../../actions/actions'
 import { ItineraryList } from './ItineraryList'
 import { DiscountList } from './DiscountList'
 import { FavoriteList } from './FavoriteList'
+import { NavBarComponent } from "../NavBarComponent";
 
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
@@ -110,7 +111,7 @@ class HomepageScreen extends Component {
               right: 0,
               alignItems: 'center',
               justifyContent: 'center',
-              elevation: 10
+              elevation: 11
             }}>
               <View
                 style={{
@@ -144,6 +145,7 @@ class HomepageScreen extends Component {
             :
             false
           }
+          <NavBarComponent/>
           {/*<View style={style.searchBar}>*/}
             {/*<TextInput placeholder="Search place, discount etc." style={style.searchText} underlineColorAndroid="transparent" />*/}
             {/*<TouchableOpacity style={{ position: 'absolute', right: 18 }}>*/}

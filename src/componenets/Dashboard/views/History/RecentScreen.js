@@ -15,7 +15,7 @@ const style = StyleSheet.create({
     backgroundColor: '#f7f7f7',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 150,
+    marginTop: 120,
   },
   textKet: {
     fontFamily: 'Lato-Regular',
