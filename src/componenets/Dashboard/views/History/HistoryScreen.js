@@ -20,8 +20,8 @@ export default class extends Component {
     const { dispatch, navigation } = this.props
     return (
       <View style={style.container}>
-        <StatusBar backgroundColor="#27ae60" />
-        {/*<NavBarComponent/>*/}
+        <StatusBar backgroundColor="#229854" />
+        <NavBarComponent/>
         <Tabs
           tabBarPosition="top"
           tabBarUnderlineStyle={{ borderTopWidth: 3, borderColor: '#27ae60' }}

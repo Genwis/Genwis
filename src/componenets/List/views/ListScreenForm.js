@@ -14,7 +14,6 @@ export default class ListScreenForm extends Component {
     render() {
       return (
         <View style={{ flex: 1, backgroundColor: '#fefefe' }}>
-          <StatusBar backgroundColor="#27ae60" />
           <View style={Toolbar}>
             <Text style={timelineToolbarText}>
                         Timeline

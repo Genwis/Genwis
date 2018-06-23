@@ -77,7 +77,7 @@ class ListScreen extends Component {
     return (
 
       <View style={container1}>
-        <StatusBar backgroundColor="#27ae60" />
+        <StatusBar backgroundColor="#229854" />
         {
                     isFetching ? <ListScreenLoading /> : <ListScreenForm List={List} Detail={List.detail} navigation={navigation} />
                 }

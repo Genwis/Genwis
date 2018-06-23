@@ -4,7 +4,8 @@
 import React, { Component } from 'react'
 import { Dimensions, View, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/Feather'
+import Clock from 'react-native-vector-icons/FontAwesome'
 import { NavigationActions } from 'react-navigation'
 import BydayScreenList from './BydayScreenList'
 import moment from 'moment'
@@ -75,10 +76,10 @@ class BydayScreen extends Component {
           </View>
           <View style={bar}>
             <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => this.onMin()}>
-              <Icon name="arrow-left" style={{ fontSize: 30, color: '#27ae60' }} />
+              <Icon name="arrow-left" style={{ fontSize: 30, color: '#27ae60', marginTop: d.height * 0.025 }} />
             </TouchableOpacity>
             <Text style={day}> {moment.parseZone(List.itinerary.time_line[this.state.day].time).format("DD MMMM YYYY")}</Text>
-            <TouchableOpacity style={{ position: 'absolute', right: 10 }} onPress={() => this.onPlus()}>
+            <TouchableOpacity style={{ position: 'absolute', right: 10, top: d.height * 0.025 }} onPress={() => this.onPlus()}>
               <Icon name="arrow-right" style={{ fontSize: 30, color: '#27ae60' }} />
             </TouchableOpacity>
           </View>
@@ -86,7 +87,7 @@ class BydayScreen extends Component {
             <BydayScreenList items={List.itinerary.time_line[this.state.day]} />
           </View>
           <TouchableOpacity style={fab} onPress={() => dispatch(NavigationActions.back())}>
-            <Icon name="clock-o" style={{ fontSize: 25, color: '#27ae60' }} />
+            <Clock name="clock-o" style={{ fontSize: 25, color: '#27ae60' }} />
           </TouchableOpacity>
         </View>
       )
@@ -111,6 +112,7 @@ const day = {
   fontSize: 19.3,
   fontWeight: '500',
   letterSpacing: 0.1,
+  marginTop: d.height * 0.025
 }
 const bookNowText = {
   color: 'white',

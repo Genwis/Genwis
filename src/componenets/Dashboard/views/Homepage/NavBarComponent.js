@@ -13,6 +13,7 @@ const style = StyleSheet.create({
     height: d.height * 53 / 680,
     backgroundColor: "#27ae60",
     padding: d.height * 16 / 680,
+    marginBottom: 20,
     left : 0,
     flexDirection: 'row'
   },
@@ -27,7 +28,7 @@ export const NavBarComponent = () => {
   return (
     <View style={style.container}>
       <Text style={style.text}>
-        History
+        Discover
       </Text>
       <TouchableOpacity style={{ position:'absolute', right: d.height * 30 / 680, top: d.height * 16 / 680, bottom: d.height * 16 / 680}}>
         <Icon name="md-more" size={20} style={{ color: '#ffffff'}} />

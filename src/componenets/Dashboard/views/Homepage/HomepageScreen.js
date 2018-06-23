@@ -9,7 +9,7 @@ import { showItinerary, isPreview, notNew } from '../../../../actions/actions'
 import { ItineraryList } from './ItineraryList'
 import { DiscountList } from './DiscountList'
 import { FavoriteList } from './FavoriteList'
-import { NavBarComponent } from "../NavBarComponent";
+import { NavBarComponent } from "./NavBarComponent";
 
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
@@ -27,7 +27,7 @@ const style = StyleSheet.create({
     right: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 3,
+    elevation: 12,
   },
   video: {
     backgroundColor: '#f7f7f7',
@@ -98,54 +98,54 @@ class HomepageScreen extends Component {
     const { itinerary } = this.props
     return (
       <View style={style.container}>
-        <StatusBar backgroundColor="#27ae60" />
-        <ScrollView>
-          {this.state.new ?
-            <TouchableOpacity style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              position: 'absolute',
-              flex: 1,
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              alignItems: 'center',
-              justifyContent: 'center',
-              elevation: 11
-            }}>
-              <View
+        <StatusBar backgroundColor="#229854" />
+        {this.state.new ?
+          <TouchableOpacity style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            position: 'absolute',
+            flex: 1,
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            elevation: 11
+          }}>
+            <View
+              style={{
+                width: 209.9,
+                height: 145.6,
+              }}
+            >
+              <Text
                 style={{
-                  width: 209.9,
-                  height: 145.6,
+                  fontFamily: "Poppins-Medium",
+                  fontSize: 16,
+                  color: "#27ae60"
                 }}
               >
-                <Text
-                  style={{
-                    fontFamily: "Poppins-Medium",
-                    fontSize: 16,
-                    color: "#27ae60"
-                  }}
-                >
-                  Tombol Generate
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: 'Lato-Regular',
-                    fontSize: 12,
-                    color: '#ffffff',
-                  }}
-                >
-                  Tidak perlu repot - repot membuat rencana
-                  wisata, cukup masukan budget, kota tujuan,
-                  dan jangka waktu. Rencana wisatamu
-                  akan jadi dalam sekejap. Klik tombol itu.
-                </Text>
-              </View>
-            </TouchableOpacity>
-            :
-            false
-          }
-          <NavBarComponent/>
+                Tombol Generate
+              </Text>
+              <Text
+                style={{
+                  fontFamily: 'Lato-Regular',
+                  fontSize: 12,
+                  color: '#ffffff',
+                }}
+              >
+                Tidak perlu repot - repot membuat rencana
+                wisata, cukup masukan budget, kota tujuan,
+                dan jangka waktu. Rencana wisatamu
+                akan jadi dalam sekejap. Klik tombol itu.
+              </Text>
+            </View>
+          </TouchableOpacity>
+          :
+          false
+        }
+        <NavBarComponent/>
+        <ScrollView>
           {/*<View style={style.searchBar}>*/}
             {/*<TextInput placeholder="Search place, discount etc." style={style.searchText} underlineColorAndroid="transparent" />*/}
             {/*<TouchableOpacity style={{ position: 'absolute', right: 18 }}>*/}

@@ -129,7 +129,7 @@ export default class DetailScreenForm extends Component {
         <View style={parent}>
           <ScrollView style={{ backgroundColor: 'white' }}>
             <View style={container1} >
-              <StatusBar backgroundColor="#27ae60" />
+              <StatusBar backgroundColor="#229854" />
               <View style={container2}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <Image style={{ resizeMode: 'contain', height: d.height * 0.15 }} source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
