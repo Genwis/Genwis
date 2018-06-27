@@ -1,4 +1,4 @@
-package com.genwisapp;
+package com.genwis;
 
 import android.app.Application;
 

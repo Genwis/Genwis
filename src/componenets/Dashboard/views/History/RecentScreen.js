@@ -15,7 +15,7 @@ const style = StyleSheet.create({
     backgroundColor: '#f7f7f7',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 120,
+    marginTop: 100,
   },
   textKet: {
     fontFamily: 'Lato-Regular',
@@ -51,7 +51,7 @@ export default class extends Component {
     const { navigation } = this.props
     return (
       <View style={style.container}>
-        <StatusBar backgroundColor="#27ae60" />
+        <StatusBar backgroundColor="#229854" />
         <ScrollView>
           <View style={style.insideContainer}>
             <Image style={{ resizeMode: 'contain', height: d.height * 100 / 650 }} source={require('../../../../assets/icon/group_12.png')} />
