@@ -19,17 +19,17 @@ export default class ListScreenItems extends Component {
       const time = moment(itinerary.time)
       return ((itinerary.events === null) ? null :
 
-      <View key={index} style={{ flexDirection: 'row', flex: 1 }}>
+      <View key={index} style={{ flexDirection: 'row', flex: 1, marginBottom: 30 }}>
         <View style={{
           width: 110, paddingLeft: 20, paddingRight: 20, paddingTop: 15,
         }}
         >
           <Text style={{
-            textAlign: 'center', color: '#27ae60', lineHeight: 23, fontFamily: 'Campton', fontSize: 14,
+            textAlign: 'center', color: '#27ae60', fontFamily: 'Poppins-Medium', fontSize: 14,
           }}
           >{time.format('DD')}
           </Text>
-          <Text style={{ textAlign: 'center', color: '#d0d0d0' }}>{time.format('MMMM')}</Text>
+          <Text style={{ textAlign: 'center', color: '#d0d0d0', fontFamily: 'Lato-Regular', fontSize: 14 }}>{time.format('MMMM')}</Text>
         </View>
         <View style={{ alignItems: 'center' }}>
           <View style={{
@@ -37,11 +37,11 @@ export default class ListScreenItems extends Component {
           }}
           />
           <View style={{
-            flex: 1, backgroundColor: '#e0e0e0', width: 1, marginTop: (index === 0) ? 25 : 0,
+            flex: 1, backgroundColor: '#e0e0e0', width: 1, marginTop: (index === 0) ? 30 : -30,
           }}
           />
         </View>
-        <View style={{}}>
+        <View>
           <ListScreenTimeline Day={itinerary} Nday={Nday} />
         </View>
       </View>

@@ -31,9 +31,9 @@ export const NavBarComponent = () => {
       <Text style={style.text}>
         History
       </Text>
-      {/*<TouchableOpacity style={{ position:'absolute', right: d.height * 30 / 680, top: d.height * 16 / 680, bottom: d.height * 16 / 680}}>*/}
-        {/*<Icon name="md-more" size={20} style={{ color: '#ffffff'}} />*/}
-      {/*</TouchableOpacity>*/}
+      <TouchableOpacity style={{ position:'absolute', right: d.height * 30 / 680, top: d.height * 16 / 680, bottom: d.height * 16 / 680}}>
+        <Icon name="md-more" size={20} style={{ color: '#ffffff'}} />
+      </TouchableOpacity>
     </View>
   )
 }

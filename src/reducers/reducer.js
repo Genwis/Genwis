@@ -13,6 +13,7 @@ import {
   RECEIVE_REGISTER,
   SELECT_DETAIL,
   SHOWN_ITINERARY,
+  DELETE_ITINERARY,
   IS_PREVIEW,
   NOT_NEW,
   DELETE,
@@ -77,14 +78,20 @@ function itineraryByDetail(state = {
       const length = state.itinerary.length
       return {
         ...state,
-        shownItinerary: length,
-        itinerary: [...state.itinerary, action.response],
+        shownItinerary: 0,
+        itinerary: [action.response, ...state.itinerary],
         isFetching: false,
       }
     case SHOWN_ITINERARY:
       return {
         ...state,
         shownItinerary: action.number,
+      }
+    case DELETE_ITINERARY:
+      const deletedItinerary = state.itinerary.length > 1 ? state.itinerary.splice(action.number, 1) : []
+      return {
+        ...state,
+        itinerary: deletedItinerary
       }
     case IS_PREVIEW:
       return {

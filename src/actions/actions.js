@@ -108,6 +108,14 @@ export const showItinerary = number => ((dispatch) => {
   })
 })
 
+export const DELETE_ITINERARY = 'DELETE_ITINERARY'
+export const deleteItinerary = number => ((dispatch) => {
+  dispatch({
+    type: DELETE_ITINERARY,
+    number,
+  })
+})
+
 export const IS_PREVIEW = 'IS_PREVIEW'
 export const isPreview = ans => ((dispatch) => {
   dispatch({

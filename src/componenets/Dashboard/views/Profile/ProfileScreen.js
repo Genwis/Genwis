@@ -11,6 +11,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import ImagePicker from 'react-native-image-picker'
 
+let d = Dimensions.get('window')
+
 const style = StyleSheet.create({
   container: {
     backgroundColor: '#f7f7f7',
@@ -38,6 +40,12 @@ const style = StyleSheet.create({
   containerHead: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  
+  containerEmpty: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
   textUsername: {
     marginTop: 16,
@@ -104,6 +112,20 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     elevation: 3,
   },
+  buttonLogin: {
+    backgroundColor: '#27ae60',
+    borderRadius: d.height * 0.07 / 2,
+    width: d.width * 0.8,
+    height: d.height * 0.06,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 25,
+  },
+  loginText: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    color: 'white',
+  },
 })
 function mapStateToProps(state) {
   const { users } = state
@@ -122,7 +144,7 @@ class ProfileScreen extends Component {
   }
   componentWillMount() {
     const { dispatch, users } = this.props
-    if (!users.isUserData) {
+    if (!users.isUserData && users.isLogin) {
       const edit = new Promise((resolve, reject) => {
         const x = dispatch(UserData(users))
         resolve(x)
@@ -148,7 +170,7 @@ class ProfileScreen extends Component {
     })
       .then((result) => {
         if (!this.props.users.isLogin) {
-          navigation.navigate('LoginNavigation')
+          navigation.navigate('Home')
         } else {
           alert('Logout Failed')
         }
@@ -234,85 +256,99 @@ class ProfileScreen extends Component {
           resolve(dispatch(UploadPhotoProfile(users, source)))
         })
           .then((result) => {
-            console.log('xxx24')
+            // console.log('xxx24')
             dispatch(UserData(users))
           })
       }
     })
   }
   render() {
-    const { users } = this.props
+    const { users, navigation } = this.props
     // console.warn(users.profile)
     return (
       <View style={style.container}>
         <StatusBar backgroundColor="#229854" />
         <NavBarComponent/>
-        <ScrollView style={{ padding: 20 }}>
-          <Text style={style.textMyProfile}>
-            My Profile
-          </Text>
-          <View style={style.containerHead}>
-            <View style={style.profilePictureContainer}>
-              {
-                users.profile.photo_profile != '' ?
-                  <Image
-                    source={{ uri: users.profile.photo_profile }}
-                    style={style.profilePicture}
-                  />
-                  :
-                  <Ionicons name="ios-person" size={85} color="grey" />
-              }
-              <TouchableOpacity style={style.profilePictureFab} onPress={() => this.onImageFabPressed()}>
-                <FontAwesome name="camera" size={12} color="white" />
+        {
+          users.isLogin ?
+            <ScrollView style={{ padding: 20 }}>
+              <Text style={style.textMyProfile}>
+                My Profile
+              </Text>
+              <View style={style.containerHead}>
+                <View style={style.profilePictureContainer}>
+                  {
+                    users.profile.photo_profile != '' ?
+                      <Image
+                        source={{ uri: users.profile.photo_profile }}
+                        style={style.profilePicture}
+                      />
+                      :
+                      <Ionicons name="ios-person" size={85} color="grey" />
+                  }
+                  <TouchableOpacity style={style.profilePictureFab} onPress={() => this.onImageFabPressed()}>
+                    <FontAwesome name="camera" size={12} color="white" />
+                  </TouchableOpacity>
+                </View>
+                <Text style={style.textUsername}>
+                  {users.username}
+                </Text>
+                {/* <Text style={style.textEmail}> */}
+                {/* {users.profile.email} */}
+                {/* </Text> */}
+              </View>
+              <View style={style.containerCard}>
+                <Text style={style.textContactDetail}>
+                  Profile Detail
+                </Text>
+                <Text style={style.textName}>
+                  Firstname
+                </Text>
+                <TextInput placeholder={users.profile.firstname === '' ? '-' : users.profile.firstname} onChangeText={text => this.onChangeFirstName(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
+                <Text style={style.textName}>
+                  Lastname
+                </Text>
+                <TextInput placeholder={users.profile.lastname === '' ? '-' : users.profile.lastname} onChangeText={text => this.onChangeLastName(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
+                <Text style={style.textName}>
+                  Phone Number
+                </Text>
+                <TextInput placeholder={users.profile.phone_number === '' ? '-' : users.profile.phone_number} onChangeText={text => this.onChangePhoneNUmber(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
+                <Text style={style.textName}>
+                  Email
+                </Text>
+                <TextInput placeholder={users.profile.email === '' ? '-' : users.profile.email} style={style.textEmail} editable={false} selectTextOnFocus={false} />
+                <Text style={style.textName}>
+                  Password
+                </Text>
+                <TextInput placeholder={Array(10).join('*')} style={style.textNameValue} editable={false} selectTextOnFocus={false} />
+              </View>
+              <TouchableOpacity onPress={() => { this.logout() }}>
+                <Text style={style.textLogout}>
+                  LOGOUT
+                </Text>
+              </TouchableOpacity>
+              <View style={{ height: 100 }} />
+            </ScrollView>
+            :
+            <View style={style.containerEmpty}>
+              <TouchableOpacity style={style.buttonLogin} onPress={() => navigation.navigate('LoginNavigation')}>
+                <Text style={style.loginText}>LOGIN</Text>
               </TouchableOpacity>
             </View>
-            <Text style={style.textUsername}>
-              {users.username}
-            </Text>
-            {/* <Text style={style.textEmail}> */}
-            {/* {users.profile.email} */}
-            {/* </Text> */}
-          </View>
-          <View style={style.containerCard}>
-            <Text style={style.textContactDetail}>
-              Profile Detail
-            </Text>
-            <Text style={style.textName}>
-              Firstname
-            </Text>
-            <TextInput placeholder={users.profile.firstname === '' ? '-' : users.profile.firstname} onChangeText={text => this.onChangeFirstName(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
-            <Text style={style.textName}>
-              Lastname
-            </Text>
-            <TextInput placeholder={users.profile.lastname === '' ? '-' : users.profile.lastname} onChangeText={text => this.onChangeLastName(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
-            <Text style={style.textName}>
-              Phone Number
-            </Text>
-            <TextInput placeholder={users.profile.phone_number === '' ? '-' : users.profile.phone_number} onChangeText={text => this.onChangePhoneNUmber(text)} style={style.textNameValue} editable={this.state.isEditOn} selectTextOnFocus={this.state.isEditOn} />
-            <Text style={style.textName}>
-              Email
-            </Text>
-            <TextInput placeholder={users.profile.email === '' ? '-' : users.profile.email} style={style.textEmail} editable={false} selectTextOnFocus={false} />
-            <Text style={style.textName}>
-              Password
-            </Text>
-            <TextInput placeholder={Array(10).join('*')} style={style.textNameValue} editable={false} selectTextOnFocus={false} />
-          </View>
-          <TouchableOpacity onPress={() => { this.logout() }}>
-            <Text style={style.textLogout}>
-              LOGOUT
-            </Text>
-          </TouchableOpacity>
-          <View style={{ height: 100 }} />
-        </ScrollView>
-        <TouchableOpacity style={style.fab} onPress={() => this.onFabPressed()}>
-          {
-            this.state.isEditOn ?
-              <Text style={{ fontSize: 14, fontFamily: 'Poppins-Regular', color: 'white' }}>Save</Text>
-              :
-              <FontAwesome name="edit" size={20} color="white" />
-          }
-        </TouchableOpacity>
+        }
+        {
+          users.isLogin ?
+            <TouchableOpacity style={style.fab} onPress={() => this.onFabPressed()}>
+              {
+                this.state.isEditOn ?
+                  <Text style={{ fontSize: 14, fontFamily: 'Poppins-Regular', color: 'white' }}>Save</Text>
+                  :
+                  <FontAwesome name="edit" size={20} color="white" />
+              }
+            </TouchableOpacity>
+            :
+            false
+        }
       </View>
     )
   }

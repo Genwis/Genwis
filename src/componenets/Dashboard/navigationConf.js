@@ -12,6 +12,7 @@ import { Text, StyleSheet } from 'react-native'
 import HomepageScreen from './views/Homepage/HomepageScreen'
 import HistoryScreen from './views/History/HistoryScreen'
 import ProfileScreen from './views/Profile/ProfileScreen'
+import DetailNavigation from '../Detail/views/DetailNavigation'
 
 const style = StyleSheet.create({
   tabText: {
@@ -29,6 +30,20 @@ const routeConfiguration = {
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-home" size={20} color={tintColor} />,
       tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>Home</Text> : ''),
+    },
+  },
+  Search: {
+    screen: HistoryScreen,
+    navigationOptions: {
+      tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-search" size={20} color={tintColor} />,
+      tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>History</Text> : ''),
+    },
+  },
+  Generate: {
+    screen: DetailNavigation,
+    navigationOptions: {
+      tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-add-circle" size={30} color={"#27ae60"} />,
+      tabBarLabel: ({ focused }) => (<Text style={style.tabText}>Generate</Text>),
     },
   },
   History: {

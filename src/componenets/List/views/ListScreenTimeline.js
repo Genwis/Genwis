@@ -5,58 +5,64 @@ import React, { Component } from 'react'
 import { Dimensions, Text, View } from 'react-native'
 import bulan from '../../../helper/month'
 import moment from 'moment'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export default class ListScreenTimeline extends Component {
   render() {
     const timeline = this.props.Day.events
+    const traffic  = this.props.Day.traffic
     return (
       <View style={container1}>
         <View style={container3}>
           <View style={stylePadJam}>
-            <Attr timeline={timeline} />
+            <Attr timeline={timeline} traffic={traffic}/>
           </View>
         </View>
       </View>
     )
   }
 }
-function Meniter(jm, mn, mnn) {
-  const tmnt = mn + mnn
-  const mnts = tmnt % 60
-  const jms = (jm + (tmnt / 60)).toFixed(0)
 
-  return ((jms < 10) ?
-    <Text style={Jam}>
-									0{jms}.{(mnts < 10) ? <Text style={Jam}>0{mnts}</Text> : <Text style={Jam}>{mnts}</Text>}
-    </Text>
-    :
-    <Text style={Jam}>{jms}.{(mnts < 10) ? <Text style={Jam}>0{mnts}</Text> : <Text style={Jam}>{mnts}</Text>}
-    </Text>)
-}
-function Attr(timeline) {
-  const showTime = Object.values(timeline).map((isi, id) => {
-    if (isi) {
-      const timeShow = isi.map((val, n) => (
-        <View key={n} style={container4}>
-          <Text style={attraction}>
-            {val.attraction.name}
-          </Text>
-          <Text style={Jam}>
-            {
-              moment.parseZone(val.start).format('HH.mm')
-            }
-            {
-              ' - '
-            }
-            {
-              moment.parseZone(val.end).format('HH.mm')
-            }
-          </Text>
+function Attr(props) {
+  const {timeline, traffic} = props
+  const edge = traffic ? Object.values(traffic) : false
+  const showTime = timeline ? Object.values(timeline).map((val, n) => {
+    console.log(edge[n])
+    if (val) {
+      return (
+        <View key={n}>
+          <View style={container4}>
+            <Text style={attraction}>
+              {val.attraction.name}
+            </Text>
+            <Text style={Jam}>
+              {
+                moment.parseZone(val.start).format('HH.mm')
+              }
+              {
+                ' - '
+              }
+              {
+                moment.parseZone(val.end).format('HH.mm')
+              }
+            </Text>
+          </View>
+          {
+            (n < timeline.length - 1) ?
+              <View style={container5}>
+                <FontAwesome name="road" size={15} color="#3498db" />
+                <Text style={edgy}>  {(edge[n].distance / 1000).toFixed(1)} KM  </Text>
+                <FontAwesome style={{marginLeft: 20}} name="car" size={15} color="#3498db" />
+                {edge[n].travel_time >= 3600 ? <Text style={edgy}>  {Math.floor(edge[n].travel_time / 3600)} H</Text> :false}
+                {(edge[n].travel_time % 3600) !== 0 ? <Text style={edgy}>  {Math.floor((edge[n].travel_time % 3600) / 60)} Mnt  </Text> : false}
+              </View>
+              :
+              false
+          }
         </View>
-      ))
-      return (<View key={id}>{timeShow}</View>)
+      )
     }
-  })
+  }) : false
   return (<View>{showTime}</View>)
 }
 const d = Dimensions.get('window')
@@ -74,13 +80,19 @@ const container4 = {
   marginLeft: 20,
   marginRight: 70,
   marginTop: 15,
-
+}
+const container5 = {
+  flexDirection: 'row',
+  marginLeft: 20,
+  marginRight: 70,
+  marginTop: 15,
 }
 const attraction = {
-  fontFamily: 'MarkPro',
+  fontFamily: 'Poppins-Medium',
   fontSize: 14,
-  letterSpacing: 0,
-  color: '#5c5c5c',
+  letterSpacing: 0.95,
+  textAlign: "left",
+  color: "#424242"
 }
 const Days = {
   marginLeft: 5,
@@ -92,10 +104,17 @@ const Days = {
   color: '#fefefe',
 }
 const Jam = {
-  fontFamily: 'Campton-Book',
+  fontFamily: 'Lato-Regular',
   fontSize: 12,
-  letterSpacing: 0.06,
-  color: '#757575',
+  fontWeight: "normal",
+  letterSpacing: 0.32,
+  color: "#757575"
+}
+
+const edgy = {
+  fontFamily: 'Lato-Regular',
+  fontSize: 12,
+  color: '#3498db',
 }
 const stylePadJam = {
   marginBottom: d.width * 7 / 360,

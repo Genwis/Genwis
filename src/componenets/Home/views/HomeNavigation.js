@@ -24,7 +24,7 @@ class HomeNavigation extends React.Component {
     static navigationOptions = {
       header: null,
     }
-
+    
     render() {
       const { dispatch, navigationState } = this.props
       return (

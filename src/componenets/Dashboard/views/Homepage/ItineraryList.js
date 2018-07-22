@@ -21,9 +21,16 @@ const style = StyleSheet.create({
 })
 
 export const ItineraryList = (props) => {
-  const { itinerary } = props
-  itinerary.reverse()
-  const list = Object.values(itinerary).map((itinerary, index) => <ItineraryCard key={index} itinerary={itinerary} number={index} onPreviewClicked={props.onPreviewClicked} />)
+  const { itinerary, isLogin, navigation } = props
+  const list = Object.values(itinerary).map((itinerary, index) => <ItineraryCard
+    key={index}
+    itinerary={itinerary}
+    number={index}
+    isLogin={isLogin}
+    navigation={navigation}
+    onPreviewClicked={props.onPreviewClicked}
+    onDeleteClicked={props.onDeleteClicked}
+  />)
   return (
     <View>
       <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>

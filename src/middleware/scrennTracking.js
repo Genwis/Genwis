@@ -6,7 +6,7 @@ import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
 
 const tracker = new GoogleAnalyticsTracker('UA-120517769-1');
 
-function getActiveRouteName(navigationState) {
+export function getActiveRouteName(navigationState) {
   if (!navigationState) {
     return null;
   }
@@ -16,7 +16,6 @@ function getActiveRouteName(navigationState) {
     return getActiveRouteName(route);
   }
   
-  console.log(route.routeName)
   return route.routeName;
 }
 

@@ -20,13 +20,8 @@ class HomeScreen extends Component {
         this.timer = TimerMixin.setTimeout(() => {resolve()}, 1000)
       })
         .then((result) => {
-          if (this.props.users.isLogin) {
-            const { navigation, users } = this.props
-            navigation.navigate('DashboardNavigation')
-          } else {
-            const { navigation, users } = this.props
-            navigation.navigate('LoginNavigation')
-          }
+          const { navigation, users } = this.props
+          navigation.navigate('DashboardNavigation')
         })
     }
     componentWillUnmount() {

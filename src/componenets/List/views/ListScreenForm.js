@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { Dimensions, ScrollView, Text, TextInput, Button, View, ToolbarAndroid, TouchableOpacity, StatusBar } from 'react-native'
 import ListScreenItems from './ListScreenItems'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon2 from 'react-native-vector-icons/Ionicons'
 import moment from 'moment'
 
 export default class ListScreenForm extends Component {
@@ -21,6 +22,9 @@ export default class ListScreenForm extends Component {
             <Text style={subtitleToolbarText}>
               {toolbarSubtitile(this.itinerary)}
             </Text>
+            <TouchableOpacity style={{ position:'absolute', right: d.height * 30 / 680, top: d.height * 25 / 680}}>
+              <Icon2 name="md-more" size={20} style={{ color: '#ffffff'}} />
+            </TouchableOpacity>
           </View>
           <ScrollView contentContainerStyle={scrolViewStyle}>
             <ListScreenItems navigation={this.navigation} iten={this.itinerary} />
@@ -66,25 +70,28 @@ const scrolViewStyle = {
 }
 
 const timelineToolbarText = {
-  marginTop: 20,
-  marginLeft: d.width * 24 / 360,
+  marginLeft: 10,
   fontFamily: 'Poppins-Regular',
-  fontSize: 18,
-  letterSpacing: 0.15,
-  color: 'white',
+  fontSize: 16,
+  letterSpacing: 0.59,
+  textAlign: "left",
+  color: "#ffffff"
 }
 
 const subtitleToolbarText = {
-  marginLeft: d.width * 24 / 360,
+  marginLeft: 10,
   fontFamily: 'Poppins-Regular',
   fontSize: 12,
-  letterSpacing: 0.1,
-  color: 'white',
+  fontWeight: "normal",
+  letterSpacing: 0.32,
+  textAlign: "left",
+  color: "#ffffff"
 }
 
 const Toolbar = {
-  backgroundColor: '#27ae60',
-  height: 70,
+  height: d.height * 70 / 680,
+  backgroundColor: "#27ae60",
+  padding: d.height * 10 / 680,
 }
 const Done = {
   fontFamily: 'Poppins-Regular',

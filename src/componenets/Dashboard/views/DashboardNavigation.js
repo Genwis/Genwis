@@ -35,7 +35,8 @@ class DashboardNavigation extends React.Component {
   }
   onBackPress = () => {
     const { dispatch, state } = this.props.navigation
-    if (state.routeName === 'Dashboard') {
+    console.log(state)
+    if (state.routeName === 'DashboardNavigation') {
       BackHandler.removeEventListener()
       BackHandler.exitApp()
       return false

@@ -5,6 +5,8 @@ import React from 'react'
 import { Dimensions, StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native'
 import moment from 'moment'
 import numeral from 'numeral'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
   containerScroll: {
@@ -12,11 +14,22 @@ const style = StyleSheet.create({
   },
   containerCard: {
     borderRadius: 2,
-    width: d.width * 286 / 360,
+    width: d.width * 290 / 360,
+    height: d.height * 160 / 616,
     backgroundColor: 'white',
     marginRight: 20,
     padding: 16,
     elevation: 5,
+  },
+  containerCardEmpty: {
+    borderRadius: 2,
+    width: d.width * 290 / 360,
+    height: d.height * 160 / 616,
+    backgroundColor: 'white',
+    marginRight: 20,
+    elevation: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   textCity: {
     fontFamily: 'Poppins-Medium',
@@ -60,43 +73,66 @@ const style = StyleSheet.create({
     width: d.width * 54 / 360,
     height: d.width * 54 / 360,
   },
+  buttonLogin: {
+    backgroundColor: '#27ae60',
+    borderRadius: d.height * 0.07 / 2,
+    width: d.width * 0.6,
+    height: d.height * 0.06,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginText: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    color: 'white',
+  },
 })
 
 export const ItineraryCard = (props) => {
-  const { itinerary, number } = props
+  const { itinerary, number, isLogin, navigation } = props
   return (
-    <View style={style.containerCard}>
-      <Text style={style.textCity}>
-        {itinerary.itinerary.detail.location.city}
-      </Text>
-      <View style={{flexDirection: 'row', marginBottom: 8, alignItems: 'stretch'}}>
-        <Text style={style.textDetail}>
-          {toolbarSubtitile(itinerary.itinerary)}
+    isLogin ?
+      <View style={style.containerCard}>
+        <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => props.onDeleteClicked(number)}>
+          <Ionicons name="ios-close" size={30} color={"#616161"}/>
+        </TouchableOpacity>
+        <Text style={style.textCity}>
+          {itinerary.itinerary.detail.location.city}
         </Text>
-        <Text style={style.textPrice}>
-          Rp. {numeral(itinerary.itinerary.cost).format('0,0')}
-        </Text>
+        <View style={{flexDirection: 'row', marginBottom: 8, alignItems: 'stretch'}}>
+          <Text style={style.textDetail}>
+            {toolbarSubtitile(itinerary.itinerary)}
+          </Text>
+          <Text style={style.textPrice}>
+            Rp. {numeral(itinerary.itinerary.cost).format('0,0')}
+          </Text>
+        </View>
+        <View style={style.containerImageThumbnails}>
+          <View style={style.imageThumbnail1}>
+            <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
+          </View>
+          <View style={style.imageThumbnail1}>
+            <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
+          </View>
+          <View style={style.imageThumbnail1}>
+            <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
+          </View>
+          <View style={style.imageThumbnail34}>
+            <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
+          </View>
+        </View>
+        <TouchableOpacity onPress={() => props.onPreviewClicked(number)}>
+          <Text style={style.textPreview}>
+            PREVIEW ITINERARY
+          </Text>
+        </TouchableOpacity>
       </View>
-      <View style={style.containerImageThumbnails}>
-        <View style={style.imageThumbnail1}>
-          <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
-        </View>
-        <View style={style.imageThumbnail1}>
-          <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
-        </View>
-        <View style={style.imageThumbnail1}>
-          <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
-        </View>
-        <View style={style.imageThumbnail34}>
-          <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
-        </View>
+      :
+      <View style={style.containerCardEmpty}>
+        <TouchableOpacity style={style.buttonLogin} onPress={() => navigation.navigate('LoginNavigation')}>
+          <Text style={style.loginText}>Login to See Recent Itinerary</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => props.onPreviewClicked(number)}>
-        <Text style={style.textPreview}>
-          PREVIEW ITINERARY
-        </Text>
-      </TouchableOpacity>
-    </View>
   )
 }
 

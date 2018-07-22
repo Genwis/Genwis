@@ -144,24 +144,27 @@ const fab = {
   elevation: 12,
 }
 const timelineToolbarText = {
-  marginTop: 20,
-  marginLeft: d.width * 24 / 360,
+  marginLeft: 10,
   fontFamily: 'Poppins-Regular',
   fontSize: 18,
-  letterSpacing: 0.15,
-  color: 'white',
+  letterSpacing: 0.59,
+  textAlign: "left",
+  color: "#ffffff"
 }
 
 const subtitleToolbarText = {
-  marginLeft: d.width * 24 / 360,
+  marginLeft: 10,
   fontFamily: 'Poppins-Regular',
   fontSize: 12,
-  letterSpacing: 0.1,
-  color: 'white',
+  fontWeight: "normal",
+  letterSpacing: 0.32,
+  textAlign: "left",
+  color: "#ffffff"
 }
 const Toolbar = {
-  backgroundColor: '#27ae60',
-  height: 70,
+  height: d.height * 70 / 680,
+  backgroundColor: "#27ae60",
+  padding: d.height * 10 / 680,
 }
 
 function toolbarSubtitile(iten) {
