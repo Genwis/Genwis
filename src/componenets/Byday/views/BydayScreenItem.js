@@ -1,5 +1,5 @@
 /**
- * Created by iampamungkas on 9/12/17.
+ * Created by iampamungkas on 9/12/17. test
  */
 import React, { Component } from 'react'
 import { View, Image, Text, Dimensions, ScrollView } from 'react-native'
