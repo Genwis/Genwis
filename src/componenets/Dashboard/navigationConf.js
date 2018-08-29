@@ -11,6 +11,7 @@ import { Text, StyleSheet } from 'react-native'
 // Screens
 import HomepageScreen from './views/Homepage/HomepageScreen'
 import HistoryScreen from './views/History/HistoryScreen'
+import SearchScreen from './views/Search/SearchScreen'
 import ProfileScreen from './views/Profile/ProfileScreen'
 import DetailNavigation from '../Detail/views/DetailNavigation'
 
@@ -33,10 +34,10 @@ const routeConfiguration = {
     },
   },
   Search: {
-    screen: HistoryScreen,
+    screen: SearchScreen,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-search" size={20} color={tintColor} />,
-      tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>History</Text> : ''),
+      tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>Search</Text> : ''),
     },
   },
   Generate: {

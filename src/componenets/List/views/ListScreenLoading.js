@@ -34,7 +34,6 @@ const video = {
   left: 0,
   bottom: 0,
   right: 0,
-  backgroundColor: 'white',
   height: d.width * 0.6,
 }
 

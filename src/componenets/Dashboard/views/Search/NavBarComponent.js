@@ -29,7 +29,7 @@ export const NavBarComponent = () => {
   return (
     <View style={style.container}>
       <Text style={style.text}>
-        History
+        Search
       </Text>
       <TouchableOpacity style={{ position:'absolute', right: d.height * 30 / 680, top: d.height * 16 / 680, bottom: d.height * 16 / 680}}>
         <Icon name="md-more" size={20} style={{ color: '#ffffff'}} />

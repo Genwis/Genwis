@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "clean": "eslint --fix . --ext .js",
-    "esinstal": "npm i eslint-plugin-react-native@latest --save-dev"
+    "esinstal": "npm i eslint-plugin-react-native@latest --save-dev",
+    "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json"
   },
   "dependencies": {
     "axios": "^0.16.2",
