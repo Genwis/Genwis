@@ -248,7 +248,7 @@ export default class SearchScreen extends Component {
 
         </View>
         <ScrollView style={{marginTop: 14}}>
-          <View style={{marginTop: 5, marginBottom: 5, marginLeft:20, marginRight: 20}} >{  this.renderElement(this.props.navigation) }</View>
+          <View style={{marginTop: 5, marginBottom: 5, marginLeft:20, marginRight: 20}} >{this.renderElement(this.props.navigation)}</View>
         </ScrollView>
 
       </View>
