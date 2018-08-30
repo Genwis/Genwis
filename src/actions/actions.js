@@ -10,6 +10,7 @@ export const RECEIVE_REGISTER = 'RECEIVE_REGISTER'
 export const REQUEST_LOGIN = 'REQUEST_LOGIN'
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
 export const SELECT_DETAIL = 'SELECT_DETAIL'
+//export const SEARCH_DETAIL = 'SEARCH_DETAIL'
 
 
 export function selectDetail(detail) {
@@ -19,6 +20,14 @@ export function selectDetail(detail) {
     detail,
   }
 }
+
+// export function searchDetail(detail) {
+//   console.log(detail)
+//   return {
+//     type: SEARCH_DETAIL,
+//     detail,
+//   }
+// }
 
 function requestItinerary(detail) {
   return {
@@ -135,5 +144,13 @@ export const NOT_NEW = 'NOT_NEW'
 export const notNew = () => ((dispatch) => {
   dispatch({
     type: NOT_NEW,
+  })
+})
+
+//export const SEARCH_DETAIL = 'SEARCH_DETAIL'
+export const idS = (detail) => ((dispatch) => {
+  dispatch({
+    type: SEARCH_DETAIL,
+    detail,
   })
 })

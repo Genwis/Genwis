@@ -12,6 +12,7 @@ import {
   REQUEST_REGISTER,
   RECEIVE_REGISTER,
   SELECT_DETAIL,
+  SEARCH_DETAIL,
   SHOWN_ITINERARY,
   DELETE_ITINERARY,
   IS_PREVIEW,
@@ -31,6 +32,17 @@ function tutorial(state = {
   switch (action.type) {
     case NOT_NEW:
       return {...state, new: false}
+    default:
+      return state
+  }
+}
+
+function aidi(state = {
+  id : ''
+}, action) {
+  switch (action.type) {
+    case SEARCH_DETAIL:
+      return {...state, id: action.type}
     default:
       return state
   }
@@ -177,6 +189,8 @@ function users(state = {
 }
 // Navigation
 import { NavigatorDetail } from '../componenets/Detail/navigationConf'
+import { NavigatorSearch } from '../componenets/Dashboard/views/Search/navigationConf'
+import { NavigatorDetailSearch } from '../componenets/DetailSearch/navigationConf'
 import { NavigatorHome } from '../componenets/Home/navigationConf'
 import { NavigatorList } from '../componenets/List/navigationConf'
 import { NavigatorBook } from '../componenets/Book/navigationConf'
@@ -191,7 +205,10 @@ const rootReducer = combineReducers({
   selectedDetail,
   users,
   tutorial,
+  aidi,
   Detail: (state, action) => NavigatorDetail.router.getStateForAction(action, state),
+  Search: (state, action) => NavigatorSearch.router.getStateForAction(action, state),
+  DetailSearch: (state, action) => NavigatorDetailSearch.router.getStateForAction(action, state),
   Home: (state, action) => NavigatorHome.router.getStateForAction(action, state),
   List: (state, action) => NavigatorList.router.getStateForAction(action, state),
   Book: (state, action) => NavigatorBook.router.getStateForAction(action, state),

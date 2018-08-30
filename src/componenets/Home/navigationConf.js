@@ -8,6 +8,7 @@ import { StackNavigator } from 'react-navigation'
 // Navigators
 import DetailNavigation from '../Detail/views/DetailNavigation'
 import ListNavigation from '../List/views/ListNavigation'
+import DetailSearchNavigation from '../DetailSearch/views/DetailSearchNavigation'
 import BookNavigation from '../Book/views/BookNavigation'
 import HomeScreen from './views/HomeScreen'
 import BydayNavigation from '../Byday/views/BydayNavigation'
@@ -26,5 +27,6 @@ const routeConfiguration = {
   LoginNavigation: { screen: LoginNavigation },
   SignUpNavigation: { screen: SignUpNavigation },
   DashboardNavigation: { screen: DashboardNavigation },
+  DetailSearchNavigation: { screen: DetailSearchNavigation },
 }
 export const NavigatorHome = StackNavigator(routeConfiguration)

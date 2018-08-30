@@ -12,8 +12,10 @@ import { Text, StyleSheet } from 'react-native'
 import HomepageScreen from './views/Homepage/HomepageScreen'
 import HistoryScreen from './views/History/HistoryScreen'
 import SearchScreen from './views/Search/SearchScreen'
+import DetailSearch from '../DetailSearch/views/DetailSearch'
 import ProfileScreen from './views/Profile/ProfileScreen'
 import DetailNavigation from '../Detail/views/DetailNavigation'
+import SearchNavigation from './views/Search/SearchNavigation'
 
 const style = StyleSheet.create({
   tabText: {
@@ -34,7 +36,7 @@ const routeConfiguration = {
     },
   },
   Search: {
-    screen: SearchScreen,
+    screen: SearchNavigation,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-search" size={20} color={tintColor} />,
       tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>Search</Text> : ''),

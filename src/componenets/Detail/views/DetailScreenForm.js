@@ -38,8 +38,12 @@ export default class DetailScreenForm extends Component {
       inputValue: ""
     }
     componentWillMount() {
+      console.log('bawah ni')
+      console.log(this.props)
       this.props.dispatch(isPreview(false))
       const nextState = this.props.detail
+      //console.log("props detail:")
+      //console.log(this.props.detail)
       const start = moment()
       nextState.location_id = '8ec9ee93-8863-419a-96f9-9a2a4cc7d815'
       nextState.start = start.format("YYYY-MMM-DD")
@@ -55,6 +59,9 @@ export default class DetailScreenForm extends Component {
     onBudgetChange = (budget) => {
       const nextState = this.props.detail
       console.log(budget)
+      console.log('testz')
+      console.log(nextState)
+
       nextState.budget = parseInt(budget)
       this.props.dispatch(selectDetail(nextState))
       this.setState({
@@ -121,7 +128,7 @@ export default class DetailScreenForm extends Component {
         })
     }
     render() {
-      const { detail, navigation } = this.props
+      const { detail, navigation, test } = this.props
       const now = moment()
       const start = moment(detail.start, 'YYYY-MMM-DD')
       const finish = moment(detail.finish, 'YYYY-MMM-DD')
@@ -215,7 +222,7 @@ export default class DetailScreenForm extends Component {
                     </View>
                   </TouchableOpacity>
                 </View>
-                
+
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
                   <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, outdoors: !this.state.tags.outdoors})}>
                     <View style={this.state.tags.outdoors ? filterButtonActive : filterButtonPassive}>
@@ -233,7 +240,7 @@ export default class DetailScreenForm extends Component {
                     </View>
                   </TouchableOpacity>
                 </View>
-                
+
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
                   <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, history: !this.state.tags.history})}>
                     <View style={this.state.tags.history ? filterButtonActive : filterButtonPassive}>
@@ -251,7 +258,7 @@ export default class DetailScreenForm extends Component {
                     </View>
                   </TouchableOpacity>
                 </View>
-                
+
               </View>
               <TouchableOpacity style={buttonGene} onPress={() => navigation.navigate('ListNavigation')}>
                 <Text style={generateText}>GENERATE</Text>
