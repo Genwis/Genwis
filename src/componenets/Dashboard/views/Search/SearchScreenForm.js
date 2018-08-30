@@ -92,7 +92,17 @@ export default class SearchScreen extends Component {
     },
     jsonGet: '',
   }
-
+  fungsi = (d, idx, navigation) => {
+      if (!(d.attraction.photo == null)){
+      
+        console.log("test")
+        console.log(d.attraction)
+        console.log('|'+typeof(d.attraction.photo)+'|')
+        return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu()}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={d.attraction.photo[0]} ada='true' attrid={d.attraction.id}/></TouchableOpacity>)
+      }else{//(aidi) => this.onPressItem(d.attraction.id)onPress={}
+        return (<TouchableOpacity key={idx}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} ada='false' attrid={d.attraction.id}/></TouchableOpacity>)
+      }
+  }
   onKeywordChange = (keyword) => {
     //const nextState = this.props.detail
     console.log('ini ',keyword)
@@ -141,22 +151,13 @@ export default class SearchScreen extends Component {
       console.log('C000000000000000000000000000000000000L')
     }
     renderElement = (navigation) => {
-        this.sesuatu()
+      function fungsi() {
+        return this.sesuatu()
+      }
        if(this.state.jsonGet == ''||this.state.jsonGet == null||this.state.jsonGet == undefined){
           return <Text>nope</Text>;
         }else {
-          return <View>{this.state.jsonGet.map(function(d, idx){
-
-            if (!(d.attraction.photo == null)){
-
-              console.log("test")
-              console.log(d.attraction)
-              console.log('|'+typeof(d.attraction.photo)+'|')
-              return (<TouchableOpacity key={idx} onPress={()=>this.sesuatu()}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={d.attraction.photo[0]} ada='true' attrid={d.attraction.id}/></TouchableOpacity>)
-            }else{//(aidi) => this.onPressItem(d.attraction.id)onPress={}
-              return (<TouchableOpacity key={idx}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} ada='false' attrid={d.attraction.id}/></TouchableOpacity>)
-            }
-         })}</View>;
+          return <View>{this.state.jsonGet.map(((d, idx)=>this.fungsi(d, idx, navigation)))}</View>;
         }
        return null;
     }
