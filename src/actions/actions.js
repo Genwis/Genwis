@@ -10,7 +10,7 @@ export const RECEIVE_REGISTER = 'RECEIVE_REGISTER'
 export const REQUEST_LOGIN = 'REQUEST_LOGIN'
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
 export const SELECT_DETAIL = 'SELECT_DETAIL'
-//export const SEARCH_DETAIL = 'SEARCH_DETAIL'
+export const SEARCH_DETAIL = 'SEARCH_DETAIL'
 
 
 export function selectDetail(detail) {

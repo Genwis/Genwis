@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react'
-import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image, ScrollView,BackHandler } from 'react-native'
 import Modal from 'react-native-modalbox'
 import moment from 'moment'
 import Calendar from 'react-native-calendars/src/calendar/index'
@@ -12,6 +12,22 @@ import { selectDetail, isPreview } from '../../../actions/actions'
 import Axios from 'axios'
 
 export default class DetailScreenForm extends Component {
+  constructor(props) {
+    super(props)
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+}
+componentWillMount() {
+  BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+}
+
+componentWillUnmount() {
+  BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+}
+
+handleBackButtonClick() {
+  this.props.navigation.goBack(null);
+  return true;
+}
     state = {
       isOpen: false,
       currentStart: this.props.detail.start,

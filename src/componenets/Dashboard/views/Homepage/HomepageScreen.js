@@ -73,7 +73,7 @@ class HomepageScreen extends Component {
   state = {
     new: this.props.new
   }
-  
+
   onFabClicked(){
     const { dispatch, navigation } = this.props
     if (this.state.new) {

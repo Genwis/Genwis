@@ -42,7 +42,7 @@ function aidi(state = {
 }, action) {
   switch (action.type) {
     case SEARCH_DETAIL:
-      return {...state, id: action.type}
+      return {...state, id: action.detail}
     default:
       return state
   }
