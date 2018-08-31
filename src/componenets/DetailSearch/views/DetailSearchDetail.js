@@ -12,7 +12,7 @@ const style = StyleSheet.create({
   },
   imageThumbnail: {
     width: d.width,
-    height: d.height * 300 / 616,
+    height: 221,
     backgroundColor: '#eeeeee',
   }
 })
@@ -78,7 +78,7 @@ handleBackButtonClick() {
         </View>
         <Text style={{lineHeight:18.7,fontSize:14,color:'#757575',fontFamily:'Lato-Regular',letterSpacing:0.38}}>{this.state.jsonGet.vicinity}</Text>
         <Text style={{lineHeight:18.7,fontSize:14,color:'#27ae60',fontFamily:'Lato-Regular',marginTop:5}}>{this.state.jsonGet.phone_number}</Text>
-        <Text style={{color:'#424242',fontFamily:'Poppins-Medium',marginTop:30}}>Deskripsi</Text>
+        <Text style={{color:'#424242',fontFamily:'Poppins-Medium',marginTop:20}}>Deskripsi</Text>
         <Text style={{fontFamily:'Lato-Regular',fontSize:12.7,lineHeight:18.7,letterSpacing:0.34}}>{this.state.jsonGet.description}</Text>
 </View>
         </ScrollView>

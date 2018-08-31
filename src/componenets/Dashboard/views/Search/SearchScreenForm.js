@@ -16,7 +16,7 @@ const style = StyleSheet.create({
   },
   searchinput: {
     borderWidth: 0,
-    padding: 20,
+    padding: 15,
     backgroundColor: '#ffffff',
     shadowColor: '#000000',
     shadowOffset: {

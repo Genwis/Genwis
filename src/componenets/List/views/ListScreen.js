@@ -37,6 +37,7 @@ class ListScreen extends Component {
     super(props)
   }
   componentWillMount() {
+    console.log("ispr: "+isPreview)
     const { dispatch, selectedDetail, isPreview } = this.props
     if (!isPreview) {
       const show = new Promise((resolve, reject) => {
@@ -44,7 +45,7 @@ class ListScreen extends Component {
         resolve(x)
       })
         .then(() => {
-        
+
         })
     }
   }
