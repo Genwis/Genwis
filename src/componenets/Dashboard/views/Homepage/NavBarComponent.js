@@ -15,7 +15,6 @@ const style = StyleSheet.create({
     paddingTop: d.height * 16 / 680,
     paddingLeft: d.height * 16 / 680,
     paddingRight: d.height * 16 / 680,
-    marginBottom: 20,
     left : 0,
     flexDirection: 'row'
   },

@@ -1,5 +1,11 @@
 /**
  * Created by iampamungkas on 7/29/17.
+
+  <View style={bSpace}/> 
+ <TouchableOpacity style={fab} onPress={() => this.props.navigation.navigate('BydayNavigation')}>
+   <Icon name="list-ul" style={{ fontSize: 25, color: '#27ae60' }} />
+ </TouchableOpacity>
+
  */
 import React, { Component } from 'react'
 import { Dimensions, ScrollView, Text, TextInput, Button, View, ToolbarAndroid, TouchableOpacity, StatusBar } from 'react-native'
@@ -12,7 +18,11 @@ export default class ListScreenForm extends Component {
     itinerary = this.props.List.itinerary
     detail = this.props.Detail
     navigation = this.props.navigation
+    dispatch = this.props.dispatch
+
     render() {
+      console.log('propsing listscreenform')
+      console.log(this.props)
       return (
         <View style={{ flex: 1, backgroundColor: '#fefefe' }}>
           <View style={Toolbar}>
@@ -27,12 +37,9 @@ export default class ListScreenForm extends Component {
             </TouchableOpacity>
           </View>
           <ScrollView contentContainerStyle={scrolViewStyle}>
-            <ListScreenItems navigation={this.navigation} iten={this.itinerary} />
+            <ListScreenItems dispatch={this.dispatch} navigation={this.navigation} iten={this.itinerary} />
           </ScrollView>
-          {/* <View style={bSpace}/> */}
-          <TouchableOpacity style={fab} onPress={() => this.props.navigation.navigate('BydayNavigation')}>
-            <Icon name="list-ul" style={{ fontSize: 25, color: '#27ae60' }} />
-          </TouchableOpacity>
+
         </View>
       )
     }

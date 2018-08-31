@@ -15,7 +15,7 @@ const style = StyleSheet.create({
   containerCard: {
     borderRadius: 2,
     width: d.width * 290 / 360,
-    height: d.height * 160 / 616,
+    //height: d.height * 160 / 616,
     backgroundColor: 'white',
     marginRight: 20,
     padding: 16,
@@ -90,8 +90,8 @@ const style = StyleSheet.create({
 
 export const ItineraryCard = (props) => {
   const { itinerary, number, isLogin, navigation } = props
-  return (
-    isLogin ?
+  return (//isLogin
+    true ?
       <View style={style.containerCard}>
         <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => props.onDeleteClicked(number)}>
           <Ionicons name="ios-close" size={30} color={"#616161"}/>

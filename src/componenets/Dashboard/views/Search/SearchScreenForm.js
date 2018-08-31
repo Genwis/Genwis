@@ -57,12 +57,13 @@ class Card extends Component {
         <Text style={{color: '#bdbdbd', fontSize: 12,fontFamily:'Lato-Regular',letterSpacing:0.32}}>{this.props.location}, {this.props.prov}</Text>
       </View>
       <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
-      <View style={{flexDirection:'row',justifyContent:'center'}}><Text>{this.props.star} </Text>
+      <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}><Text style={{color:'#ffcd00'}}>4.6{/*this.props.star*/} </Text>
         <StarRating
           disabled
           maxStars={5}
-          rating={this.props.star}
-          fullStarColor={'#ffef00'}
+          rating={/*this.props.star*/4.6}
+          fullStarColor={'#ffcd00'}
+          emptyStarColor={'#ffcd00'}
           starSize={12}
         />
       </View>
@@ -97,6 +98,8 @@ export default class SearchScreen extends Component {
     jsonGet: '',
   }
   fungsi = (d, idx, navigation) => {
+    if(this.state.jsonGet!=''){
+      var aa = 20;
       if (!(d.attraction.photo == null)){
 
         console.log("test")
@@ -104,8 +107,9 @@ export default class SearchScreen extends Component {
         console.log('|'+typeof(d.attraction.photo)+'|')
         return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu(d.attraction.id)}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={d.attraction.photo[0]} ada='true' attrid={d.attraction.id}/></TouchableOpacity>)
       }else{//(aidi) => this.onPressItem(d.attraction.id)onPress={}
-        return (<TouchableOpacity key={idx}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={'../../../../assets/Tempat/default.png'} ada='false' attrid={d.attraction.id}/></TouchableOpacity>)
+        return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu(d.attraction.id)}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={'../../../../assets/Tempat/default.png'} ada='false' attrid={d.attraction.id}/></TouchableOpacity>)
       }
+    }
   }
   componentDidMount() {
     const keyword = ''
@@ -113,15 +117,15 @@ export default class SearchScreen extends Component {
       Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
       'Content-Type': 'text/plain',
     }
-    Axios.get(`http://api.generatorwisata.com/api/attractions/like?key=${keyword}`, { headers })
-      .then((response) => {
-        this.setState({ ...this.state, jsonGet: response.data})
-        //console.log(this.state.jsonGet)
-        //console.log("inij: "+this.state.jsonGet)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    // Axios.get(`http://api.generatorwisata.com/api/attractions/like?key=${keyword}`, { headers })
+    //   .then((response) => {
+    //     this.setState({ ...this.state, jsonGet: response.data})
+    //     //console.log(this.state.jsonGet)
+    //     //console.log("inij: "+this.state.jsonGet)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
     }
   onKeywordChange = (keyword) => {
     //const nextState = this.props.detail
@@ -247,7 +251,7 @@ export default class SearchScreen extends Component {
         <View>
 
         </View>
-        <ScrollView style={{marginTop: 14}}>
+        <ScrollView  initialNumToRender={7}  style={{marginTop: 14}}>
           <View style={{marginTop: 5, marginBottom: 5, marginLeft:20, marginRight: 20}} >{this.renderElement(this.props.navigation)}</View>
         </ScrollView>
 

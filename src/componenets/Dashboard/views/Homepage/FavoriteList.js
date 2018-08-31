@@ -23,7 +23,7 @@ const style = StyleSheet.create({
 export const FavoriteList = (props) => {
   const { itinerary } = props
   return (
-    <View>
+    <View style={{marginBottom:20}}>
       <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
         <View style={style.containerCard}>
           <AttractionCard/>

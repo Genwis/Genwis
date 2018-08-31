@@ -2,20 +2,25 @@
  * Created by iampamungkas on 7/29/17.
  */
 import React, { Component } from 'react'
-import { Dimensions, Text, View } from 'react-native'
+import { Dimensions, Text, View, TouchableOpacity } from 'react-native'
 import bulan from '../../../helper/month'
 import moment from 'moment'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import {idS } from '../../../actions/actions'
 
 export default class ListScreenTimeline extends Component {
   render() {
     const timeline = this.props.Day.events
     const traffic  = this.props.Day.traffic
+    const dispatch  = this.props.dispatch
+    const { navigation } = this.props
+    console.log('propsing ListScreenTimeline')
+    console.log(this.props)
     return (
       <View style={container1}>
         <View style={container3}>
           <View style={stylePadJam}>
-            <Attr timeline={timeline} traffic={traffic}/>
+            <Attr  dispatch={dispatch} timeline={timeline} traffic={traffic} navigation={navigation}/>
           </View>
         </View>
       </View>
@@ -24,14 +29,24 @@ export default class ListScreenTimeline extends Component {
 }
 
 function Attr(props) {
-  const {timeline, traffic} = props
+  const {timeline, traffic, navigation, dispatch} = props
+  console.log('attr')
+  console.log(props)
   const edge = traffic ? Object.values(traffic) : false
+  onPressItem = (aidi) => {
+    props.dispatch(idS(aidi))
+    props.navigation.navigate('DetailSearchNavigation')
+  }
   const showTime = timeline ? Object.values(timeline).map((val, n) => {
     console.log(edge[n])
+    // console.log('propsnya')
+    // console.log(props)
     if (val) {
       return (
         <View key={n}>
+<TouchableOpacity  onPress={()=>{this.onPressItem(val.attraction.id)}}>
           <View style={container4}>
+
             <Text style={attraction}>
               {val.attraction.name}
             </Text>
@@ -47,6 +62,7 @@ function Attr(props) {
               }
             </Text>
           </View>
+</TouchableOpacity>
           {
             (n < timeline.length - 1) ?
               <View style={container5}>

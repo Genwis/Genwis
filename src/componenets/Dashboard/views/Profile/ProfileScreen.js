@@ -41,7 +41,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
   containerEmpty: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -115,8 +115,10 @@ const style = StyleSheet.create({
   buttonLogin: {
     backgroundColor: '#27ae60',
     borderRadius: d.height * 0.07 / 2,
-    width: d.width * 0.8,
-    height: d.height * 0.06,
+    paddingTop:8,
+    paddingBottom:8,
+    paddingLeft:34,
+    paddingRight:34,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 25,
@@ -125,7 +127,11 @@ const style = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
     color: 'white',
+    justifyContent:'center'
   },
+  parag: {
+    textAlign:'center',fontSize:12,lineHeight:18.7,letterSpacing:0.44,fontFamily:'Latto-Regular',color:'#bdbdbd',
+  }
 })
 function mapStateToProps(state) {
   const { users } = state
@@ -331,6 +337,12 @@ class ProfileScreen extends Component {
             </ScrollView>
             :
             <View style={style.containerEmpty}>
+            <Image source={require('../../../../assets/user.png')} style={{height:83,width:70,marginLeft:15,marginBottom:20}} />
+            <Text style={{color:'#616161',fontSize:16,lineHeight:18.3,letterSpacing:0.43,marginBottom:10}}>Login Now!</Text>
+            <View>
+              <Text style={style.parag}>You haven't logged to the application</Text>
+              <Text style={style.parag}>Log in to see your profile!</Text>
+            </View>
               <TouchableOpacity style={style.buttonLogin} onPress={() => navigation.navigate('LoginNavigation')}>
                 <Text style={style.loginText}>LOGIN</Text>
               </TouchableOpacity>

@@ -155,7 +155,7 @@ class HomepageScreen extends Component {
           {/*false*/}
         {/*}*/}
         <NavBarComponent/>
-        <ScrollView>
+        <ScrollView style={{paddingTop:20}}>
           {/*<View style={style.searchBar}>*/}
             {/*<TextInput placeholder="Search place, discount etc." style={style.searchText} underlineColorAndroid="transparent" />*/}
             {/*<TouchableOpacity style={{ position: 'absolute', right: 18 }}>*/}

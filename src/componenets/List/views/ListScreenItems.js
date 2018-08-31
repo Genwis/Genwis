@@ -12,7 +12,9 @@ export default class ListScreenItems extends Component {
     super(props)
   }
   render() {
-    const { iten, navigation } = this.props
+    const { iten, navigation, dispatch } = this.props
+    console.log('propsing listscreenitems')
+    console.log(this.props)
     let Nday = 0
     const list = Object.values(iten.time_line).map((itinerary, index) => {
       Nday++
@@ -42,7 +44,7 @@ export default class ListScreenItems extends Component {
           />
         </View>
         <View>
-          <ListScreenTimeline Day={itinerary} Nday={Nday} />
+          <ListScreenTimeline dispatch={dispatch} Day={itinerary} Nday={Nday} navigation={navigation}/>
         </View>
       </View>
       )

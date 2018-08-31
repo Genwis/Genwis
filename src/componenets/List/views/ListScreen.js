@@ -37,8 +37,9 @@ class ListScreen extends Component {
     super(props)
   }
   componentWillMount() {
-    console.log("ispr: "+isPreview)
     const { dispatch, selectedDetail, isPreview } = this.props
+    console.log('propsing listscreen')
+    console.log(this.props)
     if (!isPreview) {
       const show = new Promise((resolve, reject) => {
         const x = dispatch(fetchItineray(selectedDetail))
@@ -49,25 +50,25 @@ class ListScreen extends Component {
         })
     }
   }
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
-  }
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress)
-  }
-  onBackPress = () => {
-    const { dispatch, state, navigation } = this.props.navigation
-    if (state.routeName === 'List') {
-      BackHandler.removeEventListener()
-      navigation.navigate('DashboardNavigation')
-      return false
-    }
-    dispatch(NavigationActions.back())
-    return true
-  }
+  // componentDidMount() {
+  //   BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
+  // }
+  // componentWillUnmount() {
+  //   BackHandler.removeEventListener('hardwareBackPress', this.onBackPress)
+  // }
+  // onBackPress = () => {
+  //   const { dispatch, state, navigation } = this.props.navigation
+  //   if (state.routeName === 'List') {
+  //     BackHandler.removeEventListener()
+  //     navigation.navigate('DashboardNavigation')
+  //     return false
+  //   }
+  //   dispatch(NavigationActions.back())
+  //   return true
+  // }
   render() {
     const {
-      isFetching, itinerary, selectedDetail, navigation, shownItinerary, isPreview
+      isFetching, itinerary, selectedDetail, navigation, shownItinerary, isPreview, dispatch
     } = this.props
     let shown  = shownItinerary
     if (!isPreview){
@@ -80,7 +81,7 @@ class ListScreen extends Component {
       <View style={container1}>
         <StatusBar backgroundColor="#229854" />
         {
-                    isFetching ? <ListScreenLoading /> : <ListScreenForm List={List} Detail={List.detail} navigation={navigation} />
+                    isFetching ? <ListScreenLoading /> : <ListScreenForm dispatch={dispatch} List={List} Detail={List.detail} navigation={navigation} />
                 }
         {
                     isFetching ? false : false
