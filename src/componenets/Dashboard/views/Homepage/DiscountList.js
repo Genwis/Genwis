@@ -5,14 +5,15 @@ import React from 'react'
 import { Dimensions, ScrollView, StyleSheet, View, Image } from 'react-native'
 
 const d = Dimensions.get('window')
+const wid =  d.width * 230 / 360
 const style = StyleSheet.create({
   containerScroll: {
     padding: 20,
   },
   containerCard: {
     borderRadius: 2,
-    width: d.width * 230 / 360,
-    height: d.height * 90 / 616,
+    width: wid,
+    height: wid * 0.394936709,
     backgroundColor: '#eeeeee',
     marginRight: 20,
   },
@@ -28,8 +29,9 @@ export const DiscountList = (props) => {
             source={require('../../../../assets/discount_banner.jpg')}
             style={{
               borderRadius: 2,
-              width: d.width * 230 / 360,
-              height: d.height * 90 / 616,
+              flex: 1,
+        resizeMode: "stretch",
+width: '100%', height: '100%'
             }}
           />
         </View>
@@ -38,8 +40,9 @@ export const DiscountList = (props) => {
             source={require('../../../../assets/discount_banner.jpg')}
             style={{
               borderRadius: 2,
-              width: d.width * 230 / 360,
-              height: d.height * 90 / 616,
+              flex: 1,
+        resizeMode: "stretch",
+width: '100%', height: '100%'
             }}
           />
         </View>
@@ -48,8 +51,9 @@ export const DiscountList = (props) => {
             source={require('../../../../assets/discount_banner.jpg')}
             style={{
               borderRadius: 2,
-              width: d.width * 230 / 360,
-              height: d.height * 90 / 616,
+              flex: 1,
+        resizeMode: "stretch",
+width: '100%', height: '100%'
             }}
           />
         </View>

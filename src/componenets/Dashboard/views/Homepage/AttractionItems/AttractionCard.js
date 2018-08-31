@@ -16,10 +16,9 @@ const style = StyleSheet.create({
   containerCard: {
     borderRadius: 2,
     width: d.width * 200 / 360,
-    height: d.height * 240 / 616,
     backgroundColor: 'white',
     marginRight: 20,
-    elevation: 5,
+    borderRadius:3.3
   },
   textCity: {
     fontFamily: 'Poppins-Medium',
@@ -48,7 +47,7 @@ const style = StyleSheet.create({
     backgroundColor: '#eeeeee',
   },
   detail: {
-    padding : 5
+    padding : 14
   }
 })
 
@@ -73,7 +72,8 @@ export const AttractionCard = (props) => {
               disabled
               maxStars={5}
               rating={placeMap[rand].rating}
-              fullStarColor={'#ffef00'}
+              fullStarColor={'#ffcd00'}
+              emptyStarColor={'#ffcd00'}
               starSize={12}
             />
           </View>

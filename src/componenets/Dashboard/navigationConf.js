@@ -23,6 +23,7 @@ const style = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Poppins-Medium',
     color: '#27ae60',
+    height: 0,
   },
 })
 
@@ -32,35 +33,30 @@ const routeConfiguration = {
     screen: HomepageScreen,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-home" size={20} color={tintColor} />,
-      tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>Home</Text> : ''),
     },
   },
   Search: {
     screen: SearchNavigation,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-search" size={20} color={tintColor} />,
-      tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>Search</Text> : ''),
     },
   },
   Generate: {
     screen: DetailNavigation,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-add-circle" size={30} color={"#27ae60"} />,
-      tabBarLabel: ({ focused }) => (<Text style={style.tabText}>Generate</Text>),
     },
   },
   History: {
     screen: HistoryScreen,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-time" size={20} color={tintColor} />,
-      tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>History</Text> : ''),
     },
   },
   Profile: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-person" size={20} color={tintColor} />,
-      tabBarLabel: ({ focused }) => (focused ? <Text style={style.tabText}>Profile</Text> : ''),
     },
   },
 }
@@ -72,6 +68,7 @@ const TabNavigatorConfiguration = {
   tabBarPosition: 'bottom',
   tabBarComponent: TabBarBottom,
   tabBarOptions: {
+    showLabel: false,
     activeTintColor: '#27ae60',
     inactiveTintColor: '#d2d0ce',
     style: {
@@ -79,6 +76,8 @@ const TabNavigatorConfiguration = {
       borderTopWidth: 1,
       borderTopColor: 'white',
       elevation: 1,
+      padding: 0,
+      margin: 0,
     },
   },
 }

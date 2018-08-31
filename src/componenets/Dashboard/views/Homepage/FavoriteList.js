@@ -16,7 +16,14 @@ const style = StyleSheet.create({
     width: d.width * 200 / 360,
     backgroundColor: '#eeeeee',
     marginRight: 20,
-    elevation: 5,
+    shadowColor: '#eeeeee',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    margin:5,
   },
 })
 
@@ -25,16 +32,16 @@ export const FavoriteList = (props) => {
   return (
     <View style={{marginBottom:20}}>
       <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
-        <View style={style.containerCard}>
+        <View style={style.containerCard} elevation={3}>
           <AttractionCard/>
         </View>
-        <View style={style.containerCard}>
+        <View style={style.containerCard} elevation={3}>
           <AttractionCard/>
         </View>
-        <View style={style.containerCard}>
+        <View style={style.containerCard} elevation={3}>
           <AttractionCard/>
         </View>
-        <View style={style.containerCard}>
+        <View style={style.containerCard} elevation={3}>
           <AttractionCard/>
         </View>
       </ScrollView>

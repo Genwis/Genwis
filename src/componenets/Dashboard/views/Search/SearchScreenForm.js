@@ -6,6 +6,7 @@ import { Dimensions, View, StatusBar, StyleSheet, Text, TextInput, ScrollView, T
 import Axios from 'axios'
 import StarRating from 'react-native-star-rating'
 import { selectDetail, idS } from '../../../../actions/actions'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const d = Dimensions.get('window')
 
@@ -248,6 +249,16 @@ export default class SearchScreen extends Component {
       <View style={style.container}>
         <StatusBar backgroundColor="#229854" />
         <TextInput placeholder="Search Place Here" style={style.searchinput} onChangeText={(keyword) => this.onKeywordChange(keyword)} elevation={4} underlineColorAndroid='rgba(0,0,0,0)'/>
+
+        <Ionicons name="ios-search" style={{ fontSize: 25, color: '#27ae60',elevation: 12,
+        width: 40,
+        height: 40,
+        position: 'absolute',
+        top: 18,
+        right: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 39, }} />
         <View>
 
         </View>

@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import { Dimensions, View, StatusBar, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, Image,BackHandler  } from 'react-native'
 import Axios from 'axios'
 import StarRating from 'react-native-star-rating'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon2 from 'react-native-vector-icons/Ionicons'
+import Icon3 from 'react-native-vector-icons/MaterialIcons'
 
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
@@ -75,6 +78,9 @@ handleBackButtonClick() {
     console.log('receive')
     return (
       <View style={{backgroundColor:'#ffffff',flex:1}}>
+      <TouchableOpacity style={fab} onPress={() => this.props.navigation.goBack(null)}>
+        <Icon3 name="arrow-back" style={{ fontSize: 25, color: '#424242' }} />
+      </TouchableOpacity>
       <ScrollView>
         {this.renderImage()}
         <View style={{padding:25}}>
@@ -92,14 +98,27 @@ handleBackButtonClick() {
         </View>
         <Text style={{color:'#27ae60',letterSpacing:0.38,fontSize:14,fontFamily:'Poppins-Medium'}}>{this.state.rp} {this.state.jsonGet.price}</Text>
         </View>
-        <Text style={{lineHeight:18.7,fontSize:14,color:'#757575',fontFamily:'Lato-Regular',letterSpacing:0.38}}>{this.state.jsonGet.vicinity}</Text>
+        <Text style={{lineHeight:20,fontSize:14,color:'#757575',fontFamily:'Lato-Regular',letterSpacing:0.38}}>{this.state.jsonGet.vicinity}</Text>
         <Text style={{lineHeight:18.7,fontSize:14,color:'#27ae60',fontFamily:'Lato-Regular',marginTop:5}}>{this.state.jsonGet.phone_number}</Text>
         <Text style={{color:'#424242',fontFamily:'Poppins-Medium',marginTop:20}}>{this.state.deskripsi}</Text>
-        <Text style={{fontFamily:'Lato-Regular',fontSize:12.7,lineHeight:18.7,letterSpacing:0.34}}>{this.state.jsonGet.description}</Text>
+        <Text style={{fontFamily:'Lato-Regular',fontSize:12.7,lineHeight:20,letterSpacing:0.34}}>{this.state.jsonGet.description}</Text>
 </View>
         </ScrollView>
 
       </View>
     )
   }
+}
+const fab = {
+  elevation: 12,
+  width: 40,
+  height: 40,
+  borderRadius: 30,
+  backgroundColor: 'white',
+  position: 'absolute',
+  top: 24,
+  left: 24,
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 39,
 }
