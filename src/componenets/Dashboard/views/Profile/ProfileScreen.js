@@ -338,7 +338,7 @@ class ProfileScreen extends Component {
             :
             <View style={style.containerEmpty}>
             <Image source={require('../../../../assets/user.png')} style={{height:83,width:70,marginLeft:15,marginBottom:20}} />
-            <Text style={{color:'#616161',fontSize:16,lineHeight:18.3,letterSpacing:0.43,marginBottom:10}}>Login Now!</Text>
+            <Text style={{fontFamily:'Poppins-Medium',color:'#616161',fontSize:16,lineHeight:18.3,letterSpacing:0.43,marginBottom:10}}>Login Now!</Text>
             <View>
               <Text style={style.parag}>You haven't logged to the application</Text>
               <Text style={style.parag}>Log in to see your profile!</Text>
