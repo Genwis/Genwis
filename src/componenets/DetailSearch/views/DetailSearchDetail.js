@@ -96,7 +96,7 @@ handleBackButtonClick() {
             starSize={12}
           />
         </View>
-        <Text style={{color:'#27ae60',letterSpacing:0.38,fontSize:14,fontFamily:'Poppins-Medium'}}>{this.state.rp} {this.state.jsonGet.price}</Text>
+          <Text style={{color:'#27ae60',letterSpacing:0.38,fontSize:14,fontFamily:'Poppins-Medium'}}>{this.state.rp} {this.state.jsonGet.price}</Text>
         </View>
         <Text style={{lineHeight:20,fontSize:14,color:'#757575',fontFamily:'Lato-Regular',letterSpacing:0.38}}>{this.state.jsonGet.vicinity}</Text>
         <Text style={{lineHeight:18.7,fontSize:14,color:'#27ae60',fontFamily:'Lato-Regular',marginTop:5}}>{this.state.jsonGet.phone_number}</Text>
