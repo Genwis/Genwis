@@ -13,8 +13,9 @@ export default class ListScreenItems extends Component {
   }
   render() {
     const { iten, navigation, dispatch } = this.props
-    console.log('propsing listscreenitems')
-    console.log(this.props)
+    //console.log('propsing listscreenitems')
+    //console.log(this.props)
+    console.log('HIT')
     let Nday = 0
     const list = Object.values(iten.time_line).map((itinerary, index) => {
       Nday++

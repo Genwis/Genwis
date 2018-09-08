@@ -54,8 +54,8 @@ export default class DetailScreenForm extends Component {
       inputValue: ""
     }
     componentWillMount() {
-      console.log('bawah ni')
-      console.log(this.props)
+      //console.log('bawah ni')
+      //console.log(this.props)
       this.props.dispatch(isPreview(false))
       const nextState = this.props.detail
       //console.log("props detail:")

@@ -154,3 +154,11 @@ export const idS = (detail) => ((dispatch) => {
     detail,
   })
 })
+
+export const SELECTED_KOOR = 'SELECTED_KOOR'
+export const koorToMapa = (detail) => ((dispatch) => {
+  dispatch({
+    type: SELECTED_KOOR,
+    detail,
+  })
+})

@@ -18,7 +18,9 @@ import { connect } from 'react-redux'
 
 
 const mapStateToProps = state => ({
+  //detail: state.koor
   navigationState: state.Map,
+
 })
 class MapNavigation extends React.Component {
     static navigationOptions = {

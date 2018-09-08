@@ -190,10 +190,11 @@ export default class SearchScreen extends Component {
     }
 
   render() {
+    
     const { detail, navigation } = this.props
-    console.log('yg ada detail')
-    console.log(this.props)
-    console.log('/yg ada detail')
+    //console.log('yg ada detail')
+    //console.log(this.props)
+    //console.log('/yg ada detail')
     /*
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
     <View style={{marginTop: 14, marginBottom: 14, flexDirection: 'row', marginLeft: 9}}>

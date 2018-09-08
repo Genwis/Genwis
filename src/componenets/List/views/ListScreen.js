@@ -23,7 +23,9 @@ function mapStateToProps(state) {
     isFetching: true,
     itinerary: { },
   }
-
+  console.log('mapstatetoprops listscreen')
+  console.log(itineraryByDetail)
+  //console.log('//--itineraryByDetail')
   return {
     selectedDetail,
     itinerary,
@@ -38,8 +40,8 @@ class ListScreen extends Component {
   }
   componentWillMount() {
     const { dispatch, selectedDetail, isPreview } = this.props
-    console.log('propsing listscreen')
-    console.log(this.props)
+    //console.log('propsing listscreen')
+    //console.log(this.props)
     if (!isPreview) {
       const show = new Promise((resolve, reject) => {
         const x = dispatch(fetchItineray(selectedDetail))
@@ -67,6 +69,7 @@ class ListScreen extends Component {
   //   return true
   // }
   render() {
+    console.log('ListScreen Render Called')
     const {
       isFetching, itinerary, selectedDetail, navigation, shownItinerary, isPreview, dispatch
     } = this.props
@@ -74,6 +77,7 @@ class ListScreen extends Component {
     if (!isPreview){
       shown = 0
     }
+    //Detail={List.detail}
     // console.log(itinerary)
     const List = itinerary[shown]
     return (
@@ -81,7 +85,7 @@ class ListScreen extends Component {
       <View style={container1}>
         <StatusBar backgroundColor="#229854" />
         {
-                    isFetching ? <ListScreenLoading /> : <ListScreenForm dispatch={dispatch} List={List} Detail={List.detail} navigation={navigation} />
+                    isFetching ? <ListScreenLoading /> : <ListScreenForm dispatch={dispatch} List={List}  navigation={navigation} />
                 }
         {
                     isFetching ? false : false

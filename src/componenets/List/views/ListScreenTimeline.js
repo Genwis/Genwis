@@ -6,7 +6,7 @@ import { Dimensions, Text, View, TouchableOpacity } from 'react-native'
 import bulan from '../../../helper/month'
 import moment from 'moment'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import {idS } from '../../../actions/actions'
+import {idS,koorToMapa } from '../../../actions/actions'
 
 export default class ListScreenTimeline extends Component {
   render() {
@@ -14,8 +14,8 @@ export default class ListScreenTimeline extends Component {
     const traffic  = this.props.Day.traffic
     const dispatch  = this.props.dispatch
     const { navigation } = this.props
-    console.log('propsing ListScreenTimeline')
-    console.log(this.props)
+    //console.log('propsing ListScreenTimeline')
+    //console.log(this.props)
     return (
       <View style={container1}>
         <View style={container3}>
@@ -30,18 +30,31 @@ export default class ListScreenTimeline extends Component {
 
 function Attr(props) {
   const {timeline, traffic, navigation, dispatch} = props
-  console.log('attr')
-  console.log(props)
+  //console.log('attr')
+  //console.log(props)
   const edge = traffic ? Object.values(traffic) : false
   onPressItem = (aidi) => {
     props.dispatch(idS(aidi))
     props.navigation.navigate('DetailSearchNavigation')
   }
+  onToMap = (koor1,koor2) => {
+    var koor = {
+      'koor1': koor1,
+      'koor2': koor2
+    }
+    //var koor = "test"
+    props.dispatch(koorToMapa(koor))
+    props.navigation.navigate('MapNavigation')
+  }
   const showTime = timeline ? Object.values(timeline).map((val, n) => {
-    console.log(edge[n])
+    //console.log(edge[n])
     // console.log('propsnya')
     // console.log(props)
     if (val) {
+      console.log('ini log')
+      console.log(val.attraction.coordinate.latitude)
+      console.log('ini nextnya')
+      //console.log(Object.values(timeline)[n+1].attraction.coordinate.latitude)
       return (
         <View key={n}>
 <TouchableOpacity  onPress={()=>{this.onPressItem(val.attraction.id)}}>
@@ -65,6 +78,7 @@ function Attr(props) {
 </TouchableOpacity>
           {
             (n < timeline.length - 1) ?
+            <TouchableOpacity  onPress={()=>{this.onToMap(val.attraction.coordinate,Object.values(timeline)[n+1].attraction.coordinate)}}>
               <View style={container5}>
                 <FontAwesome name="road" size={15} color="#3498db" />
                 <Text style={edgy}>  {(edge[n].distance / 1000).toFixed(1)} KM  </Text>
@@ -72,6 +86,7 @@ function Attr(props) {
                 {edge[n].travel_time >= 3600 ? <Text style={edgy}>  {Math.floor(edge[n].travel_time / 3600)} H</Text> :false}
                 {(edge[n].travel_time % 3600) !== 0 ? <Text style={edgy}>  {Math.floor((edge[n].travel_time % 3600) / 60)} Mnt  </Text> : false}
               </View>
+              </TouchableOpacity>
               :
               false
           }

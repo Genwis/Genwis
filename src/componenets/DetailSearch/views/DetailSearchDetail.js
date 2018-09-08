@@ -76,6 +76,7 @@ handleBackButtonClick() {
     const { search, navigation } = this.props
     //const attrid = navigation.getParam('attrId', 'test');
     console.log('receive')
+    console.log(this.props)
     return (
       <View style={{backgroundColor:'#ffffff',flex:1}}>
       <TouchableOpacity style={fab} onPress={() => this.props.navigation.goBack(null)}>

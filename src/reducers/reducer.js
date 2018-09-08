@@ -13,6 +13,7 @@ import {
   RECEIVE_REGISTER,
   SELECT_DETAIL,
   SEARCH_DETAIL,
+  SELECTED_KOOR,
   SHOWN_ITINERARY,
   DELETE_ITINERARY,
   IS_PREVIEW,
@@ -43,6 +44,18 @@ function aidi(state = {
   switch (action.type) {
     case SEARCH_DETAIL:
       return {...state, id: action.detail}
+    default:
+      return state
+  }
+}
+
+function koor(state = {
+  koor1 : '',
+  koor2 : ''
+}, action) {
+  switch (action.type) {
+    case SELECTED_KOOR:
+      return {...state, koor1: action.detail.koor1, koor2: action.detail.koor2}
     default:
       return state
   }
@@ -206,6 +219,7 @@ const rootReducer = combineReducers({
   users,
   tutorial,
   aidi,
+  koor,
   Detail: (state, action) => NavigatorDetail.router.getStateForAction(action, state),
   Search: (state, action) => NavigatorSearch.router.getStateForAction(action, state),
   DetailSearch: (state, action) => NavigatorDetailSearch.router.getStateForAction(action, state),
