@@ -4,14 +4,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SearchScreenForm from './SearchScreenForm'
 
-function mapStateToProps(state) {
-// const mapStateToProps = state => ({
-//   detail: state.aidi,
-// })
-const detail = state.aidi
-console.log('mapstatetoprops searchscreen')
-return detail
-}
+//function mapStateToProps(state) {
+const mapStateToProps = state => ({
+  detail: state.aidi,
+})
+// const detail = state.aidi
+// console.log('mapstatetoprops searchscreen')
+// return detail
+// }
 class SearchScreen extends Component {
   render() {
     console.log('ScreenSearch Render Called')

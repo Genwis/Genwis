@@ -32,6 +32,10 @@ export default class ListScreenForm extends Component {
       // <TouchableOpacity style={{ position:'absolute', right: d.height * 30 / 680, top: d.height * 25 / 680}}>
       //   <Icon2 name="md-more" size={20} style={{ color: '#ffffff'}} />
       // </TouchableOpacity>
+      // 
+      // <TouchableOpacity style={fab} onPress={() => goToMap()}>
+      //   <Icon3 name="arrow-back" style={{ fontSize: 25, color: '#424242' }} />
+      // </TouchableOpacity>
       goToMap = () =>{
         console.log('gotomap')
         //console.log(this.navigation)
@@ -50,9 +54,7 @@ export default class ListScreenForm extends Component {
             <Text style={subtitleToolbarText}>
               {toolbarSubtitile(this.itinerary)}
             </Text>
-            <TouchableOpacity style={fab} onPress={() => goToMap()}>
-              <Icon3 name="arrow-back" style={{ fontSize: 25, color: '#424242' }} />
-            </TouchableOpacity>
+
           </View>
           <ScrollView contentContainerStyle={scrolViewStyle}>
             <ListScreenItems dispatch={this.dispatch} navigation={this.navigation} iten={this.itinerary} />
