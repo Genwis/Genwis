@@ -24,7 +24,7 @@ function mapStateToProps(state) {
     itinerary: { },
   }
   console.log('mapstatetoprops listscreen')
-  console.log(itineraryByDetail)
+  console.log('isfetching:'+itineraryByDetail.isFetching)
   //console.log('//--itineraryByDetail')
   return {
     selectedDetail,
@@ -39,6 +39,7 @@ class ListScreen extends Component {
     super(props)
   }
   componentWillMount() {
+    //console.log('mounting lagi wtf')
     const { dispatch, selectedDetail, isPreview } = this.props
     //console.log('propsing listscreen')
     //console.log(this.props)

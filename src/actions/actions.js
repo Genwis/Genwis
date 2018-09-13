@@ -5,6 +5,8 @@ import Axios from 'axios'
 
 export const REQUEST_ITINERARY = 'REQUEST_ITINERARY'
 export const RECEIVE_ITINERARY = 'RECEIVE_ITINERARY'
+export const REQUEST_TOP_ITINERARY = 'REQUEST_TOP_ITINERARY'
+export const RECEIVE_TOP_ITINERARY = 'RECEIVE_TOP_ITINERARY'
 export const REQUEST_REGISTER = 'REQUEST_REGISTER'
 export const RECEIVE_REGISTER = 'RECEIVE_REGISTER'
 export const REQUEST_LOGIN = 'REQUEST_LOGIN'
@@ -162,3 +164,34 @@ export const koorToMapa = (detail) => ((dispatch) => {
     detail,
   })
 })
+
+// function receiveTopItinerary(detail, data) {
+//   return {
+//     type: RECEIVE_TOP_ITINERARY,
+//     response: {
+//       detail,
+//       itinerary: data,
+//     },
+//   }
+// }
+//
+// function requestTopItinerary(detail) {
+//   return {
+//     type: REQUEST_TOP_ITINERARY,
+//     detail,
+//   }
+// }
+//
+// export function fetchTopItineray(detail) {
+//   const headers = {
+//     Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
+//     'Content-Type': 'text/plain',
+//   }
+//   //console.log(detail)
+//   return (dispatch) => {
+//     dispatch(requestTopItinerary(detail))
+//     return Axios.post('http://api.generatorwisata.com/api/attractions/top', JSON.stringify(detail), { headers })
+//       .then(response => dispatch(receiveTopItinerary(detail, response.data)))
+//       .catch(err => console.log(err))
+//   }
+// }

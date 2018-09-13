@@ -16,6 +16,7 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 const markerIDs = ['s1', 's2']
 const timeout = 4000;
 let animationTimeout;
+
 export default class MapScreens extends Component {
     state = {
       region: {
@@ -25,13 +26,20 @@ export default class MapScreens extends Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
       koor1:{
-        latitude: parseFloat(this.props.detail.koor1.latitude),
-        longitude: parseFloat(this.props.detail.koor1.longitude),
+        name: this.props.detail.item1.name,
+        coor:{
+          latitude: parseFloat(this.props.detail.item1.koor.latitude),
+          longitude: parseFloat(this.props.detail.item1.koor.longitude),
+        },
       },
       koor2:{
-        latitude: parseFloat(this.props.detail.koor2.latitude),
-        longitude: parseFloat(this.props.detail.koor2.longitude),
+        name: this.props.detail.item2.name,
+        coor:{
+          latitude: parseFloat(this.props.detail.item2.koor.latitude),
+          longitude: parseFloat(this.props.detail.item2.koor.longitude),
+        },
       },
+      koorisempty: false
     }
     mapStyle = [
       {
@@ -167,35 +175,51 @@ fitToElements
   initialRegion={this.state.region}
 */
 
-
+// if(( typeof this.state.koor1.coor === 'undefined' || this.state.koor1.coor === null || isNaN(this.state.koor1.coor) )||( typeof this.state.koor2.coor === 'undefined' || this.state.koor2.coor === null || isNaN(this.state.koor2.coor) )){
+//     //this.state.
+//     this.setState({
+//     koorisempty: true,
+//     koor1:{coor: {latitude:parseFloat(0.0), longitude:parseFloat(0.0)}},
+//     koor2:{coor: {latitude:parseFloat(0.0), longitude:parseFloat(0.0)}},
+//     });
+// }
+console.log("koor"+this.state.koorisempty)
+console.log(this.state.koor1.coor)
+console.log(this.state.koor2.coor)
       return (
         <View style={container}>
         <TouchableOpacity style={fab} onPress={() => this.props.navigation.goBack(null)}>
           <Icon3 name="arrow-back" style={{ fontSize: 25, color: '#424242' }} />
         </TouchableOpacity>
           <Text>Som</Text>
-          <MapView
-          ref={ref => { this.map = ref; }}
-            zoomControlEnabled
-            provider="google"
 
-            style={map}
-            draggable
-            onLayout = {() => this.map.fitToCoordinates([this.state.koor1,this.state.koor2], { edgePadding: { top: 10, right: 10, bottom: 10, left: 10 }, animated: false })}
-          >
+          {
+            this.state.iskoorempty ? <Text>Coordinate is undefined</Text> :
+            <MapView
+            ref={ref => { this.map = ref; }}
+              zoomControlEnabled
+              provider="google"
+
+              style={map}
+              draggable
+              onLayout = {() => this.map.fitToCoordinates([this.state.koor1.coor,this.state.koor2.coor], { edgePadding: { top: 10, right: 10, bottom: 10, left: 10 }, animated: false })}
+            >
           <Marker
-            coordinate={this.state.koor1}
+            coordinate={this.state.koor1.coor}
             identifier='s1'
-            title='Koor1'
-            description='Koor1 desc'
+            title={this.state.koor1.name}
+            pinColor={'#01AF60'}
           />
           <Marker
-            coordinate={this.state.koor2}
+            coordinate={this.state.koor2.coor}
             identifier='s2'
-            title='Koor2'
-            description='Koor2 desc'
+            title={this.state.koor2.name}
+            pinColor={'#01AF60'}
           />
-          </MapView>
+                    </MapView>
+        }
+
+
         </View>
       )
     }

@@ -27,12 +27,12 @@ export default class ListScreenForm extends Component {
     render() {
       //const { navigation } = this.props
       //console.log('propsing listscreenform')
-      console.log('tesss')
+      //console.log('tesss')
       //console.log(this.props.navigation)
       // <TouchableOpacity style={{ position:'absolute', right: d.height * 30 / 680, top: d.height * 25 / 680}}>
       //   <Icon2 name="md-more" size={20} style={{ color: '#ffffff'}} />
       // </TouchableOpacity>
-      // 
+      //
       // <TouchableOpacity style={fab} onPress={() => goToMap()}>
       //   <Icon3 name="arrow-back" style={{ fontSize: 25, color: '#424242' }} />
       // </TouchableOpacity>

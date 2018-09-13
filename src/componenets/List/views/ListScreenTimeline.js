@@ -37,10 +37,16 @@ function Attr(props) {
     props.dispatch(idS(aidi))
     props.navigation.navigate('DetailSearchNavigation')
   }
-  onToMap = (koor1,koor2) => {
+  onToMap = (name1,name2,koor1,koor2) => {
     var koor = {
-      'koor1': koor1,
-      'koor2': koor2
+      'item1': {
+        'koor': koor1,
+        'name': name1,
+      },
+      'item2': {
+        'koor': koor2,
+        'name': name2,
+      }
     }
     //var koor = "test"
     props.dispatch(koorToMapa(koor))
@@ -51,9 +57,9 @@ function Attr(props) {
     // console.log('propsnya')
     // console.log(props)
     if (val) {
-      console.log('ini log')
-      console.log(val.attraction.coordinate.latitude)
-      console.log('ini nextnya')
+      //console.log('ini log')
+      //console.log(val.attraction.coordinate.latitude)
+      //console.log('ini nextnya')
       //console.log(Object.values(timeline)[n+1].attraction.coordinate.latitude)
       return (
         <View key={n}>
@@ -78,7 +84,7 @@ function Attr(props) {
 </TouchableOpacity>
           {
             (n < timeline.length - 1) ?
-            <TouchableOpacity  onPress={()=>{this.onToMap(val.attraction.coordinate,Object.values(timeline)[n+1].attraction.coordinate)}}>
+            <TouchableOpacity  onPress={()=>{this.onToMap(val.attraction.name,Object.values(timeline)[n+1].attraction.name,val.attraction.coordinate,Object.values(timeline)[n+1].attraction.coordinate)}}>
               <View style={container5}>
                 <FontAwesome name="road" size={15} color="#3498db" />
                 <Text style={edgy}>  {(edge[n].distance / 1000).toFixed(1)} KM  </Text>

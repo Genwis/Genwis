@@ -104,6 +104,26 @@ class HomepageScreen extends Component {
         navigation.navigate('ListNavigation')
       })
   }
+  componentDidMount() {
+    // const headers = {
+    //   Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
+    //   'Content-Type': 'text/plain',
+    // }
+    // Axios.get(`http://api.generatorwisata.com/api/attraction/${this.props.detail.id}`, { headers })
+    //   .then((response) => {
+    //     //this.setState({ ...this.state, autocomplete: response.data})
+    //     this.setState({ ...this.state, jsonGet: response.data})
+    //     this.setState({ ...this.state, rp: 'Rp'})
+    //     this.setState({ ...this.state, deskripsi: 'Deskripsi'})
+    //     this.setState({ ...this.state, rat: '4.6'})
+    //     console.log(this.state.jsonGet)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //     this.setState({ ...this.state, deskripsi: "Oops, something is wrong, and it's not your fault"})
+    //   })
+    console.log('randomz: ',Math.random())
+  }
   render() {
     const { itinerary, users, navigation } = this.props
     return (

@@ -50,12 +50,12 @@ function aidi(state = {
 }
 
 function koor(state = {
-  koor1 : '',
-  koor2 : ''
+  item1 : '',
+  item2 : ''
 }, action) {
   switch (action.type) {
     case SELECTED_KOOR:
-      return {...state, koor1: action.detail.koor1, koor2: action.detail.koor2}
+      return {...state, item1: action.detail.item1, item2: action.detail.item2}
     default:
       return state
   }
