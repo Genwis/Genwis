@@ -39,14 +39,20 @@ function Attr(props) {
   }
   onToMap = (name1,name2,koor1,koor2) => {
     var koor = {
-      'item1': {
-        'koor': koor1,
+      'item': [{
+        'koor': {
+          'longitude': parseFloat(koor1.longitude),
+          'latitude': parseFloat(koor1.latitude),
+        },
         'name': name1,
       },
-      'item2': {
-        'koor': koor2,
+      {
+        'koor': {
+          'longitude': parseFloat(koor2.longitude),
+          'latitude': parseFloat(koor2.latitude),
+        },
         'name': name2,
-      }
+      }]
     }
     //var koor = "test"
     props.dispatch(koorToMapa(koor))

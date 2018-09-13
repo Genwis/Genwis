@@ -17,6 +17,14 @@ const markerIDs = ['s1', 's2']
 const timeout = 4000;
 let animationTimeout;
 
+// class Markerz extends Component {
+//
+//   render() {
+//     return (
+//
+//     );
+//   }
+// }
 export default class MapScreens extends Component {
     state = {
       region: {
@@ -25,20 +33,22 @@ export default class MapScreens extends Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      koor1:{
-        name: this.props.detail.item1.name,
-        coor:{
-          latitude: parseFloat(this.props.detail.item1.koor.latitude),
-          longitude: parseFloat(this.props.detail.item1.koor.longitude),
-        },
-      },
-      koor2:{
-        name: this.props.detail.item2.name,
-        coor:{
-          latitude: parseFloat(this.props.detail.item2.koor.latitude),
-          longitude: parseFloat(this.props.detail.item2.koor.longitude),
-        },
-      },
+      items: this.props.detail.item,
+      markers: _.map(this.props.detail.item, 'koor'),
+      // koor1:{
+      //   name: this.props.detail.item1.name,
+      //   coor:{
+      //     latitude: parseFloat(this.props.detail.item1.koor.latitude),
+      //     longitude: parseFloat(this.props.detail.item1.koor.longitude),
+      //   },
+      // },
+      // koor2:{
+      //   name: this.props.detail.item2.name,
+      //   coor:{
+      //     latitude: parseFloat(this.props.detail.item2.koor.latitude),
+      //     longitude: parseFloat(this.props.detail.item2.koor.longitude),
+      //   },
+      // },
       koorisempty: false
     }
     mapStyle = [
@@ -147,7 +157,65 @@ export default class MapScreens extends Component {
         ], true);
       }, timeout);
     }
+
+    // function renderMap(){
+    //   return(<Text>Halo</Text>)
+    // }
+    fungsi = (d, idx) => {
+      //if(this.state.jsonGet!=''){
+      // if(( typeof d.koor === 'undefined' || d.koor === null || isNaN(d.koor) )||( typeof d.koor === 'undefined' || d.koor === null || isNaN(d.koor) )){
+      //   console.log('masook pak eko')
+      // }else{
+          return (<Marker
+            key={idx}
+            coordinate={d.koor}
+            identifier={'s'+idx}
+            title={d.name}
+            pinColor={'#01AF60'}
+          />)
+        //}
+      //}
+    }
+    koorNullCheck = (obj) => {
+      for (var key in obj) {
+          if (obj[key] === null || obj[key] == "" || isNaN(obj[key]))
+              return true;
+      }
+      return false;
+    }
+    renderElement = (dizmap) => {
+       // if(this.state.jsonGet == ''||this.state.jsonGet == null||this.state.jsonGet == undefined){
+       //    return <Text> </Text>;
+       //  }else {
+       kosong = false
+       for (s of this.state.markers) {
+
+         if(this.koorNullCheck(s)){
+           kosong = true
+           break
+         }
+       }
+       if(kosong){
+         return <Text>There is a problem from our server, this is not your fault</Text>
+       }else{
+                   return           <MapView
+                    ref={ref => { dizmap = ref; }}
+                      zoomControlEnabled
+                      provider="google"
+
+                      style={map}
+                      draggable
+                      onLayout = {() => dizmap.fitToCoordinates(this.state.markers, { edgePadding: { top: 10, right: 10, bottom: 10, left: 10 }, animated: false })}
+                    >{this.state.items.map(((d, idx)=>this.fungsi(d, idx)))}</MapView>;
+                  }
+
+
+        // }
+       //return null;
+    }
     render() {
+      console.log('sblm this props detail')
+      console.log(this.props.detail)
       //console.log('mapscreen props')
       //console.log(this.props)
       //console.log(this.props.detail.koor1)
@@ -184,40 +252,44 @@ fitToElements
 //     });
 // }
 console.log("koor"+this.state.koorisempty)
-console.log(this.state.koor1.coor)
-console.log(this.state.koor2.coor)
+// console.log(this.state.koor1.coor)
+// console.log(this.state.koor2.coor)
+
+
+/*
+{
+  this.state.iskoorempty ? <Text>Coordinate is undefined</Text> :
+  <MapView
+  ref={ref => { this.map = ref; }}
+    zoomControlEnabled
+    provider="google"
+
+    style={map}
+    draggable
+    onLayout = {() => this.map.fitToCoordinates([this.state.koor1.coor,this.state.koor2.coor], { edgePadding: { top: 10, right: 10, bottom: 10, left: 10 }, animated: false })}
+  >
+<Marker
+  coordinate={this.state.koor1.coor}
+  identifier='s1'
+  title={this.state.koor1.name}
+  pinColor={'#01AF60'}
+/>
+<Marker
+  coordinate={this.state.koor2.coor}
+  identifier='s2'
+  title={this.state.koor2.name}
+  pinColor={'#01AF60'}
+/>
+          </MapView>
+}
+*/
       return (
         <View style={container}>
         <TouchableOpacity style={fab} onPress={() => this.props.navigation.goBack(null)}>
           <Icon3 name="arrow-back" style={{ fontSize: 25, color: '#424242' }} />
         </TouchableOpacity>
-          <Text>Som</Text>
 
-          {
-            this.state.iskoorempty ? <Text>Coordinate is undefined</Text> :
-            <MapView
-            ref={ref => { this.map = ref; }}
-              zoomControlEnabled
-              provider="google"
-
-              style={map}
-              draggable
-              onLayout = {() => this.map.fitToCoordinates([this.state.koor1.coor,this.state.koor2.coor], { edgePadding: { top: 10, right: 10, bottom: 10, left: 10 }, animated: false })}
-            >
-          <Marker
-            coordinate={this.state.koor1.coor}
-            identifier='s1'
-            title={this.state.koor1.name}
-            pinColor={'#01AF60'}
-          />
-          <Marker
-            coordinate={this.state.koor2.coor}
-            identifier='s2'
-            title={this.state.koor2.name}
-            pinColor={'#01AF60'}
-          />
-                    </MapView>
-        }
+{this.renderElement(this.map)}
 
 
         </View>
@@ -230,7 +302,7 @@ const container = {
   left: 0,
   right: 0,
   bottom: 0,
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   alignItems: 'center',
 }
 const map = {
