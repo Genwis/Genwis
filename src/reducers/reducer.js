@@ -112,7 +112,11 @@ function itineraryByDetail(state = {
         shownItinerary: action.number,
       }
     case DELETE_ITINERARY:
-      const deletedItinerary = state.itinerary.length > 1 ? state.itinerary.splice(action.number, 1) : []
+      //console.log(state.itinerary)
+      // const deletedItinerary = state.itinerary.length > 0 ? state.itinerary.splice(action.number, 1) : []
+      const deletedItinerary = state.itinerary.length > 0 ? state.itinerary.slice(0, action.number).concat(state.itinerary.slice(action.number+1, state.itinerary.length)) : []
+      //const remain = state.itinerary
+
       return {
         ...state,
         itinerary: deletedItinerary
