@@ -9,6 +9,7 @@ const d = Dimensions.get('window')
 const style = StyleSheet.create({
   containerScroll: {
     padding: 20,
+    flex: 1,
   },
   containerCard: {
     flex: 1,
@@ -32,6 +33,7 @@ export const FavoriteList = (props) => {
   return (
     <View style={{marginBottom:20}}>
       <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
+
         <View style={style.containerCard} elevation={3}>
           <AttractionCard/>
         </View>
@@ -44,6 +46,7 @@ export const FavoriteList = (props) => {
         <View style={style.containerCard} elevation={3}>
           <AttractionCard/>
         </View>
+
       </ScrollView>
     </View>
   )

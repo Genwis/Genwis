@@ -2,7 +2,7 @@
  * Created by iampamungkas on 10/17/17.
  */
 import React, { Component } from 'react'
-import { Dimensions, View, Text, TouchableOpacity } from 'react-native'
+import { Dimensions, View, Text, TouchableOpacity,BackHandler } from 'react-native'
 import MapView from 'react-native-maps'
 import { Marker } from 'react-native-maps'
 import Icon3 from 'react-native-vector-icons/MaterialIcons'
@@ -26,6 +26,22 @@ let animationTimeout;
 //   }
 // }
 export default class MapScreens extends Component {
+  constructor(props) {
+    super(props)
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+}
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+}
+
+componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+}
+
+handleBackButtonClick() {
+    this.props.navigation.goBack(null);
+    return true;
+}
     state = {
       region: {
         latitude: -6.9175,

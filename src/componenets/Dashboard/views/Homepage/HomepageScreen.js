@@ -122,7 +122,7 @@ class HomepageScreen extends Component {
     //     console.log(err)
     //     this.setState({ ...this.state, deskripsi: "Oops, something is wrong, and it's not your fault"})
     //   })
-    console.log('randomz: ',Math.random())
+    // console.log('randomz: ',Math.random())
   }
   render() {
     const { itinerary, users, navigation } = this.props
