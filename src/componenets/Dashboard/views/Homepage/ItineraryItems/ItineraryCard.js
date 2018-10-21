@@ -99,6 +99,7 @@ const style = StyleSheet.create({
 
 export const ItineraryCard = (props) => {
   const { itinerary, number, isLogin, navigation } = props
+  console.log("number,",number)
   return (//isLogin
     true ?
       <View style={style.containerCard}>
@@ -143,9 +144,11 @@ export const ItineraryCard = (props) => {
         </TouchableOpacity>
       </View>
   )
+  // console.log("after")
 }
 
 function toolbarSubtitile(iten) {
+  // console.log("after")
   return `${moment(iten.detail.start).format('D MMMM')} - ${moment(iten.detail.finish).format('D MMMM YYYY')}`
 }
 

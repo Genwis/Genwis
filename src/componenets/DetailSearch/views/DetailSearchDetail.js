@@ -55,7 +55,7 @@ handleBackButtonClick() {
         this.setState({ ...this.state, rp: 'Rp'})
         this.setState({ ...this.state, deskripsi: 'Deskripsi'})
         this.setState({ ...this.state, rat: '4.6'})
-        console.log(this.state.jsonGet)
+        // console.log(this.state.jsonGet)
       })
       .catch((err) => {
         console.log(err)
@@ -75,8 +75,8 @@ handleBackButtonClick() {
   render() {
     const { search, navigation } = this.props
     //const attrid = navigation.getParam('attrId', 'test');
-    console.log('receive')
-    console.log(this.props)
+    // console.log('receive')
+    // console.log(this.props)
     return (
       <View style={{backgroundColor:'#ffffff',flex:1}}>
       <TouchableOpacity style={fab} onPress={() => this.props.navigation.goBack(null)}>

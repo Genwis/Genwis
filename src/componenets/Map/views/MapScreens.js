@@ -27,22 +27,22 @@ let animationTimeout;
 //   }
 // }
 export default class MapScreens extends Component {
-  constructor(props) {
-    super(props)
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-}
-  componentWillMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-}
+    constructor(props) {
+      super(props)
+      this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    }
+      componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
 
-componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-}
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
 
-handleBackButtonClick() {
-    this.props.navigation.goBack(null);
-    return true;
-}
+    handleBackButtonClick() {
+        this.props.navigation.goBack(null);
+        return true;
+    }
     state = {
       region: {
         latitude: -6.9175,
@@ -162,7 +162,7 @@ handleBackButtonClick() {
   }
 
     focusMap(markers, animated) {
-      console.log(`Markers received to populate map: ${markers}`);
+      // console.log(`Markers received to populate map: ${markers}`);
       this.map.fitToSuppliedMarkers(markers, animated);
     }
 
@@ -247,8 +247,8 @@ handleBackButtonClick() {
        //return null;
     }
     render() {
-      console.log('sblm this props detail')
-      console.log(this.props.detail)
+      // console.log('sblm this props detail')
+      // console.log(this.props.detail)
       //console.log('mapscreen props')
       //console.log(this.props)
       //console.log(this.props.detail.koor1)

@@ -27,6 +27,7 @@ class DashboardNavigation extends React.Component {
   static navigationOptions = {
     header: null,
   }
+
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
   }
@@ -35,7 +36,8 @@ class DashboardNavigation extends React.Component {
   }
   onBackPress = () => {
     const { dispatch, state } = this.props.navigation
-    console.log(state)
+
+    //console.log(state)
     if (state.routeName === 'DashboardNavigation') {
       BackHandler.removeEventListener()
       BackHandler.exitApp()
@@ -46,6 +48,7 @@ class DashboardNavigation extends React.Component {
   }
   render() {
     const { dispatch, navigationState, navigation } = this.props
+    console.log('DASHBOARD HIT')
     return (
       <NavigatorDashboard
         navigation={

@@ -37,7 +37,7 @@ export default class ListScreenForm extends Component {
       //   <Icon3 name="arrow-back" style={{ fontSize: 25, color: '#424242' }} />
       // </TouchableOpacity>
       goToMap = () =>{
-        console.log('gotomap')
+        // console.log('gotomap')
         //console.log(this.navigation)
         //console.log(this.props.navigation)
         //console.log(this.props.navigation)
@@ -45,6 +45,7 @@ export default class ListScreenForm extends Component {
         //console.log(props.navigation)
         this.navigation.navigate('MapNavigation')
       }
+      console.log("CALLED LISTSCREENFORM")
       return (
         <View style={{ flex: 1, backgroundColor: '#fefefe' }}>
           <View style={Toolbar}>

@@ -16,7 +16,7 @@ export const SEARCH_DETAIL = 'SEARCH_DETAIL'
 
 
 export function selectDetail(detail) {
-  console.log(detail)
+  // console.log(detail)
   return {
     type: SELECT_DETAIL,
     detail,
@@ -53,7 +53,7 @@ export function fetchItineray(detail) {
     Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
     'Content-Type': 'text/plain',
   }
-  console.log(detail)
+  // console.log(detail)
   return (dispatch) => {
     dispatch(requestItinerary(detail))
     return Axios.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })

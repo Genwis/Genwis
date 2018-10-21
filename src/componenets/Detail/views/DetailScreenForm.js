@@ -64,7 +64,7 @@ export default class DetailScreenForm extends Component {
       nextState.location_id = '8ec9ee93-8863-419a-96f9-9a2a4cc7d815'
       nextState.start = start.format("YYYY-MMM-DD")
       nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
-      console.log(nextState)
+      console.log(nextState) // gotcha bitch!
       this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
@@ -74,9 +74,9 @@ export default class DetailScreenForm extends Component {
     }
     onBudgetChange = (budget) => {
       const nextState = this.props.detail
-      console.log(budget)
-      console.log('testz')
-      console.log(nextState)
+      // console.log(budget)
+      // console.log('testz')
+      // console.log(nextState)
 
       nextState.budget = parseInt(budget)
       this.props.dispatch(selectDetail(nextState))
@@ -95,7 +95,7 @@ export default class DetailScreenForm extends Component {
       ) {
         nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
       }
-      console.log(nextState)
+      // console.log(nextState)
       this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,

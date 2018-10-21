@@ -69,6 +69,14 @@ class ListScreen extends Component {
   //   dispatch(NavigationActions.back())
   //   return true
   // }
+  renderf = (a,list,dispatch,navigation) => {
+    if(a||list==undefined){
+      return <ListScreenLoading />
+    }else{
+      console.log("masuk screen form isfetching:",a,"list:",list)
+      return <ListScreenForm dispatch={dispatch} List={list}  navigation={navigation} />
+    }
+  }
   render() {
     console.log('ListScreen Render Called')
     const {
@@ -79,14 +87,18 @@ class ListScreen extends Component {
       shown = 0
     }
     //Detail={List.detail}
-    // console.log(itinerary)
+
+    //isFetching&&List!=undefined ? <ListScreenLoading /> : <ListScreenForm dispatch={dispatch} List={List}  navigation={navigation} />
+
+    console.log("ini nyari delete error",itinerary)
     const List = itinerary[shown]
+    console.log("List",List)
     return (
 
       <View style={container1}>
         <StatusBar backgroundColor="#229854" />
         {
-                    isFetching ? <ListScreenLoading /> : <ListScreenForm dispatch={dispatch} List={List}  navigation={navigation} />
+          this.renderf(isFetching,List,dispatch,navigation)
                 }
         {
                     isFetching ? false : false

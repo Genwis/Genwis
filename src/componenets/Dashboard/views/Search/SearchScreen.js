@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 // }
 class SearchScreen extends Component {
   render() {
-    console.log('ScreenSearch Render Called')
+    // console.log('ScreenSearch Render Called')
     const { detail, navigation, dispatch } = this.props
     return (
       <SearchScreenForm detail={detail} navigation={navigation} dispatch={dispatch} />

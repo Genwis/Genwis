@@ -41,7 +41,7 @@ const style = StyleSheet.create({
 })
 class Card extends Component {
   sesuatu() {
-    console.log('sesuatu called')
+    // console.log('sesuatu called')
     return 0;
   }
   render() {
@@ -103,9 +103,9 @@ export default class SearchScreen extends Component {
       var aa = 20;
       if (!(d.attraction.photo == null)){
 
-        console.log("test")
-        console.log(d.attraction)
-        console.log('|'+typeof(d.attraction.photo)+'|')
+        // console.log("test")
+        // console.log(d.attraction)
+        // console.log('|'+typeof(d.attraction.photo)+'|')
         return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu(d.attraction.id)}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={d.attraction.photo[0]} ada='true' attrid={d.attraction.id}/></TouchableOpacity>)
       }else{//(aidi) => this.onPressItem(d.attraction.id)onPress={}
         return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu(d.attraction.id)}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={'../../../../assets/Tempat/default.png'} ada='false' attrid={d.attraction.id}/></TouchableOpacity>)
@@ -130,7 +130,7 @@ export default class SearchScreen extends Component {
     }
   onKeywordChange = (keyword) => {
     //const nextState = this.props.detail
-    console.log('ini ',keyword)
+    // console.log('ini ',keyword)
 
     // nextState.budget = parseInt(budget)
     // this.props.dispatch(selectDetail(nextState))
@@ -145,11 +145,11 @@ export default class SearchScreen extends Component {
       .then((response) => {
         //this.setState({ ...this.state, autocomplete: response.data})
         this.setState({ ...this.state, jsonGet: response.data})
-        console.log(this.state.jsonGet)
-        console.log("inij: "+this.state.jsonGet)
+        // console.log(this.state.jsonGet)
+        // console.log("inij: "+this.state.jsonGet)
       })
       .catch((err) => {
-        console.log(err)
+        // console.log(err)
       })
     }
     onPressItem = (aidi) => {
@@ -173,7 +173,7 @@ export default class SearchScreen extends Component {
       //  this.props.navigation.navigate('DetailSearchNavigation')
     }
     sesuatu = (aidi) => {
-      console.log('C000000000000000000000000000000000000L')
+      // console.log('C000000000000000000000000000000000000L')
       this.props.dispatch(idS(aidi))
       this.props.navigation.navigate('DetailSearchNavigation')
     }
@@ -190,7 +190,7 @@ export default class SearchScreen extends Component {
     }
 
   render() {
-    
+
     const { detail, navigation } = this.props
     //console.log('yg ada detail')
     //console.log(this.props)

@@ -24,7 +24,7 @@ class DetailSearchNavigation extends React.Component {
     }
     onBackPress = () => {
       const { dispatch, state } = this.props.navigation
-      console.log(state)
+      // console.log(state)
       if (state.routeName === 'DashboardNavigation') {
         BackHandler.removeEventListener()
         BackHandler.exitApp()
