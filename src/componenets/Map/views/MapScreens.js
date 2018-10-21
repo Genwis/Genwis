@@ -6,13 +6,14 @@ import { Dimensions, View, Text, TouchableOpacity,BackHandler } from 'react-nati
 import MapView from 'react-native-maps'
 import { Marker } from 'react-native-maps'
 import Icon3 from 'react-native-vector-icons/MaterialIcons'
+import MapViewDirections from 'react-native-maps-directions';
 
 const { width, height } = Dimensions.get('window')
 
 const ASPECT_RATIO = width / height
 const LATITUDE_DELTA = 0.0922
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
-
+const API_KEY = "AIzaSyBDg7L9sAyflqfFbxBmVngtmzibryGMLL8"
 const markerIDs = ['s1', 's2']
 const timeout = 4000;
 let animationTimeout;
@@ -222,7 +223,23 @@ handleBackButtonClick() {
                       style={map}
                       draggable
                       onLayout = {() => dizmap.fitToCoordinates(this.state.markers, { edgePadding: { top: 10, right: 10, bottom: 10, left: 10 }, animated: false })}
-                    >{this.state.items.map(((d, idx)=>this.fungsi(d, idx)))}</MapView>;
+                    >{this.state.items.map(((d, idx)=>this.fungsi(d, idx)))}
+
+                                      <MapViewDirections
+                      origin={this.state.items[0].koor}
+                      destination={this.state.items[1].koor}
+                      apikey={API_KEY}
+                      strokeWidth={3}
+                      strokeColor="#3199dc"
+                      onReady={(result) => {
+                        //console.log(result)
+                      dizmap.fitToCoordinates(result.coordinates, {
+                        edgePadding: { top: 10, right: 10, bottom: 10, left: 10 }
+                      });
+                    }}
+                    />
+
+                    </MapView>;
                   }
 
 

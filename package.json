@@ -26,6 +26,7 @@
     "react-native-google-analytics-bridge": "^5.7.1",
     "react-native-image-picker": "^0.26.10",
     "react-native-maps": "^0.16.4",
+    "react-native-maps-directions": "^1.6.0",
     "react-native-modalbox": "^1.4.2",
     "react-native-photo-upload": "^1.2.0",
     "react-native-star-rating": "^1.0.9",
