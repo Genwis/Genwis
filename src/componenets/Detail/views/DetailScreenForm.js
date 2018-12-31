@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react'
-import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image, ScrollView,BackHandler } from 'react-native'
+import { Dimensions, View, Text, TextInput, Button, StatusBar, TouchableOpacity, Image, ScrollView,BackHandler, Picker } from 'react-native'
 import Modal from 'react-native-modalbox'
 import moment from 'moment'
 import Calendar from 'react-native-calendars/src/calendar/index'
@@ -51,7 +51,10 @@ export default class DetailScreenForm extends Component {
         {city: "Banten", state: "Banten", Country: "Indoneseia"},
       ],
       autocomplete:[],
-      inputValue: ""
+      inputValue: "",
+      jsonGet:'',
+      cityName:'',
+      cityId:''
     }
     componentWillMount() {
       //console.log('bawah ni')
@@ -71,6 +74,20 @@ export default class DetailScreenForm extends Component {
         currentStart: nextState.start,
         currentEnd: nextState.finish,
       })
+    }
+    componentDidMount() {
+
+      Axios.get(`http://api.generatorwisata.com/api/locations`)
+        .then((response) => {
+
+            this.setState({ ...this.state, jsonGet: response.data, cityName: response.data[0].city, cityId: response.data[0].id})
+            // console.log(this.state.jsonGet)
+        })
+        .catch((err) => {
+          console.log(err)
+          this.setState({ ...this.state, deskripsi: "Oops, something is wrong, and it's not your fault"})
+        })
+
     }
     onBudgetChange = (budget) => {
       const nextState = this.props.detail
@@ -123,26 +140,37 @@ export default class DetailScreenForm extends Component {
         tags: nextState.tags,
       })
     }
-    onLocationChange = (item) => {
-      const nextState = this.props.detail
-      nextState.location_id = item.id
-      this.props.dispatch(selectDetail(nextState))
-      this.setState({ ...this.state, autocomplete: [], inputValue:""+item.city+", "+item.state})
+    onSelectItem = (itemid) => {
+        let retitem = this.state.jsonGet.filter(
+              function(data){ return data.id == itemid }
+          );
+        //   console.log(retitem.city)
+        this.setState({ ...this.state, cityId:itemid}) // setting the value for picker
+          const nextState = this.props.detail
+          nextState.location_id = itemid
+          this.props.dispatch(selectDetail(nextState))
+          // this.setState({ ...this.state, autocomplete: [], inputValue:""+retitem.city+", "+item.state})
     }
-    onShowAutocomplete = (like) => {
-      this.setState({ ...this.state, inputValue: like })
-      const headers = {
-        Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
-        'Content-Type': 'text/plain',
-      }
-      Axios.get(`http://api.generatorwisata.com/api/locations/like?key=${like}`, { headers })
-        .then((response) => {
-          this.setState({ ...this.state, autocomplete: response.data})
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+    // onLocationChange = (item) => {
+    //   const nextState = this.props.detail
+    //   nextState.location_id = item.id
+    //   this.props.dispatch(selectDetail(nextState))
+    //   this.setState({ ...this.state, autocomplete: [], inputValue:""+item.city+", "+item.state})
+    // }
+    // onShowAutocomplete = (like) => {
+    //   this.setState({ ...this.state, inputValue: like })
+    //   const headers = {
+    //     Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
+    //     'Content-Type': 'text/plain',
+    //   }
+    //   Axios.get(`http://api.generatorwisata.com/api/locations/like?key=${like}`, { headers })
+    //     .then((response) => {
+    //       this.setState({ ...this.state, autocomplete: response.data})
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
     render() {
       const { detail, navigation, test } = this.props
       const now = moment()
@@ -165,12 +193,13 @@ export default class DetailScreenForm extends Component {
                     Determine tour itinerary as you wish
                   </Text>
                 </View>
+
                 <Text style={cityDestination}>
                               City Destination
                 </Text>
                 {/*<TextInput placeholder="Bandung" style={margin1} underlineColorAndroid="#27ae60" />*/}
                 <View style={{marginTop: 2,marginBottom: d. height * 22/ 360, flex: 1}}>
-                  <Autocomplete
+                  {/*<Autocomplete
                     inputContainerStyle={{borderWidth: 0, margin: 0.5}}
                     containerStyle={autoCompleteContainer}
                     data={this.state.autocomplete}
@@ -191,6 +220,39 @@ export default class DetailScreenForm extends Component {
                     )
                     }
                   />
+
+                  <Picker
+                    selectedValue="java"
+                    style={{ height: 50, width: 100 }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}
+                    >
+                    <Picker.Item label="Java" value="java" />
+                    <Picker.Item label="JavaScript" value="js" />
+                  </Picker>
+
+                  selectedValue="java"
+                  style={{ height: 50, width: 100 }}
+                  onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}
+                  >
+                  <Picker.Item label="Java" value="java" />
+                  <Picker.Item label="JavaScript" value="js" />
+                  Object.values(itinerary).map((itinerary, index) => <ItineraryCard
+                    key={index}
+                    itinerary={itinerary}
+                    number={index}
+                    isLogin={isLogin}
+                    navigation={navigation}
+                    elevation={3}
+                    //style={style.containerCard}
+                    onPreviewClicked={props.onPreviewClicked}
+                    onDeleteClicked={props.onDeleteClicked}
+                  />)*/}
+                  <Picker
+                    selectedValue={this.state.cityId}
+                    onValueChange={(itemValue, itemIndex) => this.onSelectItem(itemValue)}
+                    >
+                    {Object.values(this.state.jsonGet).map((itemz, index) => <Picker.Item label={itemz.city} value={itemz.id} key={index} />)}
+                  </Picker>
                 </View>
                 <Text style={budget}>
                               Budget per person

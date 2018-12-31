@@ -90,9 +90,9 @@ class ListScreen extends Component {
 
     //isFetching&&List!=undefined ? <ListScreenLoading /> : <ListScreenForm dispatch={dispatch} List={List}  navigation={navigation} />
 
-    console.log("ini nyari delete error",itinerary)
+    // console.log("ini nyari delete error",itinerary)
     const List = itinerary[shown]
-    console.log("List",List)
+    // console.log("List",List)
     return (
 
       <View style={container1}>
