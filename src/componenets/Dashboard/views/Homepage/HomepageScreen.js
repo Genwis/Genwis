@@ -14,7 +14,7 @@ import { NavBarComponent } from "./NavBarComponent";
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#ffffff',
     flex: 1,
   },
   fab: {
@@ -55,12 +55,20 @@ const style = StyleSheet.create({
   textRecent: {
     marginRight: d.width * 0.05,
     marginLeft: d.width * 0.05,
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 14,
-    letterSpacing: 0.59,
+    fontFamily: 'Poppins-Medium',
+    fontSize: 16,
+    letterSpacing: 0.91,
     textAlign: 'left',
-    color: '#616161',
+    color: '#424242',
   },
+  textDesc:{
+      marginRight: d.width * 0.05,
+      marginLeft: d.width * 0.05,
+      fontFamily: 'Lato-Regular',
+      fontSize: 12,
+      letterSpacing: 0.68,
+      color: '#9e9e9e',
+  }
 })
 
 class HomepageScreen extends Component {
@@ -184,13 +192,24 @@ class HomepageScreen extends Component {
             {/*</TouchableOpacity>*/}
           {/*</View>*/}
           {
-            itinerary.length === 0 ?
+            /*itinerary.length === 0 ?
               null
               :
               <Text style={style.textRecent}>
                 Recent Itinerary
-              </Text>
+              </Text><Text>{itinerary.length}</Text>
+*/
           }
+          {
+              itinerary.length === 0 ?
+            null
+            :
+            <View>
+            <Text style={style.textRecent}>
+              Recent Itinerary
+            </Text><Text style={style.textDesc}>{itinerary.length} available itinerary</Text>
+            </View>
+        }
           {
             itinerary.length === 0 ?
               null

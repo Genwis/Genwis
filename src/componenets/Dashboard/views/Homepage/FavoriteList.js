@@ -31,22 +31,25 @@ const style = StyleSheet.create({
 export const FavoriteList = (props) => {
   const { itinerary } = props
   // console.log("favorite")
+  /*
+  <View style={style.containerCard} elevation={3}>
+    <AttractionCard/>
+  </View>
+  <View style={style.containerCard} elevation={3}>
+    <AttractionCard/>
+  </View>
+  <View style={style.containerCard} elevation={3}>
+    <AttractionCard/>
+  </View>
+  <View style={style.containerCard} elevation={3}>
+    <AttractionCard/>
+  </View>
+  */
   return (
     <View style={{marginBottom:20}}>
       <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
 
-        <View style={style.containerCard} elevation={3}>
-          <AttractionCard/>
-        </View>
-        <View style={style.containerCard} elevation={3}>
-          <AttractionCard/>
-        </View>
-        <View style={style.containerCard} elevation={3}>
-          <AttractionCard/>
-        </View>
-        <View style={style.containerCard} elevation={3}>
-          <AttractionCard/>
-        </View>
+
 
       </ScrollView>
     </View>

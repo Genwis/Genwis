@@ -11,7 +11,7 @@ const style = StyleSheet.create({
     padding: 20,
   },
   containerCard: {
-    borderRadius: 2,
+    borderRadius: 3,
     width: wid,
     height: wid * 0.394936709,
     backgroundColor: '#eeeeee',
@@ -28,7 +28,7 @@ export const DiscountList = (props) => {
           <Image
             source={require('../../../../assets/discount_banner.jpg')}
             style={{
-              borderRadius: 2,
+              borderRadius: 3,
               flex: 1,
         resizeMode: "stretch",
 width: '100%', height: '100%'
@@ -39,7 +39,7 @@ width: '100%', height: '100%'
           <Image
             source={require('../../../../assets/discount_banner.jpg')}
             style={{
-              borderRadius: 2,
+              borderRadius: 3,
               flex: 1,
         resizeMode: "stretch",
 width: '100%', height: '100%'
@@ -50,7 +50,7 @@ width: '100%', height: '100%'
           <Image
             source={require('../../../../assets/discount_banner.jpg')}
             style={{
-              borderRadius: 2,
+              borderRadius: 3,
               flex: 1,
         resizeMode: "stretch",
 width: '100%', height: '100%'

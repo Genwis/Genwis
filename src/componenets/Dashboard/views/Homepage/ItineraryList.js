@@ -13,19 +13,21 @@ const style = StyleSheet.create({
   },
   containerCard: {
     flex:1,
-    borderRadius: 2,
+    borderRadius: 5,
     width: d.width * 286 / 360,
     height: d.height * 150 / 616,
     backgroundColor: '#eeeeee',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
     //marginRight: 20,
-    shadowColor: '#eeeeee',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    zIndex:999,
-    shadowRadius: 0,
-    shadowOpacity: 0,
+    // shadowColor: '#eeeeee',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 0,
+    // },
+    // zIndex:999,
+    // shadowRadius: 0,
+    // shadowOpacity: 0,
     padding:50,
     margin:50,
   },
@@ -39,7 +41,7 @@ export const ItineraryList = (props) => {
     number={index}
     isLogin={isLogin}
     navigation={navigation}
-    elevation={3}
+    // elevation={3}
     //style={style.containerCard}
     onPreviewClicked={props.onPreviewClicked}
     onDeleteClicked={props.onDeleteClicked}

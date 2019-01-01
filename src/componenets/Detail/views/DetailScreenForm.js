@@ -182,24 +182,26 @@ export default class DetailScreenForm extends Component {
             <View style={container1} >
               <StatusBar backgroundColor="#229854" />
               <View style={container2}>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <Image style={{ resizeMode: 'contain', height: d.height * 0.15 }} source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
 
-                  <Text style={wonderfull} >
-                              Enjoy your tour!
-                  </Text>
-
-                  <Text style={{ color: '#bdbdbd', fontFamily: 'Campton' }}>
-                    Determine tour itinerary as you wish
-                  </Text>
-                </View>
 
                 <Text style={cityDestination}>
                               City Destination
                 </Text>
-                {/*<TextInput placeholder="Bandung" style={margin1} underlineColorAndroid="#27ae60" />*/}
-                <View style={{marginTop: 2,marginBottom: d. height * 22/ 360, flex: 1}}>
-                  {/*<Autocomplete
+                {/*
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                      <Image style={{ resizeMode: 'contain', height: d.height * 0.15 }} source={require('../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />
+
+                      <Text style={wonderfull} >
+                                  Enjoy your tour!
+                      </Text>
+
+                      <Text style={{ color: '#bdbdbd', fontFamily: 'Campton' }}>
+                        Determine tour itinerary as you wish
+                      </Text>
+                    </View>
+                    <TextInput placeholder="Bandung" style={margin1} underlineColorAndroid="#27ae60" />*/}
+
+                  {/*<View style={{marginTop: 2,marginBottom: d. height * 22/ 360, flex: 1}}><Autocomplete
                     inputContainerStyle={{borderWidth: 0, margin: 0.5}}
                     containerStyle={autoCompleteContainer}
                     data={this.state.autocomplete}
@@ -246,14 +248,15 @@ export default class DetailScreenForm extends Component {
                     //style={style.containerCard}
                     onPreviewClicked={props.onPreviewClicked}
                     onDeleteClicked={props.onDeleteClicked}
-                  />)*/}
+                  />)</View>*/}
                   <Picker
                     selectedValue={this.state.cityId}
                     onValueChange={(itemValue, itemIndex) => this.onSelectItem(itemValue)}
+                    itemStyle={input}
                     >
                     {Object.values(this.state.jsonGet).map((itemz, index) => <Picker.Item label={itemz.city} value={itemz.id} key={index} />)}
                   </Picker>
-                </View>
+
                 <Text style={budget}>
                               Budget per person
                 </Text>
@@ -282,7 +285,7 @@ export default class DetailScreenForm extends Component {
                   </TouchableOpacity>
                 </View>
                 <View style={{ backgroundColor: 'grey', height: 1.5, marginLeft: 5 }} />
-                <Text style={timePeriod}>Attraction Options</Text>
+                <Text style={timePeriod}>Attraction Category</Text>
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
                   <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, culture: !this.state.tags.culture})}>
                     <View style={this.state.tags.culture ? filterButtonActive : filterButtonPassive}>
@@ -396,6 +399,10 @@ export default class DetailScreenForm extends Component {
     }
 }
 const d = Dimensions.get('window')
+const input = {
+    borderBottomColor: '#e0e0e0',
+    borderBottomWidth: 1,
+}
 const filterButtonPassive = {
   paddingRight: 4,
   paddingLeft: 4,
@@ -477,7 +484,7 @@ const parent = {
   flex: 1,
 }
 const container1 = {
-  marginTop: d.height * 0.1,
+  // marginTop: d.height * 0.1,
   backgroundColor: '#ffffff',
   flex: 1,
   alignItems: 'center',
@@ -519,6 +526,7 @@ const budget = {
 }
 const timePeriod = {
   marginBottom: -7,
+  marginLeft: 4,
   fontFamily: 'Poppins-Regular',
   fontSize: 14,
   letterSpacing: 0.08,
