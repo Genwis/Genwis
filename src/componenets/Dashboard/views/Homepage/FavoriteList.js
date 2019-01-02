@@ -14,17 +14,17 @@ const style = StyleSheet.create({
   },
   containerCard: {
     flex: 1,
-    borderRadius: 2,
+    // borderRadius: 2,
     width: d.width * 200 / 360,
-    backgroundColor: '#eeeeee',
+    // backgroundColor: '#eeeeee',
     marginRight: 20,
-    shadowColor: '#eeeeee',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowRadius: 0,
-    shadowOpacity: 0,
+    // shadowColor: '#eeeeee',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 0,
+    // },
+    // shadowRadius: 0,
+    // shadowOpacity: 0,
     margin:5,
   },
 })

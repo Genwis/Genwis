@@ -14,11 +14,12 @@ const style = StyleSheet.create({
     padding: 20,
   },
   containerCard: {
-    borderRadius: 2,
+    borderRadius: 5,
     width: d.width * 200 / 360,
     backgroundColor: 'white',
     marginRight: 20,
-    borderRadius:3.3
+    borderWidth: 1,
+    borderColor: '#e0e0e0'
   },
   textCity: {
     fontFamily: 'Poppins-Medium',

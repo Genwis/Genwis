@@ -55,7 +55,7 @@ export const ItineraryList = (props) => {
           list.push(<ItineraryCard
             key={counter+1}
             itinerarys={itin}
-            number={counter+1}
+            number={counter}
             isLogin={isLogin}
             navigation={navigation}
             // elevation={3}
