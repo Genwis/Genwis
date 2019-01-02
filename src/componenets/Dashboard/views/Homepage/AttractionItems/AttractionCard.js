@@ -52,33 +52,34 @@ const style = StyleSheet.create({
 })
 
 export const AttractionCard = (props) => {
-  const rand = Math.floor((Math.random() * 20) + 1)
+    const { itinerary, name, location, price, image } = props
+  // const rand = Math.floor((Math.random() * 20) + 1)
   return (
     <View style={style.containerCard}>
       <Image
-        source={iconsMap[`${rand}`]}
+        source={{uri: image}}
         style={style.imageThumbnail}
       />
       <View style={style.detail}>
         <Text style={style.textCity} numberOfLines={1}>
-          {placeMap[rand].name}
+          {name}
         </Text>
         <Text style={style.textDetail} numberOfLines={1}>
-          {placeMap[rand].location}
+          {location}
         </Text>
         <View style={{flexDirection: 'row'}}>
           <View style={{width: d.width * 55 / 360,}}>
             <StarRating
               disabled
               maxStars={5}
-              rating={placeMap[rand].rating}
+              rating={4.6}
               fullStarColor={'#ffcd00'}
               emptyStarColor={'#ffcd00'}
               starSize={12}
             />
           </View>
           <Text style={style.textPrice}>
-            {placeMap[rand].price}
+            {price}
           </Text>
         </View>
       </View>

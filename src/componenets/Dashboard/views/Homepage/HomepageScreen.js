@@ -9,7 +9,8 @@ import { showItinerary, deleteItinerary, isPreview, notNew } from '../../../../a
 import { ItineraryList } from './ItineraryList'
 import { DiscountList } from './DiscountList'
 import { FavoriteList } from './FavoriteList'
-import { NavBarComponent } from "./NavBarComponent";
+import { NavBarComponent } from "./NavBarComponent"
+import Axios from 'axios'
 
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
@@ -79,7 +80,9 @@ class HomepageScreen extends Component {
     this.onFabClicked = this.onFabClicked.bind(this)
   }
   state = {
-    new: this.props.new
+    new: this.props.new,
+    favdesk: '',
+    favlist: '',
   }
 
   onFabClicked(){
@@ -131,7 +134,21 @@ class HomepageScreen extends Component {
     //     this.setState({ ...this.state, deskripsi: "Oops, something is wrong, and it's not your fault"})
     //   })
     // console.log('randomz: ',Math.random())
-    console.log("test")
+    Axios.get(`http://api.generatorwisata.com/api/attractions/top`)
+      .then((response) => {
+        //this.setState({ ...this.state, autocomplete: response.data})
+        // this.setState({ ...this.state, jsonGet: response.data})
+        // this.setState({ ...this.state, rp: 'Rp'})
+        // this.setState({ ...this.state, deskripsi: 'Deskripsi'})
+        this.setState({ ...this.state, favlist: response.data})
+        // console.log(this.state.jsonGet)
+        // list.push(<Text>hello request came</Text>)
+        // console.log("kepanggil comp")
+      })
+      .catch((err) => {
+        console.log(err)
+        this.setState({ ...this.state, favdesk: "Oops, something is wrong, and it's not your fault"})
+      })
   }
   render() {
     const { itinerary, users, navigation } = this.props
@@ -214,8 +231,10 @@ class HomepageScreen extends Component {
             itinerary.length === 0 ?
               null
               :
-              <ItineraryList itinerary={itinerary} isLogin={users.isLogin} navigation={navigation} onPreviewClicked={this.onPreviewClicked} onDeleteClicked={this.onDeleteClicked}/>
+              <ItineraryList itinerary={this.props.itinerary} isLogin={users.isLogin} navigation={navigation} onPreviewClicked={this.onPreviewClicked} onDeleteClicked={this.onDeleteClicked}/>
           }
+          {console.log('kenapa',itinerary.length)}
+
           <Text style={style.textRecent}>
             Discount and Promo
           </Text>
@@ -223,7 +242,7 @@ class HomepageScreen extends Component {
           <Text style={style.textRecent}>
             Favorite Places
           </Text>
-          <FavoriteList itinerary={this.props.itinerary} />
+          <FavoriteList itinerary={this.props.itinerary} favlist={this.state.favlist}/>
         </ScrollView>
         {/*<TouchableOpacity style={style.fab} onPress={this.onFabClicked}>*/}
           {/*<Image style={{ resizeMode: 'contain', height: d.height * 0.05 }} source={require('../../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />*/}
