@@ -2,7 +2,7 @@
  * Created by iampamungkas on 2/17/18.
  */
 import React from 'react'
-import { Dimensions, ScrollView, StyleSheet, View, Text } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, View, Text, FlatList } from 'react-native'
 import { ItineraryCard } from './ItineraryItems/ItineraryCard'
 // import { JUSTEST } from './ItineraryItems/JUSTEST'
 
@@ -10,7 +10,6 @@ const d = Dimensions.get('window')
 const style = StyleSheet.create({
   containerScroll: {
     padding: 20,
-    flex:1,
   },
   containerCard: {
     flex:1,
@@ -49,29 +48,43 @@ export const ItineraryList = (props) => {
   //   onDeleteClicked={props.onDeleteClicked}
   // />)
 
-  renderCards = () =>{
-      let list = []
-      let counter = 0
-      for (itin of itinerary) {
-          list.push(<ItineraryCard
-            key={counter+1}
-            itinerarys={itin}
-            number={counter}
-            isLogin={isLogin}
-            navigation={navigation}
-            // elevation={3}
-            //style={style.containerCard}
-            onPreviewClicked={props.onPreviewClicked}
-            onDeleteClicked={props.onDeleteClicked}
-          />)
-          counter++
-      }
-      return(
-          <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
-                      {list}
-          </ScrollView>
-      )
-  }
+  // renderCards = () =>{
+  //     let list = []
+  //     let counter = 0
+  //     for (itin of itinerary) {
+  //         list.push(<ItineraryCard
+  //           key={counter+1}
+  //           itinerarys={itin}
+  //           number={counter}
+  //           isLogin={isLogin}
+  //           navigation={navigation}
+  //           // elevation={3}
+  //           //style={style.containerCard}
+  //           onPreviewClicked={props.onPreviewClicked}
+  //           onDeleteClicked={props.onDeleteClicked}
+  //         />)
+  //         counter++
+  //     }
+  //     return(
+  //         <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
+  //                     {list}
+  //         </ScrollView>
+  //     )
+  // }
+
+  renderCards = ({item,index}) => (
+      <ItineraryCard
+                key={index+1}
+                itinerarys={item}
+                number={index}
+                isLogin={isLogin}
+                navigation={navigation}
+                // elevation={3}
+                //style={style.containerCard}
+                onPreviewClicked={props.onPreviewClicked}
+                onDeleteClicked={props.onDeleteClicked}
+              />
+  )
   output = () =>{
       return(<ScrollView horizontal style={{display:'none'}} showsHorizontalScrollIndicator={false}>
       </ScrollView>)
@@ -81,14 +94,23 @@ export const ItineraryList = (props) => {
     <View style={style.view}>
 
     {
-        this.renderCards()
+        // this.renderCards()
 
         // {console.log('testkenapailang',itinerary)}
         // <Text>Test</Text>
         // <JUSTEST />
+        // style={style.containerScroll}
+        <FlatList
+        style={style.containerScroll}
+        showsHorizontalScrollIndicator={false}
+          data={itinerary}
+          renderItem={this.renderCards}
+          horizontal={true}
+          keyExtractor={(item, index) => index.toString()}
+        />
     }
     {
-        this.output() //ini kalo diilangin ntar ngilang juga itinerary cards yg diatas wkwk
+        // this.output() //ini kalo diilangin ntar ngilang juga itinerary cards yg diatas wkwk
     }
 
     </View>

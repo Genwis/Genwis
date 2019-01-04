@@ -2,7 +2,7 @@
  * Created by iampamungkas on 2/17/18.
  */
 import React from 'react'
-import { Dimensions, ScrollView, StyleSheet, View, Image } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, View, Image, FlatList } from 'react-native'
 
 const d = Dimensions.get('window')
 const wid =  d.width * 230 / 360
@@ -25,33 +25,36 @@ width: '100%', height: '100%'
   }
 })
 
+const dat = [
+    {src:"../../../../assets/discount_banner.jpg"},
+    {src:"../../../../assets/discount_banner.jpg"},
+    {src:"../../../../assets/discount_banner.jpg"}
+]
+
 export const DiscountList = (props) => {
   const { itinerary } = props
+
+  renderImage = ({item,index}) => (
+      <View style={style.containerCard}>
+        <Image
+          source={
+              require('../../../../assets/discount_banner.jpg')//ini harus di fix sih jadi sesuai dat
+          }
+          style={style.image}
+        />
+      </View>
+  )
+
   return (
     <View>
-    {
-        // console.log('discount itin',itinerary.length)
-}
-      <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
-        <View style={style.containerCard}>
-          <Image
-            source={require('../../../../assets/discount_banner.jpg')}
-            style={style.image}
-          />
-        </View>
-        <View style={style.containerCard}>
-          <Image
-            source={require('../../../../assets/discount_banner.jpg')}
-            style={style.image}
-          />
-        </View>
-        <View style={style.containerCard}>
-          <Image
-            source={require('../../../../assets/discount_banner.jpg')}
-            style={style.image}
-          />
-        </View>
-      </ScrollView>
+      <FlatList
+      style={style.containerScroll}
+      showsHorizontalScrollIndicator={false}
+        data={dat}
+        renderItem={this.renderImage}
+        horizontal={true}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   )
 }
