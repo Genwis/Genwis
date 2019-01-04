@@ -49,7 +49,9 @@ const style = StyleSheet.create({
   },
   detail: {
     padding : 14
-  }
+},
+view1:{flexDirection: 'row'},
+view2:{width: d.width * 55 / 360},
 })
 
 export const AttractionCard = (props) => {
@@ -68,8 +70,8 @@ export const AttractionCard = (props) => {
         <Text style={style.textDetail} numberOfLines={1}>
           {location}
         </Text>
-        <View style={{flexDirection: 'row'}}>
-          <View style={{width: d.width * 55 / 360,}}>
+        <View style={style.view1}>
+          <View style={style.view2}>
             <StarRating
               disabled
               maxStars={5}

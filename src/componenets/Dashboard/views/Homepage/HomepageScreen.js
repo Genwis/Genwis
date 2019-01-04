@@ -69,7 +69,8 @@ const style = StyleSheet.create({
       fontSize: 12,
       letterSpacing: 0.68,
       color: '#9e9e9e',
-  }
+  },
+  scroll:{paddingTop:20},
 })
 
 class HomepageScreen extends Component {
@@ -201,7 +202,7 @@ class HomepageScreen extends Component {
           {/*false*/}
         {/*}*/}
         <NavBarComponent/>
-        <ScrollView style={{paddingTop:20}}>
+        <ScrollView style={style.scroll}>
           {/*<View style={style.searchBar}>*/}
             {/*<TextInput placeholder="Search place, discount etc." style={style.searchText} underlineColorAndroid="transparent" />*/}
             {/*<TouchableOpacity style={{ position: 'absolute', right: 18 }}>*/}
@@ -233,7 +234,6 @@ class HomepageScreen extends Component {
               :
               <ItineraryList itinerary={this.props.itinerary} isLogin={users.isLogin} navigation={navigation} onPreviewClicked={this.onPreviewClicked} onDeleteClicked={this.onDeleteClicked}/>
           }
-          {console.log('kenapa',itinerary.length)}
 
           <Text style={style.textRecent}>
             Discount and Promo

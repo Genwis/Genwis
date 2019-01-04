@@ -4,7 +4,7 @@
 import React from 'react'
 import { Dimensions, ScrollView, StyleSheet, View, Text } from 'react-native'
 import { ItineraryCard } from './ItineraryItems/ItineraryCard'
-import { JUSTEST } from './ItineraryItems/JUSTEST'
+// import { JUSTEST } from './ItineraryItems/JUSTEST'
 
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
@@ -32,6 +32,7 @@ const style = StyleSheet.create({
     padding:50,
     margin:50,
   },
+  view:{marginBottom:20},
 })
 
 export const ItineraryList = (props) => {
@@ -77,7 +78,7 @@ export const ItineraryList = (props) => {
   }
   // const list = Object.values(itinerary).map((itinerary, index) => )
   return (
-    <View style={{marginBottom:20}}>
+    <View style={style.view}>
 
     {
         this.renderCards()

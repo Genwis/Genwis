@@ -100,6 +100,8 @@ const style = StyleSheet.create({
         fontSize: 12,
         color: 'white',
     },
+    view:{flexDirection: 'row', marginBottom: 8, alignItems: 'stretch'},
+    touch:{position: 'absolute', right: 10},
 })
 
 export const ItineraryCard = (props) => {
@@ -159,13 +161,13 @@ export const ItineraryCard = (props) => {
                     // console.log('return prosp',props.itinerarys)
                     console.log("itinerarycard kepanggil lagi")
                 }
-                <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => props.onDeleteClicked(number)}>
+                <TouchableOpacity style={style.touch} onPress={() => props.onDeleteClicked(number)}>
                 <Ionicons name="ios-close" size={30} color={"#616161"}/>
                 </TouchableOpacity>
                 <Text style={style.textCity}>
                 {props.itinerarys.itinerary.detail.location.city}
                 </Text>
-                <View style={{flexDirection: 'row', marginBottom: 8, alignItems: 'stretch'}}>
+                <View style={style.view}>
                 <Text style={style.textDetail}>
                 {toolbarSubtitile(props.itinerarys.itinerary)}
                 </Text>

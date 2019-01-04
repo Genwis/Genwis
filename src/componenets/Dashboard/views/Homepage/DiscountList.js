@@ -17,6 +17,12 @@ const style = StyleSheet.create({
     backgroundColor: '#eeeeee',
     marginRight: 20,
   },
+  image:{
+      borderRadius: 3,
+      flex: 1,
+resizeMode: "stretch",
+width: '100%', height: '100%'
+  }
 })
 
 export const DiscountList = (props) => {
@@ -29,34 +35,19 @@ export const DiscountList = (props) => {
         <View style={style.containerCard}>
           <Image
             source={require('../../../../assets/discount_banner.jpg')}
-            style={{
-              borderRadius: 3,
-              flex: 1,
-        resizeMode: "stretch",
-width: '100%', height: '100%'
-            }}
+            style={style.image}
           />
         </View>
         <View style={style.containerCard}>
           <Image
             source={require('../../../../assets/discount_banner.jpg')}
-            style={{
-              borderRadius: 3,
-              flex: 1,
-        resizeMode: "stretch",
-width: '100%', height: '100%'
-            }}
+            style={style.image}
           />
         </View>
         <View style={style.containerCard}>
           <Image
             source={require('../../../../assets/discount_banner.jpg')}
-            style={{
-              borderRadius: 3,
-              flex: 1,
-        resizeMode: "stretch",
-width: '100%', height: '100%'
-            }}
+            style={style.image}
           />
         </View>
       </ScrollView>
