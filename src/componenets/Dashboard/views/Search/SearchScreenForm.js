@@ -2,7 +2,7 @@
  * Created by iampamungkas on 2/13/18.
  */
 import React, { Component } from 'react'
-import { Dimensions, View, StatusBar, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { Dimensions, View, StatusBar, StyleSheet, Text, TextInput, FlatList, ScrollView, TouchableOpacity, Image } from 'react-native'
 import Axios from 'axios'
 import StarRating from 'react-native-star-rating'
 import { selectDetail, idS } from '../../../../actions/actions'
@@ -40,78 +40,99 @@ const style = StyleSheet.create({
   }
 })
 class Card extends Component {
+    state = {
+      image: '../../../../assets/Tempat/default.png',
+  }
+  componentWillReceiveProps(nextProps) {
+      if (!(nextProps.data.attraction.photo == null)){
+          this.setState({
+            image: nextProps.data.attraction.photo[0],
+          });
+      }else{
+          this.setState({
+            image : '../../../../assets/Tempat/default.png',
+          });
+
+      }
+
+  }
   sesuatu() {
     // console.log('sesuatu called')
     return 0;
   }
+
+
   render() {
     return (
 
-      <View style={{marginBottom:17,borderBottomColor: '#e0e0e0',borderBottomWidth: 1,paddingBottom:17,flexDirection:'row'}}>
-      <Image
-      style={style.imageThumbnail}
-        source={{uri: this.props.image}}
-      />
-      <View style={{flex:1,justifyContent:'space-between'}}>
-      <View>
-        <Text style={{color: '#424242',letterSpacing:0.04,fontSize: 16,fontFamily:'Poppins-Medium'}} >{this.props.name}</Text>
-        <Text style={{color: '#bdbdbd', fontSize: 12,fontFamily:'Lato-Regular',letterSpacing:0.32}}>{this.props.location}, {this.props.prov}</Text>
-      </View>
-      <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
-      <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}><Text style={{color:'#ffcd00'}}>4.6{/*this.props.star*/} </Text>
-        <StarRating
-          disabled
-          maxStars={5}
-          rating={/*this.props.star*/4.6}
-          fullStarColor={'#ffcd00'}
-          emptyStarColor={'#ffcd00'}
-          starSize={12}
+        <View style={{marginBottom:17,borderBottomColor: '#e0e0e0',borderBottomWidth: 1,paddingBottom:17,flexDirection:'row'}}>
+        <Image
+        style={style.imageThumbnail}
+          source={{uri: this.state.image}}
         />
-      </View>
-      <Text style={{color:'#27ae60',letterSpacing:0.36,alignSelf: 'flex-end',fontSize:13,letterSpacing:0.36}}>Rp. {this.props.harga}</Text>
-      </View>
-      </View>
-      </View>
+        <View style={{flex:1,justifyContent:'space-between'}}>
+        <View>
+          <Text style={{color: '#424242',letterSpacing:0.04,fontSize: 16,fontFamily:'Poppins-Medium'}} >{this.props.data.attraction.name}</Text>
+          <Text style={{color: '#bdbdbd', fontSize: 12,fontFamily:'Lato-Regular',letterSpacing:0.32}}>{this.props.data.location.city}, {this.props.data.location.state}</Text>
+        </View>
+        <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
+        <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}><Text style={{color:'#ffcd00'}}>4.6{/*this.props.star*/} </Text>
+          <StarRating
+            disabled
+            maxStars={5}
+            rating={/*this.props.star*/4.6}
+            fullStarColor={'#ffcd00'}
+            emptyStarColor={'#ffcd00'}
+            starSize={12}
+          />
+        </View>
+        <Text style={{color:'#27ae60',letterSpacing:0.36,alignSelf: 'flex-end',fontSize:13,letterSpacing:0.36}}>Rp. {this.props.data.attraction.price}</Text>
+        </View>
+        </View>
+        </View>
+
+
+//name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={this.state.nav} image={d.attraction.photo[0]} ada='true' attrid={d.attraction.id}
+      // <Text>{console.log(this.props)}</Text>
 
     );
   }
 }
 export default class SearchScreen extends Component {
+
   constructor(props) {
   super(props);
-
+  // console.log(props)
+  // this.setState({ ...this.state, nav: })
   //this.sesuatu = this.sesuatu.bind(this);
-}
-  state = {
-    keyword: '',
-    tags: {
-      culture: false,
-      outdoors: false,
-      history: false,
-      shopping: false,
-      wildlife: false,
-      beaches: false,
-      mountain: false,
-      museum: false,
-      amusement: false,
-      hidden_paradise: false,
-    },
-    jsonGet: '',
-  }
-  fungsi = (d, idx, navigation) => {
-    if(this.state.jsonGet!=''){
-      var aa = 20;
-      if (!(d.attraction.photo == null)){
 
-        // console.log("test")
-        // console.log(d.attraction)
-        // console.log('|'+typeof(d.attraction.photo)+'|')
-        return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu(d.attraction.id)}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={d.attraction.photo[0]} ada='true' attrid={d.attraction.id}/></TouchableOpacity>)
-      }else{//(aidi) => this.onPressItem(d.attraction.id)onPress={}
-        return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu(d.attraction.id)}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={navigation} image={'../../../../assets/Tempat/default.png'} ada='false' attrid={d.attraction.id}/></TouchableOpacity>)
-      }
-    }
-  }
+}
+
+state = {
+  keyword: '',
+  tags: {
+    culture: false,
+    outdoors: false,
+    history: false,
+    shopping: false,
+    wildlife: false,
+    beaches: false,
+    mountain: false,
+    museum: false,
+    amusement: false,
+    hidden_paradise: false,
+  },
+  jsonGet: '',
+  nav: '',
+}
+
+componentWillReceiveProps(nextProps) {
+    // update original states
+    this.setState({
+      nav: nextProps.navigation,
+    });
+}
+
   componentDidMount() {
     const keyword = ''
     const headers = {
@@ -172,26 +193,53 @@ export default class SearchScreen extends Component {
       //  console.log('touched')
       //  this.props.navigation.navigate('DetailSearchNavigation')
     }
+
+    // fungsi = ({d, idx}) => {
+    //   if(this.state.jsonGet!=''){
+    //     var aa = 20;
+    //     if (!(d.attraction.photo == null)){
+    //
+    //       // console.log("test")
+    //       // console.log(d.attraction)
+    //       // console.log('|'+typeof(d.attraction.photo)+'|')
+    //       return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu(d.attraction.id)}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={this.state.nav} image={d.attraction.photo[0]} ada='true' attrid={d.attraction.id}/></TouchableOpacity>)
+    //     }else{//(aidi) => this.onPressItem(d.attraction.id)onPress={}
+    //       return (<TouchableOpacity key={idx} onPress={()=>{this.sesuatu(d.attraction.id)}}><Card name={d.attraction.name} location={d.location.city} star={d.attraction.rating} harga={d.attraction.price} prov={d.location.state} navigation={this.state.nav} image={'../../../../assets/Tempat/default.png'} ada='false' attrid={d.attraction.id}/></TouchableOpacity>)
+    //     }
+    //   }
+    // }
+
+    fungsi = ({item, index}) => (
+        <TouchableOpacity key={index} onPress={()=>{this.sesuatu(item.attraction.id)}}><Card data={item} navigation={this.state.nav}/></TouchableOpacity>
+    )
+
     sesuatu = (aidi) => {
       // console.log('C000000000000000000000000000000000000L')
       this.props.dispatch(idS(aidi))
       this.props.navigation.navigate('DetailSearchNavigation')
     }
     renderElement = (navigation) => {
-      function fungsi() {
-        return this.sesuatu()
-      }
+      // function fungsi() {
+      //   return this.sesuatu()
+      // }
+
        if(this.state.jsonGet == ''||this.state.jsonGet == null||this.state.jsonGet == undefined){
           return <Text> </Text>;
         }else {
-          return <View>{this.state.jsonGet.map(((d, idx)=>this.fungsi(d, idx, navigation)))}</View>;
+          // return <View>{this.state.jsonGet.map(((d, idx)=>this.fungsi(d, idx)))}</View>;
+          return <FlatList
+          style={flatlis}
+            data={this.state.jsonGet}
+            renderItem={this.fungsi}
+            keyExtractor={(item, index) => index.toString()}
+          />;
         }
        return null;
     }
 
   render() {
-
-    const { detail, navigation } = this.props
+const { detail, navigation } = this.props
+// this.setState({ ...this.state, nav: navigation})
     //console.log('yg ada detail')
     //console.log(this.props)
     //console.log('/yg ada detail')
@@ -245,6 +293,8 @@ export default class SearchScreen extends Component {
       </TouchableOpacity>
     </View>
     </ScrollView>
+
+    <ScrollView  initialNumToRender={7}  style={{marginTop: 14}}></ScrollView><View style={{marginTop: 5, marginBottom: 5, marginLeft:20, marginRight: 20}} ></View>
     */
     return (
       <View style={style.container}>
@@ -260,16 +310,15 @@ export default class SearchScreen extends Component {
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 39, }} />
-        <View>
+          {this.renderElement(this.props.navigation)}
 
-        </View>
-        <ScrollView  initialNumToRender={7}  style={{marginTop: 14}}>
-          <View style={{marginTop: 5, marginBottom: 5, marginLeft:20, marginRight: 20}} >{this.renderElement(this.props.navigation)}</View>
-        </ScrollView>
 
       </View>
     )
   }
+}
+const flatlis = {
+    padding: 20,
 }
 const filterButtonPassive = {
   paddingRight: 15,
