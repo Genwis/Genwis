@@ -152,10 +152,13 @@ class HomepageScreen extends Component {
       })
   }
   render() {
-    const { itinerary, users, navigation } = this.props
+    const { itinerary, users, navigation, dispatch } = this.props
     return (
       <View style={style.container}>
         <StatusBar backgroundColor="#229854" />
+        {
+            // console.log(this.props.dispatch)
+        }
         {/*{this.state.new ?*/}
           {/*<TouchableOpacity style={{*/}
             {/*backgroundColor: 'rgba(0, 0, 0, 0.8)',*/}
@@ -242,7 +245,7 @@ class HomepageScreen extends Component {
           <Text style={style.textRecent}>
             Favorite Places
           </Text>
-          <FavoriteList itinerary={this.props.itinerary} favlist={this.state.favlist}/>
+          <FavoriteList dispatch={dispatch} navigation={navigation} itinerary={this.props.itinerary} favlist={this.state.favlist}/>
         </ScrollView>
         {/*<TouchableOpacity style={style.fab} onPress={this.onFabClicked}>*/}
           {/*<Image style={{ resizeMode: 'contain', height: d.height * 0.05 }} source={require('../../../../assets/icon/logo_genwis_gear_hijau_2017-07-30/drawable-xhdpi/logo_genwis_gear_hijau.png')} />*/}

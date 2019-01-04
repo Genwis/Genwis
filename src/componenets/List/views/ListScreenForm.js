@@ -45,9 +45,9 @@ export default class ListScreenForm extends Component {
         //console.log(props.navigation)
         this.navigation.navigate('MapNavigation')
       }
-      console.log("CALLED LISTSCREENFORM")
+      // console.log("CALLED LISTSCREENFORM")
       return (
-        <View style={{ flex: 1, backgroundColor: '#fefefe' }}>
+        <View style={view}>
           <View style={Toolbar}>
             <Text style={timelineToolbarText}>
                         Timeline
@@ -87,7 +87,7 @@ const bSpace = {
 //   justifyContent: 'center',
 // }
 
-
+const view = { flex: 1, backgroundColor: '#fefefe' }
 const scrolViewStyle = {
   /* marginLeft: d.width * 24/360,
 	marginRight: d.width * 24/360, */

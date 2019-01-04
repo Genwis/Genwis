@@ -7,6 +7,7 @@
 import React from 'react'
 import { Dimensions, StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native'
 import StarRating from 'react-native-star-rating'
+import {idS } from '../../../../../actions/actions'
 
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
@@ -23,21 +24,27 @@ const style = StyleSheet.create({
   },
   textCity: {
     fontFamily: 'Poppins-Medium',
-    fontSize: 16,
-    color: '#616161',
+    fontSize: 15,
+    color: '#424242',
+    letterSpacing:0.86,
+    lineHeight:19,
   },
   textDetail: {
     fontFamily: 'Lato-Regular',
-    fontSize: 10,
-    color: '#bdbdbd',
+    fontSize: 12,
+    color: '#9e9e9e',
     marginBottom: 8,
+    letterSpacing: 0.68,
+    lineHeight: 19,
   },
   textPrice: {
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
-    color: '#5c5c5c',
+    color: '#27ae60',
     position: 'absolute',
+    letterSpacing: 0.68,
     right: 0,
+    lineHeight: 19,
   },
   containerImageThumbnails: {
     flexDirection: 'row',
@@ -55,9 +62,15 @@ view2:{width: d.width * 55 / 360},
 })
 
 export const AttractionCard = (props) => {
-    const { itinerary, name, location, price, image } = props
+    const { itinerary, name, location, price, image, dispatch, id } = props
   // const rand = Math.floor((Math.random() * 20) + 1)
+  onPressItem = (aidi) => {
+    props.dispatch(idS(aidi))
+    props.navigation.navigate('DetailSearchNavigation')
+  }
+  // console.log('itinerary fav',itinerary)
   return (
+      <TouchableOpacity onPress={() => onPressItem(id)}>
     <View style={style.containerCard}>
       <Image
         source={{uri: image}}
@@ -81,12 +94,11 @@ export const AttractionCard = (props) => {
               starSize={12}
             />
           </View>
-          <Text style={style.textPrice}>
-            {price}
-          </Text>
+          <Text style={style.textPrice}>Rp{price}</Text>
         </View>
       </View>
     </View>
+    </TouchableOpacity>
   )
 }
 //

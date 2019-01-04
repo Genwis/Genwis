@@ -80,8 +80,11 @@ export default class DetailScreenForm extends Component {
       Axios.get(`http://api.generatorwisata.com/api/locations`)
         .then((response) => {
 
-            this.setState({ ...this.state, jsonGet: response.data, cityName: response.data[0].city, cityId: response.data[0].id})
+            this.setState({ ...this.state, jsonGet: response.data, cityName: response.data[10].city, cityId: response.data[10].id})
             // console.log(this.state.jsonGet)
+            const nextState = this.props.detail
+            nextState.location_id = response.data[10].id
+            this.props.dispatch(selectDetail(nextState))
         })
         .catch((err) => {
           console.log(err)
@@ -503,6 +506,7 @@ const margin1 = {
 const date = {
   fontFamily: 'Poppins-Regular',
   fontSize: 18,
+  color: '#424242',
 }
 const setrip = {
   fontFamily: 'Poppins-Regular',

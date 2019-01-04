@@ -31,7 +31,7 @@ const style = StyleSheet.create({
 })
 
 export const FavoriteList = (props) => {
-  const { itinerary, favlist } = props
+  const { itinerary, favlist, dispatch, navigation } = props
   // const {  favlist } = props
   // console.log("favorite")
   /*
@@ -62,7 +62,7 @@ export const FavoriteList = (props) => {
           // for (item of favlist) {
 
           listz.push(<View key={counter} style={style.containerCard}>
-            <AttractionCard itinerary={itinerary} image={aitem.attraction.photo[0]} name={aitem.attraction.name} price={aitem.attraction.price} location={aitem.location.city+', '+aitem.location.state+', '+aitem.location.country}/>
+            <AttractionCard navigation={navigation} dispatch={dispatch} itinerary={itinerary} image={aitem.attraction.photo[0]} name={aitem.attraction.name} id={aitem.attraction.id} price={aitem.attraction.price} location={aitem.location.city+', '+aitem.location.state+', '+aitem.location.country}/>
           </View>)
           // listz.push(<Text>Hell</Text>)
           }
