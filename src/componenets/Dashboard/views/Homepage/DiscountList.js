@@ -29,7 +29,8 @@ export const DiscountList = (props) => {
   const { itinerary } = props
   return (
     <View>
-    {console.log('discount itin',itinerary.length)
+    {
+        // console.log('discount itin',itinerary.length)
 }
       <ScrollView horizontal style={style.containerScroll} showsHorizontalScrollIndicator={false}>
         <View style={style.containerCard}>

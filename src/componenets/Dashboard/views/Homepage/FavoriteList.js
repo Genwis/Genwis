@@ -27,6 +27,7 @@ const style = StyleSheet.create({
     // shadowOpacity: 0,
     margin:5,
   },
+  view:{marginBottom:20},
 })
 
 export const FavoriteList = (props) => {
@@ -75,8 +76,9 @@ export const FavoriteList = (props) => {
   }
 
   return (
-    <View style={{marginBottom:20}}>
-    {console.log('favorit itin',itinerary.length)
+    <View style={style.view}>
+    {
+        // console.log('favorit itin',itinerary.length)
     }
         {this.renderAttraction()}
 

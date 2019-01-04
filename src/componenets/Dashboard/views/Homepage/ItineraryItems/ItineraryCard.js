@@ -159,7 +159,7 @@ export const ItineraryCard = (props) => {
                 <View style={style.containerCard}>
                 {
                     // console.log('return prosp',props.itinerarys)
-                    console.log("itinerarycard kepanggil lagi")
+                    // console.log("itinerarycard kepanggil lagi")
                 }
                 <TouchableOpacity style={style.touch} onPress={() => props.onDeleteClicked(number)}>
                 <Ionicons name="ios-close" size={30} color={"#616161"}/>

@@ -88,7 +88,7 @@ export const ItineraryList = (props) => {
         // <JUSTEST />
     }
     {
-        this.output()
+        this.output() //ini kalo diilangin ntar ngilang juga itinerary cards yg diatas wkwk
     }
 
     </View>
