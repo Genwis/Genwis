@@ -256,41 +256,44 @@ export default class DetailScreenForm extends Component {
                     selectedValue={this.state.cityId}
                     onValueChange={(itemValue, itemIndex) => this.onSelectItem(itemValue)}
                     itemStyle={input}
+                    style={{backgroundColor:'#eeeeee',height:35,padding:0}}
                     >
                     {Object.values(this.state.jsonGet).map((itemz, index) => <Picker.Item label={itemz.city} value={itemz.id} key={index} />)}
                   </Picker>
 
                 <Text style={budget}>
-                              Budget per person
+                              Budget
                 </Text>
-                <TextInput placeholder="1000000" style={margin1} underlineColorAndroid="grey" onChangeText={(budget) => this.onBudgetChange(budget)} keyboardType='numeric' />
-                <Text style={{...timePeriod, marginTop: 0}}>
+                <View style={viewin}>
+                    <Text style={erpe}>Rp</Text><TextInput placeholderTextColor='#424242' placeholder="1000000" style={textin} multiline={false} underlineColorAndroid="transparent" onChangeText={(budget) => this.onBudgetChange(budget)} keyboardType='numeric' />
+                    <Text style={{ position: 'absolute', top: 8, right: 0, justifyContent: 'center', alignItems: 'center', fontSize: 12, color: '#bdbdbd'}}>/person</Text>
+                </View>
+                <Text style={timePeriod}>
                   Itinerary Start
                 </Text>
-                <View style={datepick}>
-                  <TouchableOpacity onPress={() => this.refs.modal1.open()}>
-                    <View style={container3}>
-                      <Text style={date}> {start.format('DD MMMM YYYY')}</Text>
-                      <Image style={{ height: 21, resizeMode: 'contain', position: 'absolute', right: 0}} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
-                    </View>
+                <View style={viewin}>
+                  <TouchableOpacity onPress={() => this.refs.modal1.open()} style={tocha}>
+                      <Text style={date}>{start.format('DD MMMM YYYY')}</Text>
+<Image style={imaga} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
+
                   </TouchableOpacity>
+
                 </View>
-                <View style={{ backgroundColor: 'grey', height: 1.5, marginLeft: 5 }} />
+
                 <Text style={timePeriod}>
                   Itinerary End
                 </Text>
-                <View style={datepick}>
-                  <TouchableOpacity onPress={() => this.refs.modal2.open()}>
-                    <View style={container3}>
-                      <Text style={date}> {finish.format('DD MMMM YYYY')}</Text>
-                      <Image style={{ height: 21, resizeMode: 'contain', position: 'absolute', right: 0}} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
-                    </View>
+                <View style={viewin}>
+                  <TouchableOpacity onPress={() => this.refs.modal2.open()}  style={tocha}>
+
+                      <Text style={date}>{finish.format('DD MMMM YYYY')}</Text>
+<Image style={imaga} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
+
                   </TouchableOpacity>
                 </View>
-                <View style={{ backgroundColor: 'grey', height: 1.5, marginLeft: 5 }} />
                 <Text style={timePeriod}>Attraction Category</Text>
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
-                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, culture: !this.state.tags.culture})}>
+                  <TouchableOpacity style={{marginRight: 5}} onPress={() => this.onFilterChange({...this.state.tags, culture: !this.state.tags.culture})}>
                     <View style={this.state.tags.culture ? filterButtonActive : filterButtonPassive}>
                       <Text style={this.state.tags.culture ? filterTextActive : filterTextPassive}>Culture</Text>
                     </View>
@@ -308,7 +311,7 @@ export default class DetailScreenForm extends Component {
                 </View>
 
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
-                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, outdoors: !this.state.tags.outdoors})}>
+                  <TouchableOpacity style={{marginRight: 5}} onPress={() => this.onFilterChange({...this.state.tags, outdoors: !this.state.tags.outdoors})}>
                     <View style={this.state.tags.outdoors ? filterButtonActive : filterButtonPassive}>
                       <Text style={this.state.tags.outdoors ? filterTextActive : filterTextPassive}>Outdoors</Text>
                     </View>
@@ -326,7 +329,7 @@ export default class DetailScreenForm extends Component {
                 </View>
 
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
-                  <TouchableOpacity style={{marginRight: 5, marginLeft: 5}} onPress={() => this.onFilterChange({...this.state.tags, history: !this.state.tags.history})}>
+                  <TouchableOpacity style={{marginRight: 5}} onPress={() => this.onFilterChange({...this.state.tags, history: !this.state.tags.history})}>
                     <View style={this.state.tags.history ? filterButtonActive : filterButtonPassive}>
                       <Text style={this.state.tags.history ? filterTextActive : filterTextPassive}>History</Text>
                     </View>
@@ -407,25 +410,27 @@ const input = {
     borderBottomWidth: 1,
 }
 const filterButtonPassive = {
-  paddingRight: 4,
-  paddingLeft: 4,
+  paddingRight: 14,
+  paddingLeft: 14,
   height: 31.3,
   borderRadius: 1.7,
   alignItems:'center',
   justifyContent: 'center',
-  backgroundColor: "#e0e0e0"
+  backgroundColor: "#e0e0e0",
+  // fontSize: 13,
 }
 const filterButtonActive = {
-  paddingRight: 4,
-  paddingLeft: 4,
+  paddingRight: 14,
+  paddingLeft: 14,
   height: 31.3,
   borderRadius: 1.7,
   alignItems:'center',
   justifyContent: 'center',
-  backgroundColor: "#27ae60"
+  backgroundColor: "#27ae60",
+  // fontSize: 13,
 }
 const filterTextActive = {
-  fontFamily: "Lato",
+  fontFamily: "Lato-Regular",
   fontSize: 13.3,
   fontWeight: "normal",
   fontStyle: "normal",
@@ -434,7 +439,7 @@ const filterTextActive = {
   color: "#ffffff"
 }
 const filterTextPassive = {
-  fontFamily: "Lato",
+  fontFamily: "Lato-Regular",
   fontSize: 13.3,
   fontWeight: "normal",
   fontStyle: "normal",
@@ -476,8 +481,29 @@ const dateShow = {
   backgroundColor: '#1abc9c',
   alignItems: 'center',
 }
-const datepick = {
+const viewin = {
   flexDirection: 'row',
+  // backgroundColor: '#eeeeee',
+  // height: 35,
+  borderBottomColor: '#e0e0e0',
+  borderBottomWidth: 1.3,
+  // flex: 1,
+}
+const budgetin = {
+    flexDirection: 'row',
+}
+const erpe = {
+    lineHeight: 35,
+    color: '#424242',
+    fontSize: 20,
+}
+const textin = {
+    padding:0,
+  height: 35,
+  fontFamily: 'Lato-Regular',
+  fontSize: 20,
+  flex:1,
+  lineHeight: 30,
 }
 const modal = {
   height: d.height * 0.85,
@@ -504,9 +530,14 @@ const margin1 = {
   fontSize: 20,
 }
 const date = {
-  fontFamily: 'Poppins-Regular',
-  fontSize: 18,
+  fontFamily: 'Lato-Regular',
+  fontSize: 20,
   color: '#424242',
+  letterSpacing: 1.14,
+  // alignSelf:'center',
+  // flex: 1,
+  lineHeight: 35,
+  // height: 35,
 }
 const setrip = {
   fontFamily: 'Poppins-Regular',
@@ -515,13 +546,12 @@ const setrip = {
   marginLeft: 10,
 }
 const container3 = {
-  marginTop: 5,
+  // marginTop: 5,
   flexDirection: 'row',
-  width: d.width * 0.8,
+  alignSelf: 'stretch',
+  // width: d.width * 0.8,
 }
 const budget = {
-  marginBottom: -10,
-  marginLeft: 3,
   letterSpacing: 0.08,
   color: '#27ae60',
   fontFamily: 'Poppins-Regular',
@@ -529,18 +559,17 @@ const budget = {
   marginTop: 10,
 }
 const timePeriod = {
-  marginBottom: -7,
-  marginLeft: 4,
+  // marginBottom: -7,
   fontFamily: 'Poppins-Regular',
   fontSize: 14,
   letterSpacing: 0.08,
   color: '#27ae60',
-  marginTop: 10,
+  marginTop: 17,
 }
 const cityDestination = {
   marginTop: 30,
-  marginBottom: -10,
-  marginLeft: 3,
+  // marginBottom: -10,
+  // marginLeft: 3,
   fontFamily: 'Poppins-Regular',
   fontSize: 14,
   letterSpacing: 0.08,
@@ -571,7 +600,8 @@ const generateText = {
   fontWeight: 'bold',
   letterSpacing: 0.1,
 }
-
+const tocha = {flex:1}
+const imaga = { height: 16, resizeMode: 'contain', position: 'absolute', top:9, right: 0}
 const autoCompleteContainer = {
   flex: 1,
   left: 0,

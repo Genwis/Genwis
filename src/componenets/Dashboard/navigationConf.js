@@ -44,6 +44,7 @@ const routeConfiguration = {
   Generate: {
     screen: DetailNavigation,
     navigationOptions: {
+        // navigationOptions: () => {console.log('donothing')},
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-add-circle" size={30} color={"#27ae60"} />,
     },
   },
@@ -66,7 +67,22 @@ const TabNavigatorConfiguration = {
   headerMode: 'none',
   initialRouteName: 'Homepage',
   tabBarPosition: 'bottom',
-  tabBarComponent: TabBarBottom,
+  // tabBarComponent: TabBarBottom,
+  tabBarComponent: ({jumpToIndex, ...props, navigation}) => (
+           <TabBarBottom
+               {...props}
+               jumpToIndex={index => {
+                   if (index === 2) {
+                       navigation.navigate('camera')
+                   }
+                   else {
+                       jumpToIndex(index)
+                   }
+               }}
+           />
+
+       ),
+  lazy:true,
   tabBarOptions: {
     showLabel: false,
     activeTintColor: '#27ae60',
