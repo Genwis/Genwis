@@ -23,8 +23,8 @@ function mapStateToProps(state) {
     isFetching: true,
     itinerary: { },
   }
-  console.log('mapstatetoprops listscreen')
-  console.log('isfetching:'+itineraryByDetail.isFetching)
+  // console.log('mapstatetoprops listscreen')
+  // console.log('isfetching:'+itineraryByDetail.isFetching)
   //console.log('//--itineraryByDetail')
   return {
     selectedDetail,

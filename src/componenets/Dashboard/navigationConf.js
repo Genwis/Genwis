@@ -7,7 +7,7 @@ import React from 'react'
 // Replace Dashboard with the component name
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { TabNavigator, TabBarBottom } from 'react-navigation'
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, View } from 'react-native'
 // Screens
 import HomepageScreen from './views/Homepage/HomepageScreen'
 import HistoryScreen from './views/History/HistoryScreen'
@@ -42,7 +42,7 @@ const routeConfiguration = {
     },
   },
   Generate: {
-    screen: DetailNavigation,
+    screen: View,
     navigationOptions: {
         // navigationOptions: () => {console.log('donothing')},
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-add-circle" size={30} color={"#27ae60"} />,
@@ -73,7 +73,7 @@ const TabNavigatorConfiguration = {
                {...props}
                jumpToIndex={index => {
                    if (index === 2) {
-                       navigation.navigate('camera')
+                       navigation.navigate('DetailNavigation')
                    }
                    else {
                        jumpToIndex(index)
@@ -83,6 +83,7 @@ const TabNavigatorConfiguration = {
 
        ),
   lazy:true,
+  animationEnabled: false,
   tabBarOptions: {
     showLabel: false,
     activeTintColor: '#27ae60',

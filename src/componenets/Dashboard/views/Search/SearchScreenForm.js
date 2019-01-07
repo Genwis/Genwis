@@ -231,6 +231,9 @@ export default class SearchScreen extends Component {
             style={flatlis}
             data={this.state.jsonGet}
             renderItem={this.fungsi}
+            onEndReached = { this.handLoadMore }
+onEndReachedThreshold = { 10 }
+initialNumToRender= {5}
             keyExtractor={(item, index) => index.toString()}
             />;
         }

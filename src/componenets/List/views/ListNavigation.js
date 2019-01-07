@@ -40,7 +40,7 @@ class ListNavigation extends React.Component {
         BackHandler.exitApp()
         return false
       }
-      dispatch(NavigationActions.navigate({ routeName: 'DashboardNavigation' }))
+      dispatch(NavigationActions.back())
       return true
     }
     render() {

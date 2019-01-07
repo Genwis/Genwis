@@ -30,7 +30,7 @@ export default class ListScreenTimeline extends Component {
 
 function Attr(props) {
   const {timeline, traffic, navigation, dispatch} = props
-  console.log('timeline',timeline)
+  // console.log('timeline',timeline)
   //console.log('attr')
   //console.log(props)
   const edge = traffic ? Object.values(traffic) : false

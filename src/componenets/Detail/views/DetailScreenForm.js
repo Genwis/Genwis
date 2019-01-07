@@ -11,6 +11,9 @@ import Autocomplete from 'react-native-autocomplete-input'
 import { selectDetail, isPreview } from '../../../actions/actions'
 import Axios from 'axios'
 
+import {addNavigationHelpers, NavigationActions} from 'react-navigation'
+import { NavigatorList } from '../navigationConf'
+
 export default class DetailScreenForm extends Component {
 //   constructor(props) {
 //     super(props)
@@ -30,9 +33,12 @@ export default class DetailScreenForm extends Component {
 // }
     state = {
       isOpen: false,
+      startVal: 'choose starting date',
+      endVal: 'choose ending date',
       currentStart: this.props.detail.start,
       currentEnd: this.props.detail.finish,
-      budget: this.props.detail.budget,
+      // budget: this.props.detail.budget,
+      budget: '',
       tags: {
         culture: false,
         outdoors: false,
@@ -56,6 +62,20 @@ export default class DetailScreenForm extends Component {
       cityName:'',
       cityId:''
     }
+    // componentWillUnmount() {
+    //   BackHandler.removeEventListener('hardwareBackPress', this.onBackPress)
+    // }
+    // onBackPress = () => {
+    //   const { dispatch, state } = this.props.navigation
+    //   // console.log(state)
+    //   if (state.routeName === 'DashboardNavigation') {
+    //     BackHandler.removeEventListener()
+    //     BackHandler.exitApp()
+    //     return false
+    //   }
+    //   dispatch(NavigationActions.navigate({ routeName: 'DashboardNavigation' }))
+    //   return true
+    // }
     componentWillMount() {
       //console.log('bawah ni')
       //console.log(this.props)
@@ -69,14 +89,19 @@ export default class DetailScreenForm extends Component {
       nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
       console.log(nextState) // gotcha bitch!
       this.props.dispatch(selectDetail(nextState))
-      this.setState({
-        ...this.state,
-        currentStart: nextState.start,
-        currentEnd: nextState.finish,
-      })
+      // this.setState({
+      //   ...this.state,
+      //   currentStart: '',
+      //   currentEnd: '',
+      // })
+      // this.setState({
+      //   ...this.state,
+      //   currentStart: nextState.start,
+      //   currentEnd: nextState.finish,
+      // })
     }
     componentDidMount() {
-
+        // BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
       Axios.get(`http://api.generatorwisata.com/api/locations`)
         .then((response) => {
 
@@ -97,47 +122,58 @@ export default class DetailScreenForm extends Component {
       // console.log(budget)
       // console.log('testz')
       // console.log(nextState)
+      let budg = budget.split('.').join("")
+      let val = String(budg).replace(/(.)(?=(\d{3})+$)/g,'$1.')
 
-      nextState.budget = parseInt(budget)
-      this.props.dispatch(selectDetail(nextState))
+      nextState.budget = parseInt(budg)
+      // this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
-        budget,
+        budget:val,
       })
+      console.log(parseInt(budg))
     }
     onStartDateChange(day) {
+        // console.log(day)
       const nextState = this.props.detail
       this.refs.modal1.close()
       const start = moment(`${day.year}-${day.month}-${day.day >= 10 ? day.day : `0${day.day}`}`, "YYYY-MM-DD")
+      let startval = start.format('DD MMMM YYYY')
       nextState.start = start.format("YYYY-MMM-DD")
       if (
         moment(nextState.finish, 'YYYY-MMM-DD').dayOfYear() - start.dayOfYear() < 3
       ) {
-        nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
+      let finish = start.add(3, 'days').format("YYYY-MMM-DD")
+        nextState.finish = finish
       }
-      // console.log(nextState)
-      this.props.dispatch(selectDetail(nextState))
+      // console.log('nekstate',nextState)
+      // this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
         currentStart: nextState.start,
         currentEnd: nextState.finish,
+        // endVal: finish,
+        startVal: startval,
+
       })
+      // console.log(start.format('DD MMMM YYYY'))
     }
     onEndDateChange(day) {
       const nextState = this.props.detail
       this.refs.modal2.close()
       const finish = moment(`${day.year}-${day.month}-${day.day >= 10 ? day.day : `0${day.day}`}`, "YYYY-MM-DD")
       nextState.finish = finish.format("YYYY-MMM-DD")
-      this.props.dispatch(selectDetail(nextState))
+      // this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
         currentEnd: nextState.finish,
+        endVal: finish.format('DD MMMM YYYY')
       })
     }
     onFilterChange = (tags) => {
       const nextState = this.props.detail
       nextState.tags = tags
-      this.props.dispatch(selectDetail(nextState))
+      // this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
         tags: nextState.tags,
@@ -151,7 +187,7 @@ export default class DetailScreenForm extends Component {
         this.setState({ ...this.state, cityId:itemid}) // setting the value for picker
           const nextState = this.props.detail
           nextState.location_id = itemid
-          this.props.dispatch(selectDetail(nextState))
+          // this.props.dispatch(selectDetail(nextState))
           // this.setState({ ...this.state, autocomplete: [], inputValue:""+retitem.city+", "+item.state})
     }
     // onLocationChange = (item) => {
@@ -174,6 +210,18 @@ export default class DetailScreenForm extends Component {
     //       console.log(err)
     //     })
     // }
+    submita = () => {
+        // navigation.navigate('ListNavigation');console.log(this.state.currentStart)
+        console.log('submita clicked')
+        const nextState = this.props.detail
+        nextState.finish = this.state.currentEnd
+        nextState.start = this.state.currentStart
+        nextState.tags = this.state.tags
+        nextState.location_id = this.state.cityId
+        nextState.budget = parseInt(this.state.budget)
+        this.props.dispatch(selectDetail(nextState))
+        console.log('todispatch',nextState)
+    }
     render() {
       const { detail, navigation, test } = this.props
       const now = moment()
@@ -252,20 +300,22 @@ export default class DetailScreenForm extends Component {
                     onPreviewClicked={props.onPreviewClicked}
                     onDeleteClicked={props.onDeleteClicked}
                   />)</View>*/}
+                  <View style={viewinp}>
                   <Picker
                     selectedValue={this.state.cityId}
                     onValueChange={(itemValue, itemIndex) => this.onSelectItem(itemValue)}
                     itemStyle={input}
-                    style={{backgroundColor:'#eeeeee',height:35,padding:0}}
+                    style={{height:35,backgroundColor:'#ffffff'}}
                     >
                     {Object.values(this.state.jsonGet).map((itemz, index) => <Picker.Item label={itemz.city} value={itemz.id} key={index} />)}
                   </Picker>
-
-                <Text style={budget}>
+                  <Image style={imagap} source={require('../../../assets/icon/expand/expand_button.png')} />
+                  </View>
+                <Text style={timePeriod}>
                               Budget
                 </Text>
                 <View style={viewin}>
-                    <Text style={erpe}>Rp</Text><TextInput placeholderTextColor='#424242' placeholder="1000000" style={textin} multiline={false} underlineColorAndroid="transparent" onChangeText={(budget) => this.onBudgetChange(budget)} keyboardType='numeric' />
+                    <Text style={erpe}>Rp</Text><TextInput value={this.state.budget ? String(this.state.budget) : null} placeholderTextColor='#e0e0e0' placeholder="" style={textin} multiline={false} underlineColorAndroid="transparent" onChangeText={(budget) => this.onBudgetChange(budget)} keyboardType='numeric' />
                     <Text style={{ position: 'absolute', top: 8, right: 0, justifyContent: 'center', alignItems: 'center', fontSize: 12, color: '#bdbdbd'}}>/person</Text>
                 </View>
                 <Text style={timePeriod}>
@@ -273,7 +323,7 @@ export default class DetailScreenForm extends Component {
                 </Text>
                 <View style={viewin}>
                   <TouchableOpacity onPress={() => this.refs.modal1.open()} style={tocha}>
-                      <Text style={date}>{start.format('DD MMMM YYYY')}</Text>
+                      <Text style={date}>{this.state.startVal}</Text>
 <Image style={imaga} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
 
                   </TouchableOpacity>
@@ -286,7 +336,7 @@ export default class DetailScreenForm extends Component {
                 <View style={viewin}>
                   <TouchableOpacity onPress={() => this.refs.modal2.open()}  style={tocha}>
 
-                      <Text style={date}>{finish.format('DD MMMM YYYY')}</Text>
+                      <Text style={date}>{this.state.endVal}</Text>
 <Image style={imaga} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
 
                   </TouchableOpacity>
@@ -347,7 +397,7 @@ export default class DetailScreenForm extends Component {
                 </View>
 
               </View>
-              <TouchableOpacity style={buttonGene} onPress={() => navigation.navigate('ListNavigation')}>
+              <TouchableOpacity style={buttonGene} onPress={() => {this.submita()}}>
                 <Text style={generateText}>GENERATE</Text>
               </TouchableOpacity>
             </View>
@@ -489,6 +539,12 @@ const viewin = {
   borderBottomWidth: 1.3,
   // flex: 1,
 }
+const viewinp = {
+  borderBottomColor: '#e0e0e0',
+  borderBottomWidth: 1.3,
+  // backgroundColor: '#dddddd'
+  // flex: 1,
+}
 const budgetin = {
     flexDirection: 'row',
 }
@@ -602,6 +658,7 @@ const generateText = {
 }
 const tocha = {flex:1}
 const imaga = { height: 16, resizeMode: 'contain', position: 'absolute', top:9, right: 0}
+const imagap = { height: 5, resizeMode: 'contain', position: 'absolute', top:18, right: 0}
 const autoCompleteContainer = {
   flex: 1,
   left: 0,

@@ -25,6 +25,7 @@ export default class ListScreenForm extends Component {
     dispatch = this.props.dispatch
 
     render() {
+        // console.log(this.props.Detail)
       //const { navigation } = this.props
       //console.log('propsing listscreenform')
       //console.log('tesss')
@@ -46,6 +47,7 @@ export default class ListScreenForm extends Component {
         this.navigation.navigate('MapNavigation')
       }
       // console.log("CALLED LISTSCREENFORM")
+      // console.log('nyari',this.itinerary)
       return (
         <View style={view}>
           <View style={Toolbar}>
@@ -144,5 +146,7 @@ const fab = {
 }
 
 function toolbarSubtitile(iten) {
+    // console.log('moment',moment(iten.detail.start).format('D MMMM'))
+    // console.log(iten.detail.start)
   return `${moment(iten.detail.start).format('D MMMM')} - ${moment(iten.detail.finish).format('D MMMM YYYY')} ${iten.detail.location.city}`
 }
