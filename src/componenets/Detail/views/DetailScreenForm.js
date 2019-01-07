@@ -35,8 +35,10 @@ export default class DetailScreenForm extends Component {
       isOpen: false,
       startVal: 'choose starting date',
       endVal: 'choose ending date',
-      currentStart: this.props.detail.start,
-      currentEnd: this.props.detail.finish,
+      currentStart: '',
+      currentEnd: '',
+      // currentStart: this.props.detail.start,
+      // currentEnd: this.props.detail.finish,
       // budget: this.props.detail.budget,
       budget: '',
       tags: {
@@ -60,7 +62,15 @@ export default class DetailScreenForm extends Component {
       inputValue: "",
       jsonGet:'',
       cityName:'',
-      cityId:''
+      cityId:'',
+      cityStyle: '#424242',
+      erpe: '#bdbdbd',
+      startStyle: '#bdbdbd',
+      finishStyle: '#bdbdbd',
+      budgetValid: true,
+      cityValid: true,
+      startValid: true,
+      endValid: true,
     }
     // componentWillUnmount() {
     //   BackHandler.removeEventListener('hardwareBackPress', this.onBackPress)
@@ -104,8 +114,10 @@ export default class DetailScreenForm extends Component {
         // BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
       Axios.get(`http://api.generatorwisata.com/api/locations`)
         .then((response) => {
-
-            this.setState({ ...this.state, jsonGet: response.data, cityName: response.data[10].city, cityId: response.data[10].id})
+            // let respon = response.data
+            // respon.unshift({city:'please choose city',id:0})
+            // let cityStyle =
+            this.setState({ ...this.state, jsonGet: response.data , cityName: response.data[10].city, cityId: -1,cityStyle: '#bdbdbd',erpe: '#bdbdbd'})
             // console.log(this.state.jsonGet)
             const nextState = this.props.detail
             nextState.location_id = response.data[10].id
@@ -118,20 +130,32 @@ export default class DetailScreenForm extends Component {
 
     }
     onBudgetChange = (budget) => {
-      const nextState = this.props.detail
+      // const nextState = this.props.detail
       // console.log(budget)
       // console.log('testz')
       // console.log(nextState)
+      let color
+      // console.log(budget)
+      if(budget!='' && budget != NaN && budget != undefined && budget != null){
+          color = '#424242'
+          // console.log("zzzz")
+      }else{
+          color = '#bdbdbd'
+          // console.log("mashok")
+      }
+      // console.log('erpe',thi222s.state.erpe)
       let budg = budget.split('.').join("")
       let val = String(budg).replace(/(.)(?=(\d{3})+$)/g,'$1.')
 
-      nextState.budget = parseInt(budg)
+      // nextState.budget = parseInt(budg)
       // this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
         budget:val,
+        budgetVal: parseInt(budg),
+        erpe: color,
       })
-      console.log(parseInt(budg))
+      // console.log(parseInt(budg))
     }
     onStartDateChange(day) {
         // console.log(day)
@@ -151,14 +175,15 @@ export default class DetailScreenForm extends Component {
       this.setState({
         ...this.state,
         currentStart: nextState.start,
-        currentEnd: nextState.finish,
+        // currentEnd: nextState.finish,
         // endVal: finish,
         startVal: startval,
-
+        startStyle: '#424242',
       })
       // console.log(start.format('DD MMMM YYYY'))
     }
     onEndDateChange(day) {
+        console.log('day',day)
       const nextState = this.props.detail
       this.refs.modal2.close()
       const finish = moment(`${day.year}-${day.month}-${day.day >= 10 ? day.day : `0${day.day}`}`, "YYYY-MM-DD")
@@ -167,7 +192,8 @@ export default class DetailScreenForm extends Component {
       this.setState({
         ...this.state,
         currentEnd: nextState.finish,
-        endVal: finish.format('DD MMMM YYYY')
+        endVal: finish.format('DD MMMM YYYY'),
+        finishStyle: '#424242',
       })
     }
     onFilterChange = (tags) => {
@@ -179,17 +205,60 @@ export default class DetailScreenForm extends Component {
         tags: nextState.tags,
       })
     }
+    // onPickerPress = () => {
+    //     console.log('onpickerpress')
+    //     if(this.state.awal==true){
+    //         this.state.jsonGet.shift()
+    //         this.setState({ ...this.state, awal:false})
+    //     }
+    // }
     onSelectItem = (itemid) => {
-        let retitem = this.state.jsonGet.filter(
-              function(data){ return data.id == itemid }
-          );
-        //   console.log(retitem.city)
-        this.setState({ ...this.state, cityId:itemid}) // setting the value for picker
-          const nextState = this.props.detail
-          nextState.location_id = itemid
+        // let cityStyle = this.state.cityStyle
+        // cityStyle.color = '#424242'
+        if(itemid!=-1){
+            let retitem = this.state.jsonGet.filter(
+                  function(data){ return data.id == itemid }
+              );
+            //   console.log(retitem.city)
+            this.setState({ ...this.state, cityId:itemid, cityStyle:'#424242'}) // setting the value for picker
+              const nextState = this.props.detail
+              nextState.location_id = itemid
+        }
+        // console.log(this.state.cityStyle)
+
           // this.props.dispatch(selectDetail(nextState))
           // this.setState({ ...this.state, autocomplete: [], inputValue:""+retitem.city+", "+item.state})
     }
+    cityStyle = function(options) {
+   return {height:35,backgroundColor:'#ffffff',color:this.state.cityStyle}
+ }
+ startStyle = function(options) {
+ return {
+   fontFamily: 'Lato-Regular',
+   fontSize: 20,
+   color: this.state.startStyle,
+   letterSpacing: 1.14,
+   lineHeight: 35,
+ }
+ }
+ finishStyle = function(options) {
+ return {
+   fontFamily: 'Lato-Regular',
+   fontSize: 20,
+   color:  this.state.finishStyle,
+   letterSpacing: 1.14,
+   lineHeight: 35,
+ }
+ }
+ erpeStyle = function(options) {
+return {
+    lineHeight: 35,
+    color: this.state.erpe,
+    fontSize: 20,
+}
+}
+
+
     // onLocationChange = (item) => {
     //   const nextState = this.props.detail
     //   nextState.location_id = item.id
@@ -213,14 +282,37 @@ export default class DetailScreenForm extends Component {
     submita = () => {
         // navigation.navigate('ListNavigation');console.log(this.state.currentStart)
         console.log('submita clicked')
+        let validBudget, validCity, validStart, validEnd
         const nextState = this.props.detail
         nextState.finish = this.state.currentEnd
         nextState.start = this.state.currentStart
         nextState.tags = this.state.tags
         nextState.location_id = this.state.cityId
-        nextState.budget = parseInt(this.state.budget)
+        nextState.budget = this.state.budgetVal
         this.props.dispatch(selectDetail(nextState))
         console.log('todispatch',nextState)
+        validBudget = (nextState.budget || nextState.budget === 0)
+        validCity = nextState.location_id!=-1
+        validStart = nextState.start
+        validEnd = nextState.finish
+        // if(!validBudget){
+        //     this.setState({ ...this.state, budgetValid:false})
+        // }
+        // if(!validCity){
+        //     this.setState({ ...this.state, cityValid:false})
+        // }
+        // if(!validStart){
+        //     this.setState({ ...this.state, startValid:false})
+        // }
+        // if(!validEnd){
+        //     this.setState({ ...this.state, endValid:false})
+        // }
+        this.setState({ ...this.state,  budgetValid:validBudget,cityValid:validCity,startValid:validStart,endValid:validEnd})
+        if( validBudget && validCity && validStart && validEnd ){
+            console.log('pass!')
+        }else{
+            // this.setState({ ...this.state, budgetValid:false})
+        }
     }
     render() {
       const { detail, navigation, test } = this.props
@@ -300,47 +392,52 @@ export default class DetailScreenForm extends Component {
                     onPreviewClicked={props.onPreviewClicked}
                     onDeleteClicked={props.onDeleteClicked}
                   />)</View>*/}
-                  <View style={viewinp}>
+                  <View style={this.state.cityValid ? viewinp : viewinpred}>
                   <Picker
+                    // onPress={()=>this.onPickerPress()}
                     selectedValue={this.state.cityId}
                     onValueChange={(itemValue, itemIndex) => this.onSelectItem(itemValue)}
                     itemStyle={input}
-                    style={{height:35,backgroundColor:'#ffffff'}}
+                    style={this.cityStyle()}
                     >
+                    <Picker.Item label='choose city' value={-1} key={-1} />
                     {Object.values(this.state.jsonGet).map((itemz, index) => <Picker.Item label={itemz.city} value={itemz.id} key={index} />)}
                   </Picker>
                   <Image style={imagap} source={require('../../../assets/icon/expand/expand_button.png')} />
                   </View>
+                  {this.state.cityValid ? null : <Text style={red}>Sorry, you haven't filled this field</Text>}
                 <Text style={timePeriod}>
                               Budget
                 </Text>
-                <View style={viewin}>
-                    <Text style={erpe}>Rp</Text><TextInput value={this.state.budget ? String(this.state.budget) : null} placeholderTextColor='#e0e0e0' placeholder="" style={textin} multiline={false} underlineColorAndroid="transparent" onChangeText={(budget) => this.onBudgetChange(budget)} keyboardType='numeric' />
+                <View style={this.state.budgetValid ? viewin : viewinred}>
+                    <Text style={this.erpeStyle()}>Rp</Text><TextInput value={this.state.budget ? String(this.state.budget) : null} placeholderTextColor='#e0e0e0' placeholder="" style={textin} multiline={false} underlineColorAndroid="transparent" onChangeText={(budget) => this.onBudgetChange(budget)} keyboardType='numeric' />
                     <Text style={{ position: 'absolute', top: 8, right: 0, justifyContent: 'center', alignItems: 'center', fontSize: 12, color: '#bdbdbd'}}>/person</Text>
                 </View>
+                {this.state.budgetValid ? null : <Text style={red}>Sorry, you haven't filled this field</Text>}
                 <Text style={timePeriod}>
                   Itinerary Start
                 </Text>
-                <View style={viewin}>
+                <View style={this.state.startValid ? viewin : viewinred}>
                   <TouchableOpacity onPress={() => this.refs.modal1.open()} style={tocha}>
-                      <Text style={date}>{this.state.startVal}</Text>
+                      <Text style={this.startStyle()}>{this.state.startVal}</Text>
 <Image style={imaga} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
 
                   </TouchableOpacity>
 
                 </View>
-
+                {this.state.startValid ? null : <Text style={red}>Sorry, you haven't filled this field</Text>}
                 <Text style={timePeriod}>
                   Itinerary End
                 </Text>
-                <View style={viewin}>
+                <View style={this.state.endValid ? viewin : viewinred}>
                   <TouchableOpacity onPress={() => this.refs.modal2.open()}  style={tocha}>
 
-                      <Text style={date}>{this.state.endVal}</Text>
+                      <Text style={this.finishStyle()}>{this.state.endVal}</Text>
 <Image style={imaga} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
 
                   </TouchableOpacity>
                 </View>
+                {this.state.endValid ? null : <Text style={red}>Sorry, you haven't filled this field</Text>}
                 <Text style={timePeriod}>Attraction Category</Text>
                 <View style={{marginTop: 5, marginBottom: 5, flexDirection: 'row'}}>
                   <TouchableOpacity style={{marginRight: 5}} onPress={() => this.onFilterChange({...this.state.tags, culture: !this.state.tags.culture})}>
@@ -398,7 +495,7 @@ export default class DetailScreenForm extends Component {
 
               </View>
               <TouchableOpacity style={buttonGene} onPress={() => {this.submita()}}>
-                <Text style={generateText}>GENERATE</Text>
+                <Text style={generateText}>GENERATE ITINERARY</Text>
               </TouchableOpacity>
             </View>
             <Modal
@@ -479,6 +576,12 @@ const filterButtonActive = {
   backgroundColor: "#27ae60",
   // fontSize: 13,
 }
+const red = {
+    color: '#e74c3c',
+    fontSize:12,
+    letterSpacing: 0.68,
+    fontFamily: 'Lato-Regular'
+}
 const filterTextActive = {
   fontFamily: "Lato-Regular",
   fontSize: 13.3,
@@ -539,20 +642,25 @@ const viewin = {
   borderBottomWidth: 1.3,
   // flex: 1,
 }
+const viewinred = {
+    flexDirection: 'row',
+    borderBottomColor: '#e74c3c',
+    borderBottomWidth: 1.3,
+}
 const viewinp = {
   borderBottomColor: '#e0e0e0',
   borderBottomWidth: 1.3,
   // backgroundColor: '#dddddd'
   // flex: 1,
 }
+const viewinpred = {
+  borderBottomColor: '#e74c3c',
+  borderBottomWidth: 1.3,
+}
 const budgetin = {
     flexDirection: 'row',
 }
-const erpe = {
-    lineHeight: 35,
-    color: '#424242',
-    fontSize: 20,
-}
+// const erpe =
 const textin = {
     padding:0,
   height: 35,
@@ -585,16 +693,7 @@ const margin1 = {
   fontFamily: 'Poppins-Regular',
   fontSize: 20,
 }
-const date = {
-  fontFamily: 'Lato-Regular',
-  fontSize: 20,
-  color: '#424242',
-  letterSpacing: 1.14,
-  // alignSelf:'center',
-  // flex: 1,
-  lineHeight: 35,
-  // height: 35,
-}
+// const date =
 const setrip = {
   fontFamily: 'Poppins-Regular',
   fontSize: 30,
@@ -651,10 +750,10 @@ const buttonGene = {
 }
 const generateText = {
   color: 'white',
-  fontFamily: 'Poppins-Regular',
+  fontFamily: 'Poppins-Medium',
   fontSize: 15,
-  fontWeight: 'bold',
-  letterSpacing: 0.1,
+  // fontWeight: 'bold',
+  letterSpacing: 0.86,
 }
 const tocha = {flex:1}
 const imaga = { height: 16, resizeMode: 'contain', position: 'absolute', top:9, right: 0}
