@@ -15,6 +15,11 @@ import {addNavigationHelpers, NavigationActions} from 'react-navigation'
 import { NavigatorList } from '../navigationConf'
 
 export default class DetailScreenForm extends Component {
+// componentWillReceiveProps(nextProps) {
+//     this.setState({
+//         navigation: nextProps.navigation,
+//     });
+// }
 //   constructor(props) {
 //     super(props)
 //     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -134,13 +139,15 @@ export default class DetailScreenForm extends Component {
       // console.log(budget)
       // console.log('testz')
       // console.log(nextState)
-      let color
+      let color, notempty
       // console.log(budget)
       if(budget!='' && budget != NaN && budget != undefined && budget != null){
           color = '#424242'
+          notempty = true
           // console.log("zzzz")
       }else{
           color = '#bdbdbd'
+          notempty = false
           // console.log("mashok")
       }
       // console.log('erpe',thi222s.state.erpe)
@@ -151,6 +158,7 @@ export default class DetailScreenForm extends Component {
       // this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
+        budgetValid : notempty,
         budget:val,
         budgetVal: parseInt(budg),
         erpe: color,
@@ -158,7 +166,7 @@ export default class DetailScreenForm extends Component {
       // console.log(parseInt(budg))
     }
     onStartDateChange(day) {
-        // console.log(day)
+        // console.log('day',day)
       const nextState = this.props.detail
       this.refs.modal1.close()
       const start = moment(`${day.year}-${day.month}-${day.day >= 10 ? day.day : `0${day.day}`}`, "YYYY-MM-DD")
@@ -174,6 +182,7 @@ export default class DetailScreenForm extends Component {
       // this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
+        startValid:true,
         currentStart: nextState.start,
         // currentEnd: nextState.finish,
         // endVal: finish,
@@ -183,7 +192,7 @@ export default class DetailScreenForm extends Component {
       // console.log(start.format('DD MMMM YYYY'))
     }
     onEndDateChange(day) {
-        console.log('day',day)
+        // console.log('day',day)
       const nextState = this.props.detail
       this.refs.modal2.close()
       const finish = moment(`${day.year}-${day.month}-${day.day >= 10 ? day.day : `0${day.day}`}`, "YYYY-MM-DD")
@@ -191,6 +200,7 @@ export default class DetailScreenForm extends Component {
       // this.props.dispatch(selectDetail(nextState))
       this.setState({
         ...this.state,
+        endValid: true,
         currentEnd: nextState.finish,
         endVal: finish.format('DD MMMM YYYY'),
         finishStyle: '#424242',
@@ -220,7 +230,7 @@ export default class DetailScreenForm extends Component {
                   function(data){ return data.id == itemid }
               );
             //   console.log(retitem.city)
-            this.setState({ ...this.state, cityId:itemid, cityStyle:'#424242'}) // setting the value for picker
+            this.setState({ ...this.state, cityId:itemid, cityStyle:'#424242',cityValid:true}) // setting the value for picker
               const nextState = this.props.detail
               nextState.location_id = itemid
         }
@@ -279,9 +289,9 @@ return {
     //       console.log(err)
     //     })
     // }
-    submita = () => {
+    submita = (nav) => {
         // navigation.navigate('ListNavigation');console.log(this.state.currentStart)
-        console.log('submita clicked')
+        // console.log('submita clicked')
         let validBudget, validCity, validStart, validEnd
         const nextState = this.props.detail
         nextState.finish = this.state.currentEnd
@@ -290,7 +300,7 @@ return {
         nextState.location_id = this.state.cityId
         nextState.budget = this.state.budgetVal
         this.props.dispatch(selectDetail(nextState))
-        console.log('todispatch',nextState)
+        // console.log('todispatch',nextState)
         validBudget = (nextState.budget || nextState.budget === 0)
         validCity = nextState.location_id!=-1
         validStart = nextState.start
@@ -309,9 +319,7 @@ return {
         // }
         this.setState({ ...this.state,  budgetValid:validBudget,cityValid:validCity,startValid:validStart,endValid:validEnd})
         if( validBudget && validCity && validStart && validEnd ){
-            console.log('pass!')
-        }else{
-            // this.setState({ ...this.state, budgetValid:false})
+            nav.navigate('ListNavigation')
         }
     }
     render() {
@@ -494,7 +502,7 @@ return {
                 </View>
 
               </View>
-              <TouchableOpacity style={buttonGene} onPress={() => {this.submita()}}>
+              <TouchableOpacity style={buttonGene} onPress={() => {this.submita(navigation)}}>
                 <Text style={generateText}>GENERATE ITINERARY</Text>
               </TouchableOpacity>
             </View>
