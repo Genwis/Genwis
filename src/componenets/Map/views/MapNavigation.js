@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 
 
 const mapStateToProps = state => ({
-  //detail: state.koor
+  detail: state.koor,
   navigationState: state.Map,
 
 })

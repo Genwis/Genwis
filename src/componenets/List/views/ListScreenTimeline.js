@@ -56,7 +56,9 @@ function Attr(props) {
       }]
     }
     //var koor = "test"
+
     props.dispatch(koorToMapa(koor))
+    console.log(props)
     props.navigation.navigate('MapNavigation')
   }
   const showTime = timeline ? Object.values(timeline).map((val, n) => {

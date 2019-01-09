@@ -26,6 +26,7 @@ const routeConfiguration = {
   BookNavigation: { screen: BookNavigation },
   BydayNavigation: { screen: BydayNavigation },
   CityPickerNavigation: { screen: CityPickerNavigation },
+  MapNavigation: { screen: MapNavigation },
   DatePickerNavigation: { screen: DatePickerNavigation },
   LoginNavigation: { screen: LoginNavigation },
   SignUpNavigation: { screen: SignUpNavigation },
