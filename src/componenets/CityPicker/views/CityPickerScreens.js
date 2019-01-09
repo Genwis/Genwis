@@ -12,7 +12,7 @@ const d = Dimensions.get('window')
 
 const style = StyleSheet.create({
     container: {
-        backgroundColor: '#f7f7f7',
+        backgroundColor: '#ffffff',
         flex: 1,
     },
     searchinput: {
@@ -39,63 +39,7 @@ const style = StyleSheet.create({
         marginLeft: 10
     }
 })
-class Card extends Component {
-    state = {
-        image: '../../../../assets/Tempat/default.png',
-    }
-    componentWillReceiveProps(nextProps) {
-        if (!(nextProps.data.attraction.photo == null)){
-            this.setState({
-                image: nextProps.data.attraction.photo[0],
-            });
-        }else{
-            this.setState({
-                image : '../../../../assets/Tempat/default.png',
-            });
 
-        }
-
-    }
-    sesuatu() {
-        // console.log('sesuatu called')
-        return 0;
-    }
-
-
-    render() {
-        return (
-
-            <View style={view1}>
-            <Image
-            style={style.imageThumbnail}
-            source={{uri: this.state.image}}
-            />
-            <View style={view2}>
-            <View>
-            <Text style={attname} >{this.props.data.attraction.name}</Text>
-            <Text style={citystate}>{this.props.data.location.city}, {this.props.data.location.state}</Text>
-            </View>
-            <View style={view3}>
-            <View style={view4}><Text style={star}>4.6{/*this.props.star*/} </Text>
-            <StarRating
-            disabled
-            maxStars={5}
-            rating={/*this.props.star*/4.6}
-            fullStarColor={'#ffcd00'}
-            emptyStarColor={'#ffcd00'}
-            starSize={12}
-            />
-            </View>
-            <Text style={harga}>Rp. {this.props.data.attraction.price}</Text>
-            </View>
-            </View>
-            </View>
-
-
-
-        );
-    }
-}
 export default class CityPickerScreens extends Component {
 
     constructor(props) {
@@ -123,9 +67,56 @@ export default class CityPickerScreens extends Component {
         jsonGet: '',
         nav: '',
     }
+    // componentWillReceiveProps(nextProps){
+    //   // if(nextProps.someValue!==this.props.someValue){
+    //   //   //Perform some operation
+    //   //   this.setState({someState: someValue });
+    //   //   this.classMethod();
+    //   // }
+    //   console.log(nextProps)
+    //    this.setState({ ...this.state, navigation: nextProps.navigation, detail: nextProps.detail})
+    // }
+    componentWillReceiveProps=(nextProps)=>{
+    console.log("componentWillReceiveProps");
+}
+    componentDidMount() {
+        // Axios.get(`http://api.generatorwisata.com/api/locations/like?key=jak${keyword}`, { headers })
+        Axios.get(`http://api.generatorwisata.com/api/locations/like`)
+        .then((response) => {
+            //this.setState({ ...this.state, autocomplete: response.data})
+            this.setState({ ...this.state, jsonGet: response.data})
+            // console.log(this.state.jsonGet)
+            console.log("inij: ",response.data)
+        })
+        .catch((err) => {
+            // console.log(err)
+        })
+    }
+    onKeywordChange = (keyword) => {
 
-
-    renderElement = (navigation) => {
+        const headers = {
+            Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
+            'Content-Type': 'text/plain',
+        }
+        Axios.get(`http://api.generatorwisata.com/api/locations/like?key=${keyword}`, { headers })
+        .then((response) => {
+            //this.setState({ ...this.state, autocomplete: response.data})
+            this.setState({ ...this.state, jsonGet: response.data})
+            // console.log(this.state.jsonGet)
+            // console.log("inij: "+this.state.jsonGet)
+        })
+        .catch((err) => {
+            // console.log(err)
+        })
+    }
+    fungsi = ({item, index}) => (
+        <TouchableOpacity key={index} onPress={()=>{this.onPressItem(item.id,item.city)}}>
+        <View style={{borderBottomColor:'#e0e0e0',borderBottomWidth:1,paddingTop:19,paddingBottom:15}}>
+        <Text style={{fontFamily: 'Poppins-Medium',fontSize: 16,letterSpacing:0.91,color: '#424242'}}>{item.city}, {item.state}</Text>
+        <Text style={{fontFamily: 'Lato-Regular',fontSize: 12,letterSpacing:0.32,color: '#9e9e9e'}}>{item.number_of_attractions} attractions</Text>
+        </View></TouchableOpacity>
+    )
+    renderElement = (detail,navigation) => {
         // function fungsi() {
         //   return this.sesuatu()
         // }
@@ -147,23 +138,22 @@ initialNumToRender= {5}
         return null;
     }
 
-    onPressItem = (detail,navigation) => {
-
-
-
-
-
-        const nextState = detail
-        nextState.location_id = "locid"
-        nextState.cityName = "Bandung"
+    onPressItem = (id,city) => {
+        const nextState = this.props.detail
+        console.log(nextState)
+        nextState.location_id = id
+        nextState.cityName = city
         this.props.dispatch(selectDetail(nextState))
+
+        console.log('CITY PICKER SCREEEEEN')
+
+        this.props.navigation.pop(2)
+        this.props.navigation.push("DetailNavigation")
+
+// navigation.navigate("DetailNavigation")
         // console.log(navigation)
         // navigation.goBack(navigation.state.params.go_back_key)
 // navigation.state.params.onNavigateBack('hhh')
-        console.log('CITY PICKER SCREEEEEN')
-        // navigation.navigate("DetailNavigation")
-        navigation.pop(2)
-        navigation.push("DetailNavigation")
         // navigation.goBack(null);
         // navigation.state.params.onSelect({ cityName: 'Bandung', location_id : 'locid' });
     }
@@ -171,11 +161,11 @@ initialNumToRender= {5}
     render() {
         const { detail, navigation } = this.props
 
-        console.log('props citypicker',this.props.detail)
+        // console.log('props citypicker',this.props.detail)
         return (
             <View style={style.container}>
             <StatusBar backgroundColor="#229854" />
-            <TextInput placeholder="Search Place Here" style={style.searchinput} onChangeText={(keyword) => this.onKeywordChange(keyword)} elevation={4} underlineColorAndroid='rgba(0,0,0,0)'/>
+            <TextInput placeholder="Search City Here" style={style.searchinput} onChangeText={(keyword) => this.onKeywordChange(keyword)} elevation={4} underlineColorAndroid='rgba(0,0,0,0)'/>
 
             <Ionicons name="ios-search" style={{ fontSize: 25, color: '#27ae60',elevation: 12,
             width: 40,
@@ -186,20 +176,27 @@ initialNumToRender= {5}
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 39, }} />
-            {this.renderElement(this.props.navigation)}
+            {
+                // this.renderElement(this.props.navigation)
+                /*
+                <TouchableOpacity  onPress={() => {
+                  this.onPressItem(this.props.detail,this.props.navigation)}
+                }
+                ><Text>click here</Text>
+              </TouchableOpacity>
+                */
+                this.renderElement(detail,navigation)
 
-            <TouchableOpacity  onPress={() => {
-              this.onPressItem(this.props.detail,this.props.navigation)}
             }
-            >
-              <Text>click here</Text>
-            </TouchableOpacity>
+
+
             </View>
         )
     }
 }
 const flatlis = {
-    padding: 20,
+    paddingLeft: 25,
+    paddingRight: 25,
 }
 const filterButtonPassive = {
     paddingRight: 15,

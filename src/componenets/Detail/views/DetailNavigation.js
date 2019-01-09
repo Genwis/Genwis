@@ -22,13 +22,25 @@ const mapStateToProps = state => ({
 })
 
 class DetailNavigation extends React.Component {
-    static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state;
-    return params;
-};
-    // static navigationOptions = {
-    //   header: null,
-    // }
+//     static navigationOptions = ({ navigation }) => {
+//     const { params } = navigation.state;
+//     return params;
+// };
+    static navigationOptions = {
+      // header: null,
+      title: 'Make an itinerary plan',
+      headerTintColor: '#ffffff',
+      headerStyle: {
+     backgroundColor: '#27ae60',
+   },
+   headerTitleStyle: {
+      fontWeight: 'normal',
+      color: '#ffffff',
+      fontFamily: 'Lato-Regular',
+      fontSize: 16,
+      letterSpacing: 0.91
+    },
+    }
     componentDidMount() {
       BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
     }

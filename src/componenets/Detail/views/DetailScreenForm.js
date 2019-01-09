@@ -119,7 +119,14 @@ export default class DetailScreenForm extends Component {
         // this.props.dispatch(selectDetail(nextState))
         console.log(nextState.cityName)
         console.log('anything')
-        this.setState({ ...this.state, cityName: nextState.cityName })
+        let cityStyle
+        if(nextState.cityName!=='choose city'){
+            cityStyle = '#424242'
+            console.log('masuk wtf')
+        }else{
+            cityStyle = '#bdbdbd'
+        }
+        this.setState({ ...this.state, cityName: nextState.cityName, cityStyle: cityStyle })
         // BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
       // Axios.get(`http://api.generatorwisata.com/api/locations`)
       //   .then((response) => {
@@ -244,7 +251,11 @@ export default class DetailScreenForm extends Component {
           // this.setState({ ...this.state, autocomplete: [], inputValue:""+retitem.city+", "+item.state})
     }
     cityStyle = function(options) {
-   return {height:35,backgroundColor:'#ffffff',color:this.state.cityStyle}
+   return {fontFamily: 'Lato-Regular',
+   fontSize: 20,
+   color: this.state.cityStyle,
+   letterSpacing: 1.14,
+   lineHeight: 35,}
  }
  startStyle = function(options) {
  return {
@@ -339,9 +350,9 @@ return {
 
 goToCity = (navigation) => {
         // navigation.navigate('CityPickerNavigation')}
-        const action = NavigationActions.setParams({ params: {}, key: '..' });
-        navigation.dispatch(action);
-        navigation.setParams({ name: 'Lucy' })
+        // const action = NavigationActions.setParams({ params: {}, key: '..' });
+        // navigation.dispatch(action);
+        // navigation.setParams({ name: 'Lucy' })
         navigation.navigate('CityPickerNavigation')
 //         navigation.navigate({
 //
@@ -356,13 +367,9 @@ goToCity = (navigation) => {
 }
     render() {
       const { detail, navigation, test } = this.props
-      willFocus = this.props.navigation.addListener(
-    'willFocus',
-    payload => {
-      this.forceUpdate()
-    }
-  );
-      console.log('detail',this.props.detail)
+
+      // console.log('detail',this.props.detail)
+      // console.log(this.state.cityStyle)
       const now = moment()
       const start = moment(detail.start, 'YYYY-MMM-DD')
       const finish = moment(detail.finish, 'YYYY-MMM-DD')
@@ -453,7 +460,7 @@ goToCity = (navigation) => {
                   <Image style={imagap} source={require('../../../assets/icon/expand/expand_button.png')} />*/}
                   <View style={this.state.cityValid ? viewinp : viewinpred}>
                   <TouchableOpacity onPress={() => this.goToCity(navigation)} style={tocha}>
-                      <Text style={this.startStyle()}>{this.state.cityName}</Text>
+                      <Text style={this.cityStyle()}>{this.state.cityName}</Text>
 <Image style={imagap} source={require('../../../assets/icon/expand/expand_button.png')} />
 
                   </TouchableOpacity>
