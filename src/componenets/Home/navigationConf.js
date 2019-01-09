@@ -13,6 +13,7 @@ import BookNavigation from '../Book/views/BookNavigation'
 import HomeScreen from './views/HomeScreen'
 import BydayNavigation from '../Byday/views/BydayNavigation'
 import MapNavigation from '../Map/views/MapNavigation'
+import CityPickerNavigation from '../CityPicker/views/CityPickerNavigation'
 import LoginNavigation from '../Login/views/LoginNavigation'
 import SignUpNavigation from '../SignUp/views/SignUpNavigation'
 import DashboardNavigation from '../Dashboard/views/DashboardNavigation'
@@ -23,7 +24,7 @@ const routeConfiguration = {
   ListNavigation: { screen: ListNavigation },
   BookNavigation: { screen: BookNavigation },
   BydayNavigation: { screen: BydayNavigation },
-  MapNavigation: { screen: MapNavigation },
+  CityPickerNavigation: { screen: CityPickerNavigation },
   LoginNavigation: { screen: LoginNavigation },
   SignUpNavigation: { screen: SignUpNavigation },
   DashboardNavigation: { screen: DashboardNavigation },

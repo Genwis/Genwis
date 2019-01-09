@@ -61,10 +61,15 @@ function koor(state = {
 }
 
 function selectedDetail(state = {
-  location_id: '8ec9ee93-8863-419a-96f9-9a2a4cc7d815',
-  start: moment().format('YYYY-MMM-DD'),
-  finish: moment().add(3, 'd').format('YYYY-MMM-DD'),
-  budget: 1000000.0,
+  // location_id: '8ec9ee93-8863-419a-96f9-9a2a4cc7d815',
+  location_id: -1,
+  cityName: 'choose city',
+  // start: moment().format('YYYY-MMM-DD'),
+  // finish: moment().add(3, 'd').format('YYYY-MMM-DD'),
+  // budget: 1000000.0,
+  start: '',
+  finish: '',
+  budget: 0,
   tags: {
     culture: false,
     outdoors: false,
@@ -215,6 +220,7 @@ import { NavigatorMap } from '../componenets/Map/navigationConf'
 import { NavigatorLogin } from '../componenets/Login/navigationConf'
 import { NavigatorSignUp } from '../componenets/SignUp/navigationConf'
 import { NavigatorDashboard } from '../componenets/Dashboard/navigationConf'
+import { NavigatorCityPicker } from '../componenets/CityPicker/navigationConf'
 
 const rootReducer = combineReducers({
   itineraryByDetail,
@@ -231,6 +237,7 @@ const rootReducer = combineReducers({
   Book: (state, action) => NavigatorBook.router.getStateForAction(action, state),
   Byday: (state, action) => NavigatorByday.router.getStateForAction(action, state),
   Map: (state, action) => NavigatorMap.router.getStateForAction(action, state),
+  CityPicker: (state, action) => NavigatorCityPicker.router.getStateForAction(action, state),
   Login: (state, action) => NavigatorLogin.router.getStateForAction(action, state),
   SignUp: (state, action) => NavigatorSignUp.router.getStateForAction(action, state),
   Dashboard: (state, action) => NavigatorDashboard.router.getStateForAction(action, state),

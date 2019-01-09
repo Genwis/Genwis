@@ -65,18 +65,18 @@ class Card extends Component {
     render() {
         return (
 
-            <View style={{marginBottom:17,borderBottomColor: '#e0e0e0',borderBottomWidth: 1,paddingBottom:17,flexDirection:'row'}}>
+            <View style={view1}>
             <Image
             style={style.imageThumbnail}
             source={{uri: this.state.image}}
             />
-            <View style={{flex:1,justifyContent:'space-between'}}>
+            <View style={view2}>
             <View>
-            <Text style={{color: '#424242',letterSpacing:0.04,fontSize: 16,fontFamily:'Poppins-Medium'}} >{this.props.data.attraction.name}</Text>
-            <Text style={{color: '#bdbdbd', fontSize: 12,fontFamily:'Lato-Regular',letterSpacing:0.32}}>{this.props.data.location.city}, {this.props.data.location.state}</Text>
+            <Text style={attname} >{this.props.data.attraction.name}</Text>
+            <Text style={citystate}>{this.props.data.location.city}, {this.props.data.location.state}</Text>
             </View>
-            <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}><Text style={{color:'#ffcd00'}}>4.6{/*this.props.star*/} </Text>
+            <View style={view3}>
+            <View style={view4}><Text style={star}>4.6{/*this.props.star*/} </Text>
             <StarRating
             disabled
             maxStars={5}
@@ -86,7 +86,7 @@ class Card extends Component {
             starSize={12}
             />
             </View>
-            <Text style={{color:'#27ae60',letterSpacing:0.36,alignSelf: 'flex-end',fontSize:13,letterSpacing:0.36}}>Rp. {this.props.data.attraction.price}</Text>
+            <Text style={harga}>Rp. {this.props.data.attraction.price}</Text>
             </View>
             </View>
             </View>
@@ -363,3 +363,11 @@ const filterTextPassive = {
     textAlign: "left",
     color: "#616161"
 }
+const view1 = {marginBottom:17,borderBottomColor: '#e0e0e0',borderBottomWidth: 1,paddingBottom:17,flexDirection:'row'}
+const view2 = {flex:1,justifyContent:'space-between'}
+const attname = {color: '#424242',letterSpacing:0.04,fontSize: 16,fontFamily:'Poppins-Medium'}
+const citystate = {color: '#bdbdbd', fontSize: 12,fontFamily:'Lato-Regular',letterSpacing:0.32}
+const view3 = {flexDirection: 'row',justifyContent:'space-between'}
+const view4 = {flexDirection:'row',alignItems:'center',justifyContent:'center'}
+const star = {color:'#ffcd00'}
+const harga = {color:'#27ae60',letterSpacing:0.36,alignSelf: 'flex-end',fontSize:13,letterSpacing:0.36}

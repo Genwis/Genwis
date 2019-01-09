@@ -22,9 +22,13 @@ const mapStateToProps = state => ({
 })
 
 class DetailNavigation extends React.Component {
-    static navigationOptions = {
-      header: null,
-    }
+    static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    return params;
+};
+    // static navigationOptions = {
+    //   header: null,
+    // }
     componentDidMount() {
       BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
     }

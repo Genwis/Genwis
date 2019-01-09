@@ -84,10 +84,12 @@ const TabNavigatorConfiguration = {
        ),
   lazy:true,
   animationEnabled: false,
+  swipeEnabled: false,
   tabBarOptions: {
     showLabel: false,
     activeTintColor: '#27ae60',
     inactiveTintColor: '#d2d0ce',
+
     style: {
       backgroundColor: '#fefefe',
       borderTopWidth: 1,

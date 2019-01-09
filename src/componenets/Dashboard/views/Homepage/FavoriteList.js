@@ -75,9 +75,18 @@ export const FavoriteList = (props) => {
     //     )
     // }
 
-    renderAttraction = ({item,index}) => (
-        <AttractionCard navigation={navigation} dispatch={dispatch} itinerary={itinerary} image={item.attraction.photo[0]} name={item.attraction.name} id={item.attraction.id} price={item.attraction.price} location={item.location.city+', '+item.location.state+', '+item.location.country}/>
-    )
+    renderAttraction = ({item,index}) => {
+        let image
+        if(item.attraction.photo){
+            image = item.attraction.photo[0]
+        }else{
+            image = '../../../../assets/Tempat/default.png'
+        }
+
+        return (
+            <AttractionCard navigation={navigation} dispatch={dispatch} itinerary={itinerary} image={image} name={item.attraction.name} id={item.attraction.id} price={item.attraction.price} location={item.location.city+', '+item.location.state+', '+item.location.country}/>
+        )
+    }
     return (
         <View style={style.view}>
         {

@@ -66,9 +66,9 @@ export default class DetailScreenForm extends Component {
       autocomplete:[],
       inputValue: "",
       jsonGet:'',
-      cityName:'',
+      // cityName:'',
       cityId:'',
-      cityStyle: '#424242',
+      cityStyle: '#bdbdbd',
       erpe: '#bdbdbd',
       startStyle: '#bdbdbd',
       finishStyle: '#bdbdbd',
@@ -91,47 +91,51 @@ export default class DetailScreenForm extends Component {
     //   dispatch(NavigationActions.navigate({ routeName: 'DashboardNavigation' }))
     //   return true
     // }
-    componentWillMount() {
-      //console.log('bawah ni')
-      //console.log(this.props)
-      this.props.dispatch(isPreview(false))
-      const nextState = this.props.detail
-      //console.log("props detail:")
-      //console.log(this.props.detail)
-      const start = moment()
-      nextState.location_id = '8ec9ee93-8863-419a-96f9-9a2a4cc7d815'
-      nextState.start = start.format("YYYY-MMM-DD")
-      nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
-      console.log(nextState) // gotcha bitch!
-      this.props.dispatch(selectDetail(nextState))
-      // this.setState({
-      //   ...this.state,
-      //   currentStart: '',
-      //   currentEnd: '',
-      // })
-      // this.setState({
-      //   ...this.state,
-      //   currentStart: nextState.start,
-      //   currentEnd: nextState.finish,
-      // })
-    }
+    // componentWillMount() {
+    //   //console.log('bawah ni')
+    //   //console.log(this.props)
+    //
+    //   // this.setState({
+    //   //   ...this.state,
+    //   //   currentStart: '',
+    //   //   currentEnd: '',
+    //   // })
+    //   // this.setState({
+    //   //   ...this.state,
+    //   //   currentStart: nextState.start,
+    //   //   currentEnd: nextState.finish,
+    //   // })
+    // }
     componentDidMount() {
+        this.props.dispatch(isPreview(false))
+        const nextState = this.props.detail
+        //console.log("props detail:")
+        //console.log(this.props.detail)
+        const start = moment()
+        // nextState.location_id = -1
+        // nextState.start = start.format("YYYY-MMM-DD")
+        // nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
+        // console.log(nextState) // gotcha bitch!
+        // this.props.dispatch(selectDetail(nextState))
+        console.log(nextState.cityName)
+        console.log('anything')
+        this.setState({ ...this.state, cityName: nextState.cityName })
         // BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
-      Axios.get(`http://api.generatorwisata.com/api/locations`)
-        .then((response) => {
-            // let respon = response.data
-            // respon.unshift({city:'please choose city',id:0})
-            // let cityStyle =
-            this.setState({ ...this.state, jsonGet: response.data , cityName: response.data[10].city, cityId: -1,cityStyle: '#bdbdbd',erpe: '#bdbdbd'})
-            // console.log(this.state.jsonGet)
-            const nextState = this.props.detail
-            nextState.location_id = response.data[10].id
-            this.props.dispatch(selectDetail(nextState))
-        })
-        .catch((err) => {
-          console.log(err)
-          this.setState({ ...this.state, deskripsi: "Oops, something is wrong, and it's not your fault"})
-        })
+      // Axios.get(`http://api.generatorwisata.com/api/locations`)
+      //   .then((response) => {
+      //       // let respon = response.data
+      //       // respon.unshift({city:'please choose city',id:0})
+      //       // let cityStyle =
+      //       this.setState({ ...this.state, jsonGet: response.data , cityName: response.data[10].city, cityId: -1,cityStyle: '#bdbdbd',erpe: '#bdbdbd'})
+      //       // console.log(this.state.jsonGet)
+      //       const nextState = this.props.detail
+      //       // nextState.location_id = response.data[10].id
+      //       this.props.dispatch(selectDetail(nextState))
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //     this.setState({ ...this.state, deskripsi: "Oops, something is wrong, and it's not your fault"})
+      //   })
 
     }
     onBudgetChange = (budget) => {
@@ -297,7 +301,7 @@ return {
         nextState.finish = this.state.currentEnd
         nextState.start = this.state.currentStart
         nextState.tags = this.state.tags
-        nextState.location_id = this.state.cityId
+        // nextState.location_id = this.state.cityId
         nextState.budget = this.state.budgetVal
         this.props.dispatch(selectDetail(nextState))
         // console.log('todispatch',nextState)
@@ -322,8 +326,43 @@ return {
             nav.navigate('ListNavigation')
         }
     }
+
+    // onSelect = data => {
+    //     console.log('data',data)
+    //   };
+
+    handleOnNavigateBack = (foo) => {
+  this.setState({
+    foo
+  })
+}
+
+goToCity = (navigation) => {
+        // navigation.navigate('CityPickerNavigation')}
+        const action = NavigationActions.setParams({ params: {}, key: '..' });
+        navigation.dispatch(action);
+        navigation.setParams({ name: 'Lucy' })
+        navigation.navigate('CityPickerNavigation')
+//         navigation.navigate({
+//
+//             routeName:'CityPickerNavigation',
+// //                       {
+// //   onNavigateBack: this.handleOnNavigateBack
+// // }
+// params: {
+//   user: 'bla'
+// }
+// })
+}
     render() {
       const { detail, navigation, test } = this.props
+      willFocus = this.props.navigation.addListener(
+    'willFocus',
+    payload => {
+      this.forceUpdate()
+    }
+  );
+      console.log('detail',this.props.detail)
       const now = moment()
       const start = moment(detail.start, 'YYYY-MMM-DD')
       const finish = moment(detail.finish, 'YYYY-MMM-DD')
@@ -399,8 +438,8 @@ return {
                     //style={style.containerCard}
                     onPreviewClicked={props.onPreviewClicked}
                     onDeleteClicked={props.onDeleteClicked}
-                  />)</View>*/}
-                  <View style={this.state.cityValid ? viewinp : viewinpred}>
+                  />)</View>
+
                   <Picker
                     // onPress={()=>this.onPickerPress()}
                     selectedValue={this.state.cityId}
@@ -411,7 +450,13 @@ return {
                     <Picker.Item label='choose city' value={-1} key={-1} />
                     {Object.values(this.state.jsonGet).map((itemz, index) => <Picker.Item label={itemz.city} value={itemz.id} key={index} />)}
                   </Picker>
-                  <Image style={imagap} source={require('../../../assets/icon/expand/expand_button.png')} />
+                  <Image style={imagap} source={require('../../../assets/icon/expand/expand_button.png')} />*/}
+                  <View style={this.state.cityValid ? viewinp : viewinpred}>
+                  <TouchableOpacity onPress={() => this.goToCity(navigation)} style={tocha}>
+                      <Text style={this.startStyle()}>{this.state.cityName}</Text>
+<Image style={imagap} source={require('../../../assets/icon/expand/expand_button.png')} />
+
+                  </TouchableOpacity>
                   </View>
                   {this.state.cityValid ? null : <Text style={red}>Sorry, you haven't filled this field</Text>}
                 <Text style={timePeriod}>
