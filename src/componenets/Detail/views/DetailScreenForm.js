@@ -109,6 +109,7 @@ export default class DetailScreenForm extends Component {
     componentDidMount() {
         this.props.dispatch(isPreview(false))
         const nextState = this.props.detail
+        console.log('received in screenform',nextState)
         //console.log("props detail:")
         //console.log(this.props.detail)
         const start = moment()
@@ -119,14 +120,32 @@ export default class DetailScreenForm extends Component {
         // this.props.dispatch(selectDetail(nextState))
         console.log(nextState.cityName)
         console.log('anything')
-        let cityStyle
+        let cityStyle,  startStyle, finishStyle, sstart, sfinish, budget
         if(nextState.cityName!=='choose city'){
             cityStyle = '#424242'
-            console.log('masuk wtf')
         }else{
             cityStyle = '#bdbdbd'
         }
-        this.setState({ ...this.state, cityName: nextState.cityName, cityStyle: cityStyle })
+        if(nextState.start!=='choose starting date'){
+            startStyle = '#424242'
+            sstart = moment(nextState.start, "YYYY-MMM-DD").format('DD MMMM YYYY')
+        }else{
+            startStyle = '#bdbdbd'
+            sstart = nextState.start
+        }
+        if(nextState.finish!=='choose ending date'){
+            finishStyle = '#424242'
+            sfinish = moment(nextState.finish, "YYYY-MMM-DD").format('DD MMMM YYYY')
+        }else{
+            finishStyle = '#bdbdbd'
+            sfinish = nextState.finish
+        }
+        if(nextState.budget!=''&&nextState.budget!=NaN&&nextState.budget!=null){
+            budget = '#424242'
+        }else{
+            budget = '#bdbdbd'
+        }
+        this.setState({ ...this.state, cityName: nextState.cityName, cityStyle: cityStyle, start:sstart, finish:sfinish, startStyle: startStyle, finishStyle: finishStyle,budget: nextState.budget, erpe: budget})
         // BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
       // Axios.get(`http://api.generatorwisata.com/api/locations`)
       //   .then((response) => {
@@ -146,7 +165,7 @@ export default class DetailScreenForm extends Component {
 
     }
     onBudgetChange = (budget) => {
-      // const nextState = this.props.detail
+      const nextState = this.props.detail
       // console.log(budget)
       // console.log('testz')
       // console.log(nextState)
@@ -165,8 +184,9 @@ export default class DetailScreenForm extends Component {
       let budg = budget.split('.').join("")
       let val = String(budg).replace(/(.)(?=(\d{3})+$)/g,'$1.')
 
-      // nextState.budget = parseInt(budg)
-      // this.props.dispatch(selectDetail(nextState))
+      nextState.budget = parseInt(budg)
+      this.props.dispatch(selectDetail(nextState))
+      console.log(nextState.budget)
       this.setState({
         ...this.state,
         budgetValid : notempty,
@@ -309,17 +329,17 @@ return {
         // console.log('submita clicked')
         let validBudget, validCity, validStart, validEnd
         const nextState = this.props.detail
-        nextState.finish = this.state.currentEnd
-        nextState.start = this.state.currentStart
+        // nextState.finish = this.state.currentEnd
+        // nextState.start = this.state.currentStart
         nextState.tags = this.state.tags
         // nextState.location_id = this.state.cityId
-        nextState.budget = this.state.budgetVal
+        // nextState.budget = this.state.budgetVal
         this.props.dispatch(selectDetail(nextState))
         // console.log('todispatch',nextState)
         validBudget = (nextState.budget || nextState.budget === 0)
         validCity = nextState.location_id!=-1
-        validStart = nextState.start
-        validEnd = nextState.finish
+        validStart = nextState.start!='choose starting date'
+        validEnd = nextState.finish!='choose ending date'
         // if(!validBudget){
         //     this.setState({ ...this.state, budgetValid:false})
         // }
@@ -334,6 +354,7 @@ return {
         // }
         this.setState({ ...this.state,  budgetValid:validBudget,cityValid:validCity,startValid:validStart,endValid:validEnd})
         if( validBudget && validCity && validStart && validEnd ){
+            console.log('data yg mau dikirim',this.props.detail)
             nav.navigate('ListNavigation')
         }
     }
@@ -349,21 +370,19 @@ return {
 }
 
 goToCity = (navigation) => {
-        // navigation.navigate('CityPickerNavigation')}
-        // const action = NavigationActions.setParams({ params: {}, key: '..' });
-        // navigation.dispatch(action);
-        // navigation.setParams({ name: 'Lucy' })
+
         navigation.navigate('CityPickerNavigation')
-//         navigation.navigate({
-//
-//             routeName:'CityPickerNavigation',
-// //                       {
-// //   onNavigateBack: this.handleOnNavigateBack
-// // }
-// params: {
-//   user: 'bla'
-// }
-// })
+
+}
+
+goToDate = (navigation,start) => {
+    console.log(start)
+    const nextState = this.props.detail
+    nextState.chooseStartDate = start
+    this.props.dispatch(selectDetail(nextState))
+        navigation.navigate('DatePickerNavigation')
+        // navigation.navigate('CityPickerNavigation')
+
 }
     render() {
       const { detail, navigation, test } = this.props
@@ -478,8 +497,8 @@ goToCity = (navigation) => {
                   Itinerary Start
                 </Text>
                 <View style={this.state.startValid ? viewin : viewinred}>
-                  <TouchableOpacity onPress={() => this.refs.modal1.open()} style={tocha}>
-                      <Text style={this.startStyle()}>{this.state.startVal}</Text>
+                  <TouchableOpacity onPress={() => this.goToDate(navigation,true)} style={tocha}>
+                      <Text style={this.startStyle()}>{this.state.start}</Text>
 <Image style={imaga} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
 
                   </TouchableOpacity>
@@ -490,9 +509,9 @@ goToCity = (navigation) => {
                   Itinerary End
                 </Text>
                 <View style={this.state.endValid ? viewin : viewinred}>
-                  <TouchableOpacity onPress={() => this.refs.modal2.open()}  style={tocha}>
+                  <TouchableOpacity onPress={() => this.goToDate(navigation,false)} style={tocha}>
 
-                      <Text style={this.finishStyle()}>{this.state.endVal}</Text>
+                      <Text style={this.finishStyle()}>{this.state.finish}</Text>
 <Image style={imaga} source={require('../../../assets/icon/calendar_2_copy_2017-08-23/drawable-hdpi/calendar_2_copy.png')} />
 
                   </TouchableOpacity>
@@ -589,22 +608,27 @@ goToCity = (navigation) => {
               style={modal}
               postion="center"
             >
-              <View style={bar} />
-              <View style={dateShow}>
-                <Text style={day}>{finish.format('DD')}</Text>
-                <Text style={month}>{finish.format('MMMM')}</Text>
-                <Text style={year}>{finish.format('YYYY')}</Text>
-              </View>
-              <Calendar
-                minDate={start.format('YYYY-MM-DD')}
-                current={finish.format('YYYY-MM-DD')}
-                onDayPress={(day) => { this.onEndDateChange(day) }}
-                theme={{
-                              textDayFontSize: 12,
-                              textMonthFontSize: 12,
-                              textDayHeaderFontSize: 12,
-                          }}
-              />
+            {
+                /*
+                <View style={bar} />
+                <View style={dateShow}>
+                  <Text style={day}>{finish.format('DD')}</Text>
+                  <Text style={month}>{finish.format('MMMM')}</Text>
+                  <Text style={year}>{finish.format('YYYY')}</Text>
+                </View>
+                <Calendar
+                  minDate={start.format('YYYY-MM-DD')}
+                  current={finish.format('YYYY-MM-DD')}
+                  onDayPress={(day) => { this.onEndDateChange(day) }}
+                  theme={{
+                                textDayFontSize: 12,
+                                textMonthFontSize: 12,
+                                textDayHeaderFontSize: 12,
+                            }}
+                />
+                */
+            }
+
             </Modal>
           </ScrollView>
         </View>

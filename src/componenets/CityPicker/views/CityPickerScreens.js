@@ -140,12 +140,12 @@ initialNumToRender= {5}
 
     onPressItem = (id,city) => {
         const nextState = this.props.detail
-        console.log(nextState)
+        // console.log(nextState)
         nextState.location_id = id
         nextState.cityName = city
         this.props.dispatch(selectDetail(nextState))
 
-        console.log('CITY PICKER SCREEEEEN')
+        // console.log('CITY PICKER SCREEEEEN')
 
         this.props.navigation.pop(2)
         this.props.navigation.push("DetailNavigation")

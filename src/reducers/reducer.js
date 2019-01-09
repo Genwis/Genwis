@@ -62,13 +62,14 @@ function koor(state = {
 
 function selectedDetail(state = {
   // location_id: '8ec9ee93-8863-419a-96f9-9a2a4cc7d815',
+  chooseStartDate: true,
   location_id: -1,
   cityName: 'choose city',
   // start: moment().format('YYYY-MMM-DD'),
   // finish: moment().add(3, 'd').format('YYYY-MMM-DD'),
   // budget: 1000000.0,
-  start: '',
-  finish: '',
+  start: 'choose starting date',
+  finish: 'choose ending date',
   budget: 0,
   tags: {
     culture: false,
@@ -221,6 +222,7 @@ import { NavigatorLogin } from '../componenets/Login/navigationConf'
 import { NavigatorSignUp } from '../componenets/SignUp/navigationConf'
 import { NavigatorDashboard } from '../componenets/Dashboard/navigationConf'
 import { NavigatorCityPicker } from '../componenets/CityPicker/navigationConf'
+import { NavigatorDatePicker } from '../componenets/DatePicker/navigationConf'
 
 const rootReducer = combineReducers({
   itineraryByDetail,
@@ -238,6 +240,7 @@ const rootReducer = combineReducers({
   Byday: (state, action) => NavigatorByday.router.getStateForAction(action, state),
   Map: (state, action) => NavigatorMap.router.getStateForAction(action, state),
   CityPicker: (state, action) => NavigatorCityPicker.router.getStateForAction(action, state),
+  DatePicker: (state, action) => NavigatorDatePicker.router.getStateForAction(action, state),
   Login: (state, action) => NavigatorLogin.router.getStateForAction(action, state),
   SignUp: (state, action) => NavigatorSignUp.router.getStateForAction(action, state),
   Dashboard: (state, action) => NavigatorDashboard.router.getStateForAction(action, state),

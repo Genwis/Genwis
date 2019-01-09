@@ -14,6 +14,7 @@ import HomeScreen from './views/HomeScreen'
 import BydayNavigation from '../Byday/views/BydayNavigation'
 import MapNavigation from '../Map/views/MapNavigation'
 import CityPickerNavigation from '../CityPicker/views/CityPickerNavigation'
+import DatePickerNavigation from '../DatePicker/views/DatePickerNavigation'
 import LoginNavigation from '../Login/views/LoginNavigation'
 import SignUpNavigation from '../SignUp/views/SignUpNavigation'
 import DashboardNavigation from '../Dashboard/views/DashboardNavigation'
@@ -25,6 +26,7 @@ const routeConfiguration = {
   BookNavigation: { screen: BookNavigation },
   BydayNavigation: { screen: BydayNavigation },
   CityPickerNavigation: { screen: CityPickerNavigation },
+  DatePickerNavigation: { screen: DatePickerNavigation },
   LoginNavigation: { screen: LoginNavigation },
   SignUpNavigation: { screen: SignUpNavigation },
   DashboardNavigation: { screen: DashboardNavigation },
