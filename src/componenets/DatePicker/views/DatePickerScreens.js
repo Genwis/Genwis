@@ -56,6 +56,7 @@ onDayPress={(day) => { this.onStartDateChange(day) }}
             <View style={style.container}>
             <StatusBar backgroundColor="#229854" />
             <Calendar
+            style={calen}
               current='2018-01-03'
               minDate='2018-01-01'
               onDayPress={(day) => this.dayChange(day)}
@@ -84,4 +85,7 @@ textMonthFontWeight: 'bold',
             </View>
         )
     }
+}
+const calen = {
+    marginTop: 10,
 }

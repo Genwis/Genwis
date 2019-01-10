@@ -26,6 +26,7 @@ const mapStateToProps = state => ({
 class DashboardNavigation extends React.Component {
   static navigationOptions = {
     header: null,
+    
   }
 
   componentDidMount() {

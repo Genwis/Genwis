@@ -8,10 +8,6 @@ import { AttractionCard } from './AttractionItems/AttractionCard'
 
 const d = Dimensions.get('window')
 const style = StyleSheet.create({
-    containerScroll: {
-        padding: 20,
-        flex: 1,
-    },
     containerCard: {
         flex: 1,
         // borderRadius: 2,
@@ -97,8 +93,12 @@ export const FavoriteList = (props) => {
             renderItem={this.renderAttraction}
             horizontal={true}
             keyExtractor={(item, index) => index.toString()}
+            contentInset={inset}
+            contentContainerStyle={containerScroll}
             />
         }
         </View>
     )
 }
+const containerScroll = {flexGrow: 1, justifyContent: 'center',paddingTop:20,paddingBottom:20,paddingLeft:20}
+const inset = { right: 20 }

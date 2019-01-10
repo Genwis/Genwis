@@ -32,7 +32,9 @@ export default class DetailSearchDetail extends Component {
 componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
 }
-
+priceChanger = (price) => {
+    return String(price).replace(/(.)(?=(\d{3})+$)/g,'$1.')
+}
 handleBackButtonClick() {
     this.props.navigation.goBack(null);
     return true;
@@ -42,6 +44,7 @@ handleBackButtonClick() {
     rp: '',
     deskripsi: '',
     rat: '',
+    price: '',
   }
   componentDidMount() {
     const headers = {
@@ -52,6 +55,7 @@ handleBackButtonClick() {
       .then((response) => {
         //this.setState({ ...this.state, autocomplete: response.data})
         this.setState({ ...this.state, jsonGet: response.data})
+        this.setState({ ...this.state, price: response.data.price})
         this.setState({ ...this.state, rp: 'Rp'})
         this.setState({ ...this.state, deskripsi: 'Deskripsi'})
         this.setState({ ...this.state, rat: '4.6'})
@@ -78,16 +82,16 @@ handleBackButtonClick() {
     // console.log('receive')
     // console.log(this.props)
     return (
-      <View style={{backgroundColor:'#ffffff',flex:1}}>
+      <View style={view1}>
       <TouchableOpacity style={fab} onPress={() => this.props.navigation.goBack(null)}>
-        <Icon3 name="arrow-back" style={{ fontSize: 25, color: '#424242' }} />
+        <Icon3 name="arrow-back" style={ico3} />
       </TouchableOpacity>
       <ScrollView>
         {this.renderImage()}
-        <View style={{padding:25}}>
-        <Text style={{letterSpacing:0.74,fontSize:19,color:'#424242',fontFamily:'Poppins-Medium'}}>{this.state.jsonGet.name}</Text>
-        <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
-        <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}><Text style={{color:'#ffcd00'}}>{this.state.rat}{/*this.state.jsonGet.rating*/} </Text>
+        <View style={view2}>
+        <Text style={judul}>{this.state.jsonGet.name}</Text>
+        <View style={view3}>
+        <View style={view4}><Text style={rating}>{this.state.rat}{/*this.state.jsonGet.rating*/} </Text>
           <StarRating
             disabled
             maxStars={5}
@@ -97,12 +101,12 @@ handleBackButtonClick() {
             starSize={12}
           />
         </View>
-          <Text style={{color:'#27ae60',letterSpacing:0.38,fontSize:14,fontFamily:'Poppins-Medium'}}>{this.state.rp} {this.state.jsonGet.price}</Text>
+          <Text style={price}>{this.state.rp}{this.priceChanger(this.state.price)}</Text>
         </View>
-        <Text style={{lineHeight:20,fontSize:14,color:'#757575',fontFamily:'Lato-Regular',letterSpacing:0.38}}>{this.state.jsonGet.vicinity}</Text>
-        <Text style={{lineHeight:18.7,fontSize:14,color:'#27ae60',fontFamily:'Lato-Regular',marginTop:5}}>{this.state.jsonGet.phone_number}</Text>
-        <Text style={{color:'#424242',fontFamily:'Poppins-Medium',marginTop:20}}>{this.state.deskripsi}</Text>
-        <Text style={{fontFamily:'Lato-Regular',fontSize:12.7,lineHeight:20,letterSpacing:0.34}}>{this.state.jsonGet.description}</Text>
+        <Text style={vicin}>{this.state.jsonGet.vicinity}</Text>
+        <Text style={phona}>{this.state.jsonGet.phone_number}</Text>
+        <Text style={desk}>{this.state.deskripsi}</Text>
+        <Text style={desc}>{this.state.jsonGet.description}</Text>
 </View>
         </ScrollView>
 
@@ -110,6 +114,19 @@ handleBackButtonClick() {
     )
   }
 }
+const view1 = {backgroundColor:'#ffffff',flex:1}
+const ico3 = { fontSize: 25, color: '#424242' }
+const view2 = {padding:25}
+const judul = {letterSpacing:0.74,fontSize:19,color:'#424242',fontFamily:'Poppins-Medium'}
+const view3 = {flexDirection: 'row',justifyContent:'space-between'}
+const view4 = {flexDirection:'row',alignItems:'center',justifyContent:'center'}
+const rating = {color:'#ffcd00'}
+const price = {color:'#27ae60',letterSpacing:0.38,fontSize:14,fontFamily:'Poppins-Medium'}
+const vicin = {lineHeight:20,fontSize:14,color:'#757575',fontFamily:'Lato-Regular',letterSpacing:0.38}
+const phona = {lineHeight:18.7,fontSize:14,color:'#27ae60',fontFamily:'Lato-Regular',marginTop:5}
+const desk = {color:'#424242',fontFamily:'Poppins-Medium',marginTop:20}
+const desc = {fontFamily:'Lato-Regular',fontSize:12.7,lineHeight:20,letterSpacing:0.34}
+
 const fab = {
   elevation: 12,
   width: 40,

@@ -20,7 +20,8 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
     marginRight: 20,
     borderWidth: 1,
-    borderColor: '#e0e0e0'
+    borderColor: '#e0e0e0',
+    overflow: 'hidden'
   },
   textCity: {
     fontFamily: 'Poppins-Medium',
@@ -68,6 +69,9 @@ export const AttractionCard = (props) => {
     props.dispatch(idS(aidi))
     props.navigation.navigate('DetailSearchNavigation')
   }
+  priceChanger = (price) => {
+      return String(price).replace(/(.)(?=(\d{3})+$)/g,'$1.')
+  }
   // console.log('itinerary fav',itinerary)
   return (
       <TouchableOpacity onPress={() => onPressItem(id)}>
@@ -94,7 +98,7 @@ export const AttractionCard = (props) => {
               starSize={12}
             />
           </View>
-          <Text style={style.textPrice}>Rp{price}</Text>
+          <Text style={style.textPrice}>Rp{priceChanger(price)}</Text>
         </View>
       </View>
     </View>

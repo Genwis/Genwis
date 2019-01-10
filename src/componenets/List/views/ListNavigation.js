@@ -40,9 +40,9 @@ class ListNavigation extends React.Component {
         BackHandler.exitApp()
         return false
       }
-
+      // this.props.navigation.popToTop()
       dispatch(NavigationActions.back())
-      // this.props.navigation.goBack('DetailScreen')
+      // this.props.navigation.goBack('DashboardNavigation')
       return true
     }
     render() {

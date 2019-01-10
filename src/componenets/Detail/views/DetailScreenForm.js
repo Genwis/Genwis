@@ -106,6 +106,7 @@ export default class DetailScreenForm extends Component {
     //   //   currentEnd: nextState.finish,
     //   // })
     // }
+    isReallyNaN=(a)=> { return a !== a; };
     componentDidMount() {
         this.props.dispatch(isPreview(false))
         const nextState = this.props.detail
@@ -140,12 +141,23 @@ export default class DetailScreenForm extends Component {
             finishStyle = '#bdbdbd'
             sfinish = nextState.finish
         }
-        if(nextState.budget!=''&&nextState.budget!=NaN&&nextState.budget!=null){
-            budget = '#424242'
+        let val = ''
+        if(nextState.budget!=''&&nextState.budget!=null&&!this.isReallyNaN(nextState.budget)){
+            // if(nextState.budget!==nextState.budget){
+            //     budget = '#bdbdbd'
+            // }else{
+                budget = '#424242'
+                val=String(nextState.budget).replace(/(.)(?=(\d{3})+$)/g,'$1.')
+            // }
+
         }else{
             budget = '#bdbdbd'
         }
-        this.setState({ ...this.state, cityName: nextState.cityName, cityStyle: cityStyle, start:sstart, finish:sfinish, startStyle: startStyle, finishStyle: finishStyle,budget: nextState.budget, erpe: budget})
+
+        // let budg = nextState.budget.split('.').join("")
+
+
+        this.setState({ ...this.state, cityName: nextState.cityName, cityStyle: cityStyle, start:sstart, finish:sfinish, startStyle: startStyle, finishStyle: finishStyle,budgetVal: nextState.budget, erpe: budget, budget: val})
         // BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
       // Axios.get(`http://api.generatorwisata.com/api/locations`)
       //   .then((response) => {
@@ -171,7 +183,7 @@ export default class DetailScreenForm extends Component {
       // console.log(nextState)
       let color, notempty
       // console.log(budget)
-      if(budget!='' && budget != NaN && budget != undefined && budget != null){
+      if(budget!='' && !this.isReallyNaN(budget) && budget != undefined && budget != null){
           color = '#424242'
           notempty = true
           // console.log("zzzz")

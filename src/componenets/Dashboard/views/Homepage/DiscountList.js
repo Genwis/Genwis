@@ -7,9 +7,6 @@ import { Dimensions, ScrollView, StyleSheet, View, Image, FlatList } from 'react
 const d = Dimensions.get('window')
 const wid =  d.width * 230 / 360
 const style = StyleSheet.create({
-  containerScroll: {
-    padding: 20,
-  },
   containerCard: {
     borderRadius: 3,
     width: wid,
@@ -54,7 +51,11 @@ export const DiscountList = (props) => {
         renderItem={this.renderImage}
         horizontal={true}
         keyExtractor={(item, index) => index.toString()}
+        contentInset={inset}
+        contentContainerStyle={containerScroll}
       />
     </View>
   )
 }
+const containerScroll = {flexGrow: 1, justifyContent: 'center',paddingTop:20,paddingBottom:20,paddingLeft:20}
+const inset = { right: 20 }

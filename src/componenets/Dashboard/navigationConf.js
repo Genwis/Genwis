@@ -33,12 +33,26 @@ const routeConfiguration = {
     screen: HomepageScreen,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-home" size={20} color={tintColor} />,
+      title: 'Make an itinerary plan',
+      headerTintColor: '#ffffff',
+      headerStyle: {
+     backgroundColor: '#27ae60',
+   },
+   headerTitleStyle: {
+      fontWeight: 'normal',
+      color: '#ffffff',
+      fontFamily: 'Lato-Regular',
+      fontSize: 16,
+      letterSpacing: 0.91
+    },
+      // title: 'Discover'
     },
   },
   Search: {
     screen: SearchNavigation,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => <Ionicons name="ios-search" size={20} color={tintColor} />,
+      // header: null,
     },
   },
   Generate: {
@@ -84,7 +98,7 @@ const TabNavigatorConfiguration = {
        ),
   lazy:true,
   animationEnabled: false,
-  swipeEnabled: false,
+  // swipeEnabled: false,
   tabBarOptions: {
     showLabel: false,
     activeTintColor: '#27ae60',

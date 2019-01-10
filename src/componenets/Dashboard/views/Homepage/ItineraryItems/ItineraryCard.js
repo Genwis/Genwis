@@ -16,22 +16,13 @@ const style = StyleSheet.create({
         flex:1,
         borderRadius: 5,
         width: d.width * 290 / 360,
-        //height: d.height * 160 / 616,
         backgroundColor: '#ffffff',
         marginTop: 5,
         marginBottom: 5,
         marginRight: 20,
-        // shadowColor: '#eeeeee',
-        // shadowOffset: {
-        //   width: 0,
-        //   height: 0,
-        // },
-        // shadowRadius: 0,
-        // shadowOpacity: 0,
         borderWidth: 0.7,
         borderColor: '#e0e0e0',
         padding:16,
-        // elevation:3,
     },
     containerCardEmpty: {
         borderRadius: 5,
@@ -41,7 +32,6 @@ const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#e0e0e0',
         marginRight: 20,
-        // elevation: 3,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -106,22 +96,14 @@ const style = StyleSheet.create({
 
 export const ItineraryCard = (props) => {
     const { itinerarys, number, isLogin, navigation } = props
-    // console.log('props',props.itinerarys)
-    // console.log("number,",number)
-    // console.log("itin,",itinerarys)
-    // console.log("itintype,",typeof(props.itinerarys))
 
-    // console.log(itinerary.itinerary.time_line[0])
     renderImages = () =>{//function to render images
         let list = []
-        // console.log("itin isi,",props.itinerarys.itinerary)
         let counter = 0
-        // console.log("ititnerayray typeof",typeof(itinerary.itinerary.time_line))
         for (event of props.itinerarys.itinerary.time_line) {
             if(event.events!=null){
                 for (att of event.events){
                     if(att.attraction.photo!=null&&att.attraction.photo.length!=0){
-                        // console.log(att.attraction.photo[0])
                         list.push(<View key={counter+1} style={style.imageThumbnail1}>
                             <Image source={{uri:att.attraction.photo[0]}} style={style.thumbnail} />
                             </View>)
@@ -142,25 +124,13 @@ export const ItineraryCard = (props) => {
                 {list}
                 </View>
             )
-            /*
-            <View style={style.imageThumbnail1}>
-            <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
-            </View>
-            <View style={style.imageThumbnail1}>
-            <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
-            </View>
-            <View style={style.imageThumbnail34}>
-            <Image source={iconsMap[`${Math.floor((Math.random() * 20) + 1)}`]} style={style.thumbnail} />
-            </View>
-            */
+        }
+        priceChanger = (price) => {
+            return String(price).replace(/(.)(?=(\d{3})+$)/g,'$1.')
         }
         returnCard = () => {
             return(
                 <View style={style.containerCard}>
-                {
-                    // console.log('return prosp',props.itinerarys)
-                    // console.log("itinerarycard kepanggil lagi")
-                }
                 <TouchableOpacity style={style.touch} onPress={() => props.onDeleteClicked(number)}>
                 <Ionicons name="ios-close" size={30} color={"#616161"}/>
                 </TouchableOpacity>
@@ -172,7 +142,9 @@ export const ItineraryCard = (props) => {
                 {toolbarSubtitile(props.itinerarys.itinerary)}
                 </Text>
                 <Text style={style.textPrice}>
-                Rp. {numeral(props.itinerarys.itinerary.cost).format('0,0')}
+                Rp{
+                    priceChanger(props.itinerarys.itinerary.cost)
+                }
                 </Text>
                 </View>
                 {this.renderImages()}

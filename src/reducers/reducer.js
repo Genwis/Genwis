@@ -70,7 +70,7 @@ function selectedDetail(state = {
   // budget: 1000000.0,
   start: 'choose starting date',
   finish: 'choose ending date',
-  budget: 0,
+  budget: '',
   tags: {
     culture: false,
     outdoors: false,
