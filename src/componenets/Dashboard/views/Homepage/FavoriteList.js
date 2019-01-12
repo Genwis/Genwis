@@ -100,5 +100,5 @@ export const FavoriteList = (props) => {
         </View>
     )
 }
-const containerScroll = {flexGrow: 1, justifyContent: 'center',paddingTop:20,paddingBottom:20,paddingLeft:20}
+const containerScroll = {flexGrow: 1, justifyContent: 'center',paddingTop:10,paddingBottom:20,paddingLeft:20}
 const inset = { right: 20 }

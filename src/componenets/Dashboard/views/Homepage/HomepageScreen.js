@@ -237,11 +237,12 @@ class HomepageScreen extends Component {
               :
               <ItineraryList itinerary={this.props.itinerary} isLogin={users.isLogin} navigation={navigation} onPreviewClicked={this.onPreviewClicked} onDeleteClicked={this.onDeleteClicked}/>
           }
-
+          <View style={view2}>
           <Text style={style.textRecent}>
             Discount and Promo
           </Text>
           <DiscountList itinerary={this.props.itinerary} />
+          </View>
           <Text style={style.textRecent}>
             Favorite Places
           </Text>
@@ -253,6 +254,9 @@ class HomepageScreen extends Component {
       </View>
     )
   }
+}
+const view2 = {
+    marginBottom:15,
 }
 function mapStateToProps(state) {
   const { itineraryByDetail, tutorial, users } = state

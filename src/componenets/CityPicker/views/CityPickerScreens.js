@@ -109,13 +109,16 @@ export default class CityPickerScreens extends Component {
             // console.log(err)
         })
     }
-    fungsi = ({item, index}) => (
+    fungsi = ({item, index}) => {
+        let noa = item.number_of_attractions==1 ? "attraction" : "attractions"
+        return(
+
         <TouchableOpacity key={index} onPress={()=>{this.onPressItem(item.id,item.city)}}>
-        <View style={{borderBottomColor:'#e0e0e0',borderBottomWidth:1,paddingTop:19,paddingBottom:15}}>
-        <Text style={{fontFamily: 'Poppins-Medium',fontSize: 16,letterSpacing:0.91,color: '#424242'}}>{item.city}, {item.state}</Text>
-        <Text style={{fontFamily: 'Lato-Regular',fontSize: 12,letterSpacing:0.32,color: '#9e9e9e'}}>{item.number_of_attractions} attractions</Text>
+        <View style={viewrender}>
+        <Text style={citytext}>{item.city}, {item.state}</Text>
+        <Text style={noat}>{item.number_of_attractions} {noa}</Text>
         </View></TouchableOpacity>
-    )
+    )}
     renderElement = (detail,navigation) => {
         // function fungsi() {
         //   return this.sesuatu()
@@ -186,6 +189,9 @@ initialNumToRender= {5}
         )
     }
 }
+const viewrender ={borderBottomColor:'#e0e0e0',borderBottomWidth:1,paddingTop:19,paddingBottom:15}
+const citytext = {fontFamily: 'Poppins-Medium',fontSize: 16,letterSpacing:0.91,color: '#424242'}
+const noat = {fontFamily: 'Lato-Regular',fontSize: 12,letterSpacing:0.32,color: '#9e9e9e'}
 const ioni = { fontSize: 25, color: '#27ae60',elevation: 12,
 width: 40,
 height: 40,

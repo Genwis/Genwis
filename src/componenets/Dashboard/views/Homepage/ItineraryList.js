@@ -29,7 +29,9 @@ const style = StyleSheet.create({
         padding:50,
         margin:50,
     },
-    view:{marginBottom:20},
+    view:{
+        // marginBottom:20
+    },
 })
 
 export const ItineraryList = (props) => {
@@ -104,5 +106,5 @@ export const ItineraryList = (props) => {
         </View>
     )
 }
-const containerScroll = {flexGrow: 1, justifyContent: 'center',paddingTop:20,paddingBottom:20,paddingLeft:20}
+const containerScroll = {flexGrow: 1, justifyContent: 'center',paddingTop:10,paddingBottom:15,paddingLeft:20}
 const inset = { right: 20 }

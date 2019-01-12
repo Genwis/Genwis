@@ -9,8 +9,7 @@ const wid =  d.width * 230 / 360
 const style = StyleSheet.create({
   containerCard: {
     borderRadius: 3,
-    width: wid,
-    height: wid * 0.394936709,
+
     backgroundColor: '#eeeeee',
     marginRight: 20,
   },
@@ -18,7 +17,8 @@ const style = StyleSheet.create({
       borderRadius: 3,
       flex: 1,
 resizeMode: "stretch",
-width: '100%', height: '100%'
+width: wid,
+height: wid * 0.394936709,
   }
 })
 
@@ -45,7 +45,7 @@ export const DiscountList = (props) => {
   return (
     <View>
       <FlatList
-      style={style.containerScroll}
+      // style={containerScroll}
       showsHorizontalScrollIndicator={false}
         data={dat}
         renderItem={this.renderImage}
@@ -57,5 +57,5 @@ export const DiscountList = (props) => {
     </View>
   )
 }
-const containerScroll = {flexGrow: 1, justifyContent: 'center',paddingTop:20,paddingBottom:20,paddingLeft:20}
+const containerScroll = {flexGrow: 1, justifyContent: 'center',paddingTop:10,paddingBottom:15,paddingLeft:20}
 const inset = { right: 20 }
