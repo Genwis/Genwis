@@ -54,7 +54,7 @@ function Items(props){
 
                   </View>
                   <View style={detbox}>
-                        <Text style={nama}>{event.attraction.name}</Text>
+                        <TouchableOpacity  onPress={()=>{this.onPressItem(event.attraction.id)}}><Text style={nama}>{event.attraction.name}</Text></TouchableOpacity>
                         {(rowLen === index + 1) ? null : <TouchableOpacity onPress={()=>{this.onToMap(event.attraction.name,Object.values(items)[index+1].attraction.name,event.attraction.coordinate,Object.values(items)[index+1].attraction.coordinate)}}>
                               <View style={container5}>
                                 <FontAwesome name="road" size={15} color="#3498db" />

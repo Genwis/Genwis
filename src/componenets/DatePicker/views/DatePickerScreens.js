@@ -25,13 +25,14 @@ export default class DatePickerScreens extends Component {
         // console.log(props)
         // this.setState({ ...this.state, nav: })
         //this.sesuatu = this.sesuatu.bind(this);
-
+        console.log(props)
     }
 
 /*current={start.format('YYYY-MM-DD')}
 minDate={now.format('YYYY-MM-DD')}
 onDayPress={(day) => { this.onStartDateChange(day) }}
 */
+
     dayChange = (day) => {
         const nextState = this.props.detail
         console.log(nextState)
@@ -50,6 +51,18 @@ onDayPress={(day) => { this.onStartDateChange(day) }}
     }
     render() {
         const { detail, navigation } = this.props
+        const now = moment()
+        var mindate
+        if(detail.chooseStartDate){
+            mindate = now.format('YYYY-MM-DD')
+        }else{
+            if(detail.start==="choose starting date"){
+                mindate = now.format('YYYY-MM-DD')
+            }else{
+                mindate = moment(detail.start, 'YYYY-MMM-DD').format('YYYY-MM-DD')
+                console.log('masuk kalo start udah diset')
+            }
+        }
 
         // console.log('props citypicker',this.props.detail)
         return (
@@ -57,8 +70,8 @@ onDayPress={(day) => { this.onStartDateChange(day) }}
             <StatusBar backgroundColor="#229854" />
             <Calendar
             style={calen}
-              current='2018-01-03'
-              minDate='2018-01-01'
+
+              minDate={mindate}
               onDayPress={(day) => this.dayChange(day)}
               theme={{
                   backgroundColor: '#ffffff',
