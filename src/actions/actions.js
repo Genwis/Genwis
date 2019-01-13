@@ -60,6 +60,7 @@ export function fetchItineray(detail) {
     // delete detail.cityName;
     // delete detail.chooseStartDate;
     // console.log(typeof(detail.budget))
+    // console.log('tosend',JSON.stringify(detail))
     return Axios.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })
       .then(response => dispatch(receiveItinerary(detail, response.data)))
       .catch(err => console.log(err))

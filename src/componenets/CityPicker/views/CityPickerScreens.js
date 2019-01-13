@@ -77,7 +77,7 @@ export default class CityPickerScreens extends Component {
     //    this.setState({ ...this.state, navigation: nextProps.navigation, detail: nextProps.detail})
     // }
     componentWillReceiveProps=(nextProps)=>{
-    console.log("componentWillReceiveProps");
+    // console.log("componentWillReceiveProps");
 }
     componentDidMount() {
         // Axios.get(`http://api.generatorwisata.com/api/locations/like?key=jak${keyword}`, { headers })
@@ -86,7 +86,7 @@ export default class CityPickerScreens extends Component {
             //this.setState({ ...this.state, autocomplete: response.data})
             this.setState({ ...this.state, jsonGet: response.data})
             // console.log(this.state.jsonGet)
-            console.log("inij: ",response.data)
+            // console.log("inij: ",response.data)
         })
         .catch((err) => {
             // console.log(err)

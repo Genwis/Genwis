@@ -73,12 +73,12 @@ class ListScreen extends Component {
     if(a||list==undefined){
       return <ListScreenLoading />
     }else{
-      console.log("masuk screen form isfetching:",a,"list:",list)
+      // console.log("masuk screen form isfetching:",a,"list:",list)
       return <ListScreenForm dispatch={dispatch} List={list}  navigation={navigation} />
     }
   }
   render() {
-    console.log('ListScreen Render Called')
+    // console.log('ListScreen Render Called')
     const {
       isFetching, itinerary, selectedDetail, navigation, shownItinerary, isPreview, dispatch
     } = this.props

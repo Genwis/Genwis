@@ -284,7 +284,7 @@ fitToElements
 //     koor2:{coor: {latitude:parseFloat(0.0), longitude:parseFloat(0.0)}},
 //     });
 // }
-console.log("koor"+this.state.koorisempty)
+// console.log("koor"+this.state.koorisempty)
 // console.log(this.state.koor1.coor)
 // console.log(this.state.koor2.coor)
 

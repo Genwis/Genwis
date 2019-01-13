@@ -110,7 +110,7 @@ export default class DetailScreenForm extends Component {
     componentDidMount() {
         this.props.dispatch(isPreview(false))
         const nextState = this.props.detail
-        console.log('received in screenform',nextState)
+        // console.log('received in screenform',nextState)
         //console.log("props detail:")
         //console.log(this.props.detail)
         const start = moment()
@@ -119,8 +119,8 @@ export default class DetailScreenForm extends Component {
         // nextState.finish = start.add(3, 'days').format("YYYY-MMM-DD")
         // console.log(nextState) // gotcha bitch!
         // this.props.dispatch(selectDetail(nextState))
-        console.log(nextState.cityName)
-        console.log('anything')
+        // console.log(nextState.cityName)
+        // console.log('anything')
         let cityStyle,  startStyle, finishStyle, sstart, sfinish, budget
         if(nextState.cityName!=='choose city'){
             cityStyle = '#424242'
@@ -198,7 +198,7 @@ export default class DetailScreenForm extends Component {
 
       nextState.budget = parseInt(budg)
       this.props.dispatch(selectDetail(nextState))
-      console.log(nextState.budget)
+      // console.log(nextState.budget)
       this.setState({
         ...this.state,
         budgetValid : notempty,
@@ -366,7 +366,7 @@ return {
         // }
         this.setState({ ...this.state,  budgetValid:validBudget,cityValid:validCity,startValid:validStart,endValid:validEnd})
         if( validBudget && validCity && validStart && validEnd ){
-            console.log('data yg mau dikirim',this.props.detail)
+            // console.log('data yg mau dikirim',this.props.detail)
             nav.navigate('ListNavigation')
         }
     }
@@ -388,7 +388,7 @@ goToCity = (navigation) => {
 }
 
 goToDate = (navigation,start) => {
-    console.log(start)
+    // console.log(start)
     const nextState = this.props.detail
     nextState.chooseStartDate = start
     this.props.dispatch(selectDetail(nextState))

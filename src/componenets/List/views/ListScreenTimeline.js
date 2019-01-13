@@ -70,6 +70,24 @@ function Attr(props) {
       //console.log(val.attraction.coordinate.latitude)
       //console.log('ini nextnya')
       //console.log(Object.values(timeline)[n+1].attraction.coordinate.latitude)
+
+//       <View> //1
+// <Text style={tanggal}>Selasa, 27 September</Text>
+// <View> // items
+// <View> //item1
+// <View>09:00 11:00</View> // jam
+// <dot dan garis>
+// <View>
+// <Text>Cihampelas Walk</Text>
+// <Text>ICON 23 Km ICON 2 J 10 Mnt</Text>
+// <Text>See directions >></Text>
+// </View>
+// </View>
+// </View>
+// </View>
+
+
+
       return (
         <View key={n}>
 <TouchableOpacity  onPress={()=>{this.onPressItem(val.attraction.id)}}>

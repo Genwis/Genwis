@@ -59,9 +59,9 @@ export default class ListScreenForm extends Component {
             </Text>
 
           </View>
-          <ScrollView contentContainerStyle={scrolViewStyle}>
+
             <ListScreenItems dispatch={this.dispatch} navigation={this.navigation} iten={this.itinerary} />
-          </ScrollView>
+
 
         </View>
       )
@@ -89,7 +89,7 @@ const bSpace = {
 //   justifyContent: 'center',
 // }
 
-const view = { flex: 1, backgroundColor: '#fefefe' }
+const view = { flex: 1, backgroundColor: '#ffffff' }
 const scrolViewStyle = {
   /* marginLeft: d.width * 24/360,
 	marginRight: d.width * 24/360, */
@@ -100,7 +100,7 @@ const scrolViewStyle = {
 }
 
 const timelineToolbarText = {
-  marginLeft: 10,
+  // marginLeft: 10,
   fontFamily: 'Poppins-Regular',
   fontSize: 16,
   letterSpacing: 0.59,
@@ -109,19 +109,22 @@ const timelineToolbarText = {
 }
 
 const subtitleToolbarText = {
-  marginLeft: 10,
+  // marginLeft: 10,
   fontFamily: 'Poppins-Regular',
   fontSize: 12,
   fontWeight: "normal",
-  letterSpacing: 0.32,
+  letterSpacing: 0.34,
   textAlign: "left",
-  color: "#ffffff"
+  color: "#ffffff",
+  marginTop:-3
 }
 
 const Toolbar = {
-  height: d.height * 70 / 680,
   backgroundColor: "#27ae60",
-  padding: d.height * 10 / 680,
+  paddingLeft: 23,
+  paddingRight: 23,
+  paddingTop: 13,
+  paddingBottom: 14,
 }
 const Done = {
   fontFamily: 'Poppins-Regular',
@@ -148,5 +151,5 @@ const fab = {
 function toolbarSubtitile(iten) {
     // console.log('moment',moment(iten.detail.start).format('D MMMM'))
     // console.log(iten.detail.start)
-  return `${moment(iten.detail.start).format('D MMMM')} - ${moment(iten.detail.finish).format('D MMMM YYYY')} ${iten.detail.location.city}`
+  return `${moment(iten.detail.start).format('D MMMM')} - ${moment(iten.detail.finish).format('D MMMM YYYY')} | ${iten.detail.location.city}`
 }
