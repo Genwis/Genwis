@@ -46,17 +46,29 @@ export default class ListScreenForm extends Component {
         //console.log(props.navigation)
         this.navigation.navigate('MapNavigation')
       }
+      toolbarSubtitile = (iten) => {
+          // console.log('moment',moment(iten.detail.start).format('D MMMM'))
+          // console.log(iten.detail.start)
+        return
+      }
       // console.log("CALLED LISTSCREENFORM")
       // console.log('nyari',this.itinerary)
+      // {toolbarSubtitile(this.itinerary)}
       return (
         <View style={view}>
           <View style={Toolbar}>
             <Text style={timelineToolbarText}>
                         Timeline
             </Text>
+            <View style={view1}>
             <Text style={subtitleToolbarText}>
-              {toolbarSubtitile(this.itinerary)}
-            </Text>
+            {moment(this.itinerary.detail.start).format('D MMMM[ - ]')}
+            {moment(this.itinerary.detail.finish).format('D MMMM YYYY')}
+            </Text><Text style={batas}> | </Text>
+            <Text style={subtitleToolbarText}>
+            {this.itinerary.detail.location.city}
+             </Text>
+             </View>
 
           </View>
 
@@ -101,7 +113,7 @@ const scrolViewStyle = {
 
 const timelineToolbarText = {
   // marginLeft: 10,
-  fontFamily: 'Poppins-Regular',
+  fontFamily: 'Poppins-Medium',
   fontSize: 16,
   letterSpacing: 0.59,
   textAlign: "left",
@@ -147,9 +159,14 @@ const fab = {
   justifyContent: 'center',
   zIndex: 39,
 }
-
-function toolbarSubtitile(iten) {
-    // console.log('moment',moment(iten.detail.start).format('D MMMM'))
-    // console.log(iten.detail.start)
-  return `${moment(iten.detail.start).format('D MMMM')} - ${moment(iten.detail.finish).format('D MMMM YYYY')} | ${iten.detail.location.city}`
+const view1 = {flexDirection:'row'}
+const batas = {  fontFamily: 'Poppins-Regular',
+  fontSize: 12,
+  fontWeight: "normal",
+  letterSpacing: 0.34,
+  textAlign: "left",
+  color: "#ffffff",
+  marginTop:-3,
+  marginLeft: 10,
+  marginRight: 10,
 }
