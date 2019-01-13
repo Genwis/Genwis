@@ -46,11 +46,6 @@ export default class ListScreenForm extends Component {
         //console.log(props.navigation)
         this.navigation.navigate('MapNavigation')
       }
-      toolbarSubtitile = (iten) => {
-          // console.log('moment',moment(iten.detail.start).format('D MMMM'))
-          // console.log(iten.detail.start)
-        return
-      }
       // console.log("CALLED LISTSCREENFORM")
       // console.log('nyari',this.itinerary)
       // {toolbarSubtitile(this.itinerary)}
