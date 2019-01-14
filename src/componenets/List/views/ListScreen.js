@@ -15,11 +15,14 @@ import ListScreenLoading from './ListScreenLoading'
 function mapStateToProps(state) {
   const { selectedDetail, itineraryByDetail } = state
   const {
+      error,
     isFetching,
     itinerary,
     shownItinerary,
     isPreview,
+
   } = itineraryByDetail || {
+      error: false,
     isFetching: true,
     itinerary: { },
   }
@@ -27,6 +30,7 @@ function mapStateToProps(state) {
   // console.log('isfetching:'+itineraryByDetail.isFetching)
   //console.log('//--itineraryByDetail')
   return {
+      error,
     selectedDetail,
     itinerary,
     isFetching,
@@ -69,19 +73,25 @@ class ListScreen extends Component {
   //   dispatch(NavigationActions.back())
   //   return true
   // }
-  renderf = (a,list,dispatch,navigation) => {
-    if(a||list==undefined){
-      return <ListScreenLoading />
-    }else{
-      // console.log("masuk screen form isfetching:",a,"list:",list)
-      return <ListScreenForm dispatch={dispatch} List={list}  navigation={navigation} />
-    }
+  renderf = (a,list,dispatch,navigation,error) => {
+
+        if(a||list==undefined){
+          return <ListScreenLoading error={error} />
+        }else{
+          // console.log("masuk screen form isfetching:",a,"list:",list)
+          return <ListScreenForm dispatch={dispatch} List={list}  navigation={navigation} />
+        }
+
   }
   render() {
     // console.log('ListScreen Render Called')
     const {
-      isFetching, itinerary, selectedDetail, navigation, shownItinerary, isPreview, dispatch
+      error,isFetching, itinerary, selectedDetail, navigation, shownItinerary, isPreview, dispatch
     } = this.props
+
+    console.log('errorprops',this.props.error)
+    console.log('propz',this.props)
+
     let shown  = shownItinerary
     if (!isPreview){
       shown = 0
@@ -98,7 +108,7 @@ class ListScreen extends Component {
       <View style={container1}>
         <StatusBar backgroundColor="#229854" />
         {
-          this.renderf(isFetching,List,dispatch,navigation)
+          this.renderf(isFetching,List,dispatch,navigation,error)
                 }
         {
                     isFetching ? false : false

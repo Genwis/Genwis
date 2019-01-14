@@ -5,6 +5,7 @@ import Axios from 'axios'
 
 export const REQUEST_ITINERARY = 'REQUEST_ITINERARY'
 export const RECEIVE_ITINERARY = 'RECEIVE_ITINERARY'
+export const FAIL_ITINERARY = 'FAIL_ITINERARY'
 export const REQUEST_TOP_ITINERARY = 'REQUEST_TOP_ITINERARY'
 export const RECEIVE_TOP_ITINERARY = 'RECEIVE_TOP_ITINERARY'
 export const REQUEST_REGISTER = 'REQUEST_REGISTER'
@@ -47,6 +48,11 @@ function receiveItinerary(detail, data) {
     },
   }
 }
+function failItinerary() {
+  return {
+    type: FAIL_ITINERARY,
+  }
+}
 
 export function fetchItineray(detail) {
   const headers = {
@@ -63,7 +69,7 @@ export function fetchItineray(detail) {
     // console.log('tosend',JSON.stringify(detail))
     return Axios.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })
       .then(response => dispatch(receiveItinerary(detail, response.data)))
-      .catch(err => console.log(err))
+      .catch(err => {console.log('masukerror',err);dispatch(failItinerary())})
   }
 }
 

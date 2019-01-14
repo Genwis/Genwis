@@ -7,9 +7,15 @@ import Video from 'react-native-video'
 
 export default class ListScreenLoading extends Component {
   render() {
+      console.log('loading props',this.props)
+      // console.log('loading props err',this.props.error)
+      /*
+        <Text>test {this.props.error===true?'ada error':'tak ada error'}</Text>
+      */
     return (
       <View style={container}>
         <StatusBar backgroundColor="white" />
+
         <Video
           source={require('../../../assets/loading.mp4')} // Can be a URL or a local file.
           muted // Pauses playback entirely.

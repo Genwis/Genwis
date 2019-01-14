@@ -19,6 +19,7 @@ import {
   IS_PREVIEW,
   NOT_NEW,
   DELETE,
+  FAIL_ITINERARY,
 } from '../actions/actions'
 import {
   RECEIVE_USER_DATA,
@@ -97,6 +98,7 @@ function itineraryByDetail(state = {
   itinerary: [],
   shownItinerary: 0,
   isPreview: false,
+  error: false,
 }, action) {
   switch (action.type) {
     case REQUEST_ITINERARY:
@@ -112,6 +114,12 @@ function itineraryByDetail(state = {
         itinerary: [action.response, ...state.itinerary],
         isFetching: false,
       }
+      case FAIL_ITINERARY:
+        return {
+          ...state,
+          error: true,
+          isFetching: true,
+        }
     case SHOWN_ITINERARY:
       return {
         ...state,

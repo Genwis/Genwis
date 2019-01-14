@@ -25,7 +25,7 @@ export default class DatePickerScreens extends Component {
         // console.log(props)
         // this.setState({ ...this.state, nav: })
         //this.sesuatu = this.sesuatu.bind(this);
-        console.log(props)
+        // console.log(props)
     }
 
 /*current={start.format('YYYY-MM-DD')}
@@ -35,7 +35,7 @@ onDayPress={(day) => { this.onStartDateChange(day) }}
 
     dayChange = (day) => {
         const nextState = this.props.detail
-        console.log(nextState)
+        // console.log(nextState)
         if(nextState.chooseStartDate){
             const start = moment(`${day.year}-${day.month}-${day.day >= 10 ? day.day : `0${day.day}`}`, "YYYY-MM-DD")
             nextState.start = start.format("YYYY-MMM-DD")
@@ -60,7 +60,7 @@ onDayPress={(day) => { this.onStartDateChange(day) }}
                 mindate = now.format('YYYY-MM-DD')
             }else{
                 mindate = moment(detail.start, 'YYYY-MMM-DD').format('YYYY-MM-DD')
-                console.log('masuk kalo start udah diset')
+                // console.log('masuk kalo start udah diset')
             }
         }
 
