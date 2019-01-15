@@ -94,7 +94,7 @@ export const ItineraryList = (props) => {
     // contentInset={{ right: 20 }}
     // for(var x of itinerary){
         // console.log(x)
-    }
+    // }
     return (
         <View style={style.view}>
         <FlatList

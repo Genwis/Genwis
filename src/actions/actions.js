@@ -67,11 +67,13 @@ export function fetchItineray(detail) {
     // delete detail.chooseStartDate;
     // console.log(typeof(detail.budget))
     // console.log('tosend',JSON.stringify(detail))
-    return Axios.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })
+    const httpClient = Axios.create()
+    httpClient.defaults.timeout = 5000
+    return httpClient.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })
       .then(response => dispatch(receiveItinerary(detail, response.data)))
       .catch(err => {
-          console.log('masukerror',err)
-      // dispatch(failItinerary())
+          // console.log('masukerror',err)
+      dispatch(failItinerary())
   })
   }
 }

@@ -105,6 +105,7 @@ function itineraryByDetail(state = {
       return {
         ...state,
         isFetching: true,
+        error: false,
       }
     case RECEIVE_ITINERARY:
       const length = state.itinerary.length
@@ -113,6 +114,7 @@ function itineraryByDetail(state = {
         shownItinerary: 0,
         itinerary: [action.response, ...state.itinerary],
         isFetching: false,
+        error: false,
       }
       case FAIL_ITINERARY:
         return {
