@@ -69,7 +69,10 @@ export function fetchItineray(detail) {
     // console.log('tosend',JSON.stringify(detail))
     return Axios.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })
       .then(response => dispatch(receiveItinerary(detail, response.data)))
-      .catch(err => {console.log('masukerror',err);dispatch(failItinerary())})
+      .catch(err => {
+          console.log('masukerror',err)
+      // dispatch(failItinerary())
+  })
   }
 }
 

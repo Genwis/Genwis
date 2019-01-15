@@ -92,6 +92,9 @@ export const ItineraryList = (props) => {
     // const list = Object.values(itinerary).map((itinerary, index) => )
     // style={style.containerScroll}
     // contentInset={{ right: 20 }}
+    // for(var x of itinerary){
+        // console.log(x)
+    }
     return (
         <View style={style.view}>
         <FlatList

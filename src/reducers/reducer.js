@@ -139,6 +139,7 @@ function itineraryByDetail(state = {
       return {
         ...state,
         isPreview: action.ans,
+        isFetching: false,
       }
     case DELETE:
       return {
