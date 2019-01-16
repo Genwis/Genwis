@@ -66,6 +66,7 @@ export default class CityPickerScreens extends Component {
         },
         jsonGet: '',
         nav: '',
+        err: false,
     }
     // componentWillReceiveProps(nextProps){
     //   // if(nextProps.someValue!==this.props.someValue){
@@ -98,15 +99,20 @@ export default class CityPickerScreens extends Component {
             Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
             'Content-Type': 'text/plain',
         }
-        Axios.get(`http://api.generatorwisata.com/api/locations/like?key=${keyword}`, { headers })
+        const httpClient = Axios.create()
+        const seconds = 10
+        httpClient.defaults.timeout = 5000//seconds * 1000 //timed out 10 seconds, if not receiving yet, show error
+        httpClient.get(`http://api.generatorwisata.com/api/locations/like?key=${keyword}`, { headers })
         .then((response) => {
             //this.setState({ ...this.state, autocomplete: response.data})
-            this.setState({ ...this.state, jsonGet: response.data})
+            this.setState({ ...this.state, jsonGet: response.data, err: false})
             // console.log(this.state.jsonGet)
             // console.log("inij: "+this.state.jsonGet)
         })
         .catch((err) => {
             // console.log(err)
+            console.log('err',err)
+            this.setState({ ...this.state, err: true})
         })
     }
     fungsi = ({item, index}) => {
@@ -125,10 +131,10 @@ export default class CityPickerScreens extends Component {
         // }
 
         if(this.state.jsonGet == ''||this.state.jsonGet == null||this.state.jsonGet == undefined){
-            return <Text> </Text>;
+            return <Text style={gagal}>Fetching city failed, please check your internet connection</Text>;
         }else {
             // return <View>{this.state.jsonGet.map(((d, idx)=>this.fungsi(d, idx)))}</View>;
-            return <FlatList
+            return this.state.err?<Text style={gagal}>Fetching city failed, please check your internet connection</Text>:<FlatList
             style={flatlis}
             data={this.state.jsonGet}
             renderItem={this.fungsi}
@@ -244,6 +250,10 @@ const filterTextPassive = {
     letterSpacing: 0.36,
     textAlign: "left",
     color: "#616161"
+}
+const gagal = {
+padding: 20,
+textAlign: 'center',
 }
 const view1 = {marginBottom:17,borderBottomColor: '#e0e0e0',borderBottomWidth: 1,paddingBottom:17,flexDirection:'row'}
 const view2 = {flex:1,justifyContent:'space-between'}

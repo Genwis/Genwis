@@ -23,35 +23,41 @@ const style = StyleSheet.create({
 export default class DetailSearchDetail extends Component {
   constructor(props) {
     super(props)
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    // this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
 }
-  componentWillMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-}
-
-componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-}
+//   componentWillMount() {
+//     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+// }
+//
+// componentWillUnmount() {
+//     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+// }
+// handleBackButtonClick() {
+//     this.props.navigation.goBack(null);
+//     return true;
+// }
 priceChanger = (price) => {
     return String(price).replace(/(.)(?=(\d{3})+$)/g,'$1.')
 }
-handleBackButtonClick() {
-    this.props.navigation.goBack(null);
-    return true;
-}
+
   state = {
     jsonGet: '',
     rp: '',
     deskripsi: '',
     rat: '',
     price: '',
+    er: false,
+    loading: true,
   }
   componentDidMount() {
     const headers = {
       Authentication: 'WshVVPQWJjdjOZckJvsdOiVGwp3KkMNQvPNCjXehlMVEt4s7EYN3lvybTs8TWwPPZvwLvensenLo6cOHVR01inbulpZgXcaQCwpenKU6CgVW53YiZt34mdBY',
       'Content-Type': 'text/plain',
     }
-    Axios.get(`http://api.generatorwisata.com/api/attraction/${this.props.detail.id}`, { headers })
+    const httpClient = Axios.create()
+    const seconds = 10
+    httpClient.defaults.timeout = 5000
+    httpClient.get(`http://api.generatorwisata.com/api/attraction/${this.props.detail.id}`, { headers })
       .then((response) => {
         //this.setState({ ...this.state, autocomplete: response.data})
         this.setState({ ...this.state, jsonGet: response.data})
@@ -59,11 +65,13 @@ handleBackButtonClick() {
         this.setState({ ...this.state, rp: 'Rp'})
         this.setState({ ...this.state, deskripsi: 'Deskripsi'})
         this.setState({ ...this.state, rat: '4.6'})
+        this.setState({ ...this.state, er: false})
+        this.setState({ ...this.state, loading: false})
         // console.log(this.state.jsonGet)
       })
       .catch((err) => {
         console.log(err)
-        this.setState({ ...this.state, deskripsi: "Oops, something is wrong, and it's not your fault"})
+        this.setState({ ...this.state, deskripsi: "Oops, something is wrong, and it's not your fault", er:true})
       })
   }
   renderImage = () => {
@@ -92,14 +100,14 @@ handleBackButtonClick() {
         <Text style={judul}>{this.state.jsonGet.name}</Text>
         <View style={view3}>
         <View style={view4}><Text style={rating}>{this.state.rat}{/*this.state.jsonGet.rating*/} </Text>
-          <StarRating
+          {this.state.er||this.state.loading?null:<StarRating
             disabled
             maxStars={5}
             rating={parseInt(this.state.rat)/*this.state.jsonGet.rating*/}
             fullStarColor={'#ffcd00'}
             emptyStarColor={'#ffcd00'}
             starSize={12}
-          />
+          />}
         </View>
           <Text style={price}>{this.state.rp}{this.priceChanger(this.state.price)}</Text>
         </View>

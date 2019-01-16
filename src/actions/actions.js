@@ -68,7 +68,8 @@ export function fetchItineray(detail) {
     // console.log(typeof(detail.budget))
     // console.log('tosend',JSON.stringify(detail))
     const httpClient = Axios.create()
-    httpClient.defaults.timeout = 5000
+    const seconds = 10
+    httpClient.defaults.timeout = seconds * 1000 //timed out 10 seconds, if not receiving yet, show error
     return httpClient.post('http://api.generatorwisata.com/api/itinerary', JSON.stringify(detail), { headers })
       .then(response => dispatch(receiveItinerary(detail, response.data)))
       .catch(err => {
